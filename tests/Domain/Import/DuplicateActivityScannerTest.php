@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Import;
 
+use App\Domain\Activity\ActivityOverride\DbalActivityOverrideRepository;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Activity\DbalActivityRepository;
@@ -147,6 +148,7 @@ class DuplicateActivityScannerTest extends ContainerTestCase
 
         $this->activityRepository = new DbalActivityRepository(
             $this->getConnection(),
+            new DbalActivityOverrideRepository($this->getConnection()),
         );
         $this->fileImportRepository = new DbalFileImportRepository(
             $this->getConnection(),

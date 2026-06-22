@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Import;
 
 use App\Domain\Activity\ActivityId;
+use App\Domain\Activity\ActivityOverride\DbalActivityOverrideRepository;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Activity\DbalActivityRepository;
@@ -167,7 +168,8 @@ class DbalFileImportOverviewRepositoryTest extends ContainerTestCase
             $this->getConnection()
         );
         $this->activityRepository = new DbalActivityRepository(
-            $this->getConnection()
+            $this->getConnection(),
+            new DbalActivityOverrideRepository($this->getConnection()),
         );
     }
 }

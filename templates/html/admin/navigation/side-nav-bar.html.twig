@@ -17,6 +17,14 @@
                     <span>{{ "File imports"|trans }}</span>
                 </a>
             </li>
+            <li>
+                <a title="{{ "Activities"|trans }}" href="{{ relativeUrl('admin/activities') }}" {{ isActiveNavItem({'/admin/activities': false}) ? 'aria-selected="true"' : '' }}>
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17l6-6 4 4 8-8M3 7v4m0-4h4"/>
+                    </svg>
+                    <span>{{ "Activities"|trans }}</span>
+                </a>
+            </li>
         </ul>
         <ul class="space-y-1 py-2">
             <li>

@@ -3,6 +3,7 @@
 namespace App\Tests\Domain\Activity;
 
 use App\Domain\Activity\ActivityId;
+use App\Domain\Activity\ActivityOverride\DbalActivityOverrideRepository;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivitySummary;
 use App\Domain\Activity\ActivitySummaryRepository;
@@ -50,6 +51,7 @@ class DbalActivitySummaryRepositoryTest extends ContainerTestCase
         $this->activitySummaryRepository = $this->getContainer()->get(ActivitySummaryRepository::class);
         $this->activityRepository = new DbalActivityRepository(
             $this->getConnection(),
+            new DbalActivityOverrideRepository($this->getConnection()),
         );
     }
 }

@@ -5,6 +5,8 @@ namespace App\Tests\Domain\Activity;
 use App\Domain\Activity\Activity;
 use App\Domain\Activity\ActivityId;
 use App\Domain\Activity\ActivityName;
+use App\Domain\Activity\ActivityOverride\ActivityOverride;
+use App\Domain\Activity\ActivityOverride\DbalActivityOverrideRepository;
 use App\Domain\Activity\ActivityRepository;
 use App\Domain\Activity\ActivityWithRawData;
 use App\Domain\Activity\DbalActivityRepository;
@@ -25,6 +27,7 @@ use App\Tests\ContainerTestCase;
 class DbalActivityRepositoryTest extends ContainerTestCase
 {
     private ActivityRepository $activityRepository;
+    private DbalActivityOverrideRepository $activityOverrideRepository;
 
     public function testFind(): void
     {
@@ -251,13 +254,91 @@ class DbalActivityRepositoryTest extends ContainerTestCase
         );
     }
 
+    public function testFindOverlaysOverride(): void
+    {
+        $activity = ActivityBuilder::fromDefaults()
+            ->withActivityId(ActivityId::fromUnprefixed(1))
+            ->withSportType(SportType::RIDE)
+            ->build();
+        $this->activityRepository->add(ActivityWithRawData::fromState($activity, ['raw' => 'data']));
+
+        $this->activityOverrideRepository->save(ActivityOverride::fromState(
+            activityId: $activity->getId(),
+            name: 'Corrected name',
+            description: null,
+            sportType: SportType::TRAIL_RUN,
+            distanceInMeter: 12345,
+            elevationInMeter: null,
+            gearId: null,
+            isCommute: true,
+            updatedAt: SerializableDateTime::fromString('now'),
+        ));
+
+        $persisted = $this->activityRepository->find($activity->getId());
+        $this->assertSame('Corrected name', $persisted->getOriginalName());
+        $this->assertEquals(SportType::TRAIL_RUN, $persisted->getSportType());
+        $this->assertEquals(Kilometer::from(12.345), $persisted->getDistance());
+        $this->assertTrue($persisted->isCommute());
+        // Fields without an override keep their original Strava value.
+        $this->assertEquals($activity->getElevation(), $persisted->getElevation());
+    }
+
+    public function testFindAllOverlaysOverride(): void
+    {
+        $activity = ActivityBuilder::fromDefaults()
+            ->withActivityId(ActivityId::fromUnprefixed(1))
+            ->build();
+        $this->activityRepository->add(ActivityWithRawData::fromState($activity, ['raw' => 'data']));
+
+        $this->activityOverrideRepository->save(ActivityOverride::fromState(
+            activityId: $activity->getId(),
+            name: 'Corrected name',
+            description: null,
+            sportType: null,
+            distanceInMeter: null,
+            elevationInMeter: null,
+            gearId: null,
+            isCommute: null,
+            updatedAt: SerializableDateTime::fromString('now'),
+        ));
+
+        $persisted = $this->activityRepository->findAll();
+        $this->assertSame('Corrected name', $persisted->getFirst()->getOriginalName());
+    }
+
+    public function testDeletingOverrideRevertsToOriginalStravaValue(): void
+    {
+        $activity = ActivityBuilder::fromDefaults()
+            ->withActivityId(ActivityId::fromUnprefixed(1))
+            ->build();
+        $this->activityRepository->add(ActivityWithRawData::fromState($activity, ['raw' => 'data']));
+
+        $this->activityOverrideRepository->save(ActivityOverride::fromState(
+            activityId: $activity->getId(),
+            name: 'Corrected name',
+            description: null,
+            sportType: null,
+            distanceInMeter: null,
+            elevationInMeter: null,
+            gearId: null,
+            isCommute: null,
+            updatedAt: SerializableDateTime::fromString('now'),
+        ));
+        $this->activityOverrideRepository->delete($activity->getId());
+
+        $persisted = $this->activityRepository->find($activity->getId());
+        $this->assertSame($activity->getOriginalName(), $persisted->getOriginalName());
+    }
+
     #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
 
+        $this->activityOverrideRepository = new DbalActivityOverrideRepository($this->getConnection());
         $this->activityRepository = new DbalActivityRepository(
             $this->getConnection(),
+            $this->activityOverrideRepository,
         );
     }
 }

@@ -40,6 +40,7 @@
         "moneyphp/money": "^4.8",
         "nesbot/carbon": "^3.11",
         "neuron-core/neuron-ai": "^3.0",
+        "phpoffice/phpspreadsheet": "^2.3",
         "ramsey/uuid": "^4.7",
         "react/child-process": "^0.6.7",
         "respect/validation": "^2.3",
