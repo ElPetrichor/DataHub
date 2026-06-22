@@ -1,0 +1,9 @@
+[
+    {
+        "gearId": "gear-1",
+        "createdOn": "2023-10-10 00:00:00",
+        "name": "Updated gear",
+        "isRetired": 1,
+        "type": "custom"
+    }
+]

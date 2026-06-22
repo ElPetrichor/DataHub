@@ -1,0 +1,630 @@
+'# completed': '# completed'
+'42-day fitness trend': 42天健身趋势
+'7-day fatigue level': 7天疲劳水平
+'< 1.5: Good variety in training': '< 1.5: 训练多样性良好'
+'> 2.0: High monotony, increased risk': '> 2.0: 单调性高，风险增加'
+'A 6-hour week scores higher than a 5-hour week.': 'A 6-hour week scores higher than a 5-hour week.'
+'A high intensity score means a larger share of your training is hard rather than easy.': 'A high intensity score means a larger share of your training is hard rather than easy.'
+'A high score means you concentrate more training into fewer, heavier days.': 'A high score means you concentrate more training into fewer, heavier days.'
+'A:C Ratio': 'A:C 比值'
+'A:C optimal in': 'A:C optimal in'
+'ATL (Fatigue)': 'ATL (疲劳)'
+'Accumulated fatigue': 'Accumulated fatigue'
+'Active days': 训练天数
+Activities: 活动
+Activity: 活动
+'Activity count': 活动量
+'Activity heatmap': 活动热图
+'Activity locations': 活动地点
+'Activity start times': 活动开始时间
+'Acute Training Load (Fatigue) - 7-day exponentially weighted average of your daily training load. Represents short-term fatigue.': '短期训练负荷（疲劳）– 7天每日训练负荷的指数加权平均值。代表短期疲劳。'
+'Acute:Chronic Ratio - Ratio of ATL to CTL. Indicates injury risk.': '短期/长期疲劳比率 – ATL与CTL的比值。表示受伤风险。'
+'Adaptive & Inclusive Sports': 适应性和包容性运动
+'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.': 'Add {fit}, {tcx} or {gpx} files. They are processed every few minutes.'
+Admin: Admin
+'Admin panel': 'Admin panel'
+Afternoon: 下午
+All: All
+'All time': 所有时间
+'Alpine Ski': 高山滑雪
+Apr: 四月
+'Ask Mark something...': 问问Mark...
+'Athlete profile': 'Athlete profile'
+Aug: 八月
+Average: Average
+'Average gradient': 'Average gradient'
+'Avg gradient': 'Avg gradient'
+'Avg pace': 'Avg pace'
+'Avg speed': 'Avg speed'
+'Back Country Ski': 越野滑雪
+'Back to app': 'Back to app'
+Badges: Badges
+Badminton: 羽毛球
+Bananas: Bananas
+Basketball: Basketball
+Best: 最佳
+'Best effort': 最佳努力
+'Best efforts': 最佳努力
+'Best efforts for {sportType}': '{sportType}最佳努力'
+'Build zone (–10)': '构建区 (–10)'
+'CTL (Fitness)': 'CTL (体能)'
+Cadence: 踏频
+Cal.: Cal.
+Calories: 卡路里
+'Calories burned': 燃烧的卡路里
+'Calories burnt': 'Calories burnt'
+Canoeing: 划独木舟
+'Carbon saved': 碳减排
+'Challenge consistency': 挑战一致性
+Challenges: 挑战
+'Chronic Training Load (Fitness) - 42-day exponentially weighted average of your daily training load. Represents long-term training adaptation.': '长期训练负荷（体能）— 42天训练的负荷指数加权平均值。代表长期训练适应情况。'
+Clear: Clear
+'Clear all filters': 'Clear all filters'
+'Clear chat': 'Clear chat'
+'Close modal': 关闭模态框
+Commutes: 通勤
+'Commutes only': 仅通勤
+Compare: 对比
+'Compare to': 对比
+'Completed {threshold} activities': 'Completed {threshold} activities'
+Components: Components
+'Congrats! You achieved {numberOfPRs} PRs in this activity.': 'Congrats! You achieved {numberOfPRs} PRs in this activity.'
+'Consider reducing load': 'Consider reducing load'
+Consistency: Consistency
+Country: Country
+Cricket: Cricket
+Crossfit: 交叉健身
+'Current Status': 'Current Status'
+'Current streaks': 'Current streaks'
+'Custom gear disabled': 自定义装备已禁用
+Cycling: 骑行
+'Daily TRIMP': 每日TRIMP
+'Daily activities': 每日活动
+Dance: Dance
+'Dark mode': 'Dark mode'
+Dashboard: 仪表板
+Date: 日期
+Day: Day
+'Days needed': 所需天数
+'Daytime stats': 白天统计
+Dec: 十二月
+Density: Density
+'Detailed instructions are available in the documentation on': 详细说明
+'Detailed instructions are available in {linkOpen}the documentation{linkClose}.': 'Detailed instructions are available in {linkOpen}the documentation{linkClose}.'
+Details: 详情
+Device: 设备
+Dist.: Dist.
+Distance: 距离
+'Distance & Elevation': 'Distance & Elevation'
+'Distance breakdown': 距离分解
+'Distance distribution': 'Distance distribution'
+'Distance in {unit}': '以{unit}为单位的距离'
+'Distance over time per gear': 每个装备随时间变化的距离
+'Distance per month per gear': 每个装备每月的距离
+'Doing a mix of cycling, running, swimming, and strength work increases your variety score.': 'Doing a mix of cycling, running, swimming, and strength work increases your variety score.'
+Duration: Duration
+'E-Bike Rides': 电动自行车骑行
+'E-Mountain Bike Rides': 电动山地车骑行
+Eddington: 愛丁頓數
+'Eddington number': 'Eddington number'
+'Eddington over time': 'Eddington over time'
+'Effort vs heart rate': 'Effort vs heart rate'
+'Elapsed time': 'Elapsed time'
+Elev: 海拔
+Elev.: Elev.
+Elevation: 海拔高度
+'Elevation in {unit}': '海拔高度（单位：{unit})'
+Elliptical: 椭圆机
+Energy: Energy
+'Energy burned across your activities': 'Energy burned across your activities'
+'Enter fullscreen mode': 'Enter fullscreen mode'
+'Enter your password': 'Enter your password'
+'Enter your username': 'Enter your username'
+Evening: 晚上
+'Excludes commutes': 筛除通勤
+'FTP history': FTP历史
+Failed: Failed
+Favourite: 收藏夹
+Feb: 二月
+'File imports': 'File imports'
+'File imports are only available in file import mode': 'File imports are only available in file import mode'
+'File upload': 'File upload'
+'File upload is only available in file import mode': 'File upload is only available in file import mode'
+Filename: Filename
+'Filter on KOM segments': 筛选KOM路段
+'Filter on country': 按国家筛选
+'Filter on sport type': 按运动类型筛选
+'Filter on starred segments': 筛选星标路段
+'First activity in {countryName}': 'First activity in {countryName}'
+'First-ever activity recorded': 'First-ever activity recorded'
+Firsts: Firsts
+Fitness: 健身
+'Fitness may be declining due to low recent training load': 'Fitness may be declining due to low recent training load'
+'Fitness may decline': 'Fitness may decline'
+'For example, an Eddington number of 70 would imply that a cyclist has cycled at least 70 km or miles in a day on at least 70 occasions. Achieving a high Eddington number is difficult, since moving from, say, 70 to 75 will (probably) require more than five new long-distance workouts, since any workout shorter than 75 km or miles will no longer be included in the reckoning.': 'For example, an Eddington number of 70 would imply that a cyclist has cycled at least 70 km or miles in a day on at least 70 occasions. Achieving a high Eddington number is difficult, since moving from, say, 70 to 75 will (probably) require more than five new long-distance workouts, since any workout shorter than 75 km or miles will no longer be included in the reckoning.'
+'Form (TSB)': '状态 (TSB)'
+Fri: 周五
+Fri.: Fri.
+GAP: GAP
+Gear: 装备
+'Gear "{gearId}" is referenced in your maintenance config file, but was not imported from Strava. Please check that the gear exists and is correctly synced.': '您的维护配置文件中引用了装备"{gearId}"，但该装备尚未从 Strava 导入。请检查该装备是否存在并已正确同步。'
+'Gear details': 装备详情
+'Gear maintenance': 装备维护
+'Gear stats': 装备统计
+"Gear that hasn't been used in the last three months, is disabled by default.": 过去三个月未使用的装备默认禁用。
+'Gear that is retired is disabled by default.': 退役的装备默认禁用。
+'Go to first page': 'Go to first page'
+'Go to last page': 'Go to last page'
+'Go to next page': 'Go to next page'
+'Go to previous page': 'Go to previous page'
+Goal: Goal
+Golf: 高尔夫
+'Good training variety': 良好的训练多样性
+'Google searches': Google搜索
+Grad.: Grad.
+Gradient: Gradient
+'Gravel Rides': 砾石骑行
+"Guidelines vary by individual; for more information see Joe Friel's 'The Cyclist's Training Bible' or TrainingPeaks' research documentation.": '指导原则因人而异；欲了解更多信息，请参阅乔·弗里尔的《自行车训练圣经》或 TrainingPeaks 的研究文档。'
+HIIT: 高强度间歇训练
+HR: 心率
+'Hand Cycle': 手动自行车
+'Heart rate': 心率
+'Heart rate zone distribution over the past month. For effective polarized training, your workouts should primarily fall within the following zones': 过去一个月的心率区间分布。为了进行有效的极化训练，您的训练应主要在以下区间内进行。
+'Heart rate zones': 心率区间
+Heatmap: 热图
+High: 高
+'High fatigue levels may increase injury or burnout risk. Consider reducing load and prioritizing recovery': 'High fatigue levels may increase injury or burnout risk. Consider reducing load and prioritizing recovery'
+'High monotony - increase variety': 单调性高——增加多样性
+'High risk': 'High risk'
+'Highly recovered and ready to perform': 'Highly recovered and ready to perform'
+Hikes: 徒步
+History: 历史
+'History (6 weeks)': 'History (6 weeks)'
+'How diverse is your training': 'How diverse is your training'
+'How hard is your typical training session': 'How hard is your typical training session'
+'How long is your typical training session': 'How long is your typical training session'
+'How much do you train on average per week': 'How much do you train on average per week'
+'How much training you do in total on days you train.': 'How much training you do in total on days you train.'
+'How often do you train': 'How often do you train'
+'Ice Skate': 冰刀
+Id: Id
+'Image "{imgSrc}" is referenced in your maintenance config file, but was not found in "storage/gear-maintenance"': '您的维护配置文件中引用了图像"{imgSrc}"，但在"storage/gear-maintenance"中未找到该图像。'
+Imperial: Imperial
+'Imported files will appear here once you upload them.': 'Imported files will appear here once you upload them.'
+'Imported on': 'Imported on'
+"In that time, I’ve covered {totalDistance}, that's {numberOfTripsAroundTheWorld} trips around the world 🌍 or {numberOfTripsToTheMoonPercent}% of the way to the moon 🌕, and climbed an elevation of {totalElevation} which is {timesMountEverest} times Mount Everest 🏔. All up that's {totalTimeRecorded} of moving time 🎉.": '在那段时间里，我走了{totalDistance}，相当于环游世界{numberOfTripsAroundTheWorld}次🌍，或者说是到达月球的{numberOfTripsToTheMoonPercent}%🌕，并且攀登了{totalElevation}，相当于珠穆朗玛峰的{timesMountEverest}倍🏔。总而言之，我走了{totalTimeRecorded}的路🎉。'
+'Individual thresholds vary based on fitness level.': 个人阈值因体能水平而异。
+'Inline Skate': 直排轮滑
+Intensity: Intensity
+'It looks like no valid gear is attached to any of the components. Please check your config file.': 无法在任何组件上找到有效装备。请检查您的配置文件。
+Jan: 一月
+Jul: 七月
+Jun: 六月
+KOM: 赛段王
+Kayaking: 皮划艇
+'Kite Surf': 风筝冲浪
+Lap: 圈
+'Last 30 days': 'Last 30 days'
+'Last 7 days training load': 最近7天训练负荷
+'Last activity': 'Last activity'
+'Last effort': 最后努力
+'Last effort date': 'Last effort date'
+'Last maintenance': 最后维护
+'Last month': 'Last month'
+'Last week': 'Last week'
+'Last {numberOfDays} days': '最近{numberOfDays}天'
+Lifetime: Lifetime
+'Light fatigue with good readiness. A great balance for quality training or longer efforts': 'Light fatigue with good readiness. A great balance for quality training or longer efforts'
+Load: Load
+'Load (CTL/ATL)': '负荷 (CTL/ATL)'
+'Loading data...': 加载数据中...
+Loading...: 加载中...
+'Locations over the globe': 全球位置
+'Long run': 长跑
+'Longest activity': 'Longest activity'
+'Longest activity (h)': '最久运动 (h)'
+'Longest day': 'Longest day'
+'Longest distance': 'Longest distance'
+'Longest streaks': 最长连续记录
+Low: 低
+'Low risk': 'Low risk'
+'Low training load': 'Low training load'
+Maintenance: 维护
+'Maintenance history': 维护历史
+Mar: 三月
+Max: 最大
+'Max gradient': 'Max gradient'
+May: 五月
+Medium: 中等
+Metric: Metric
+Milestones: Milestones
+'Mind & Body Sports': 心灵与身体运动
+'Moderate fatigue with stable fitness. Well suited for consistent day-to-day training': 'Moderate fatigue with stable fitness. Well suited for consistent day-to-day training'
+'Moderate monotony': 适度单调性
+Mon: 周一
+Mon.: Mon.
+Monotony: 单调性
+Monthly: Monthly
+'Monthly stats': 每月统计
+'More pages': 'More pages'
+Morning: 早晨
+'Most elevation': 'Most elevation'
+'Most recent activities': 最近的活动
+'Most recent challenges': 最近的挑战
+'Most recent milestones': 'Most recent milestones'
+'Mountain Bike Rides': 山地车骑行
+'Moving time': 移动时间
+'Moving time by sport': 'Moving time by sport'
+'Moving time in hours': 'Moving time in hours'
+Name: 名称
+Neutral: Neutral
+'New personal best for': 'New personal best for'
+'Next milestone': 'Next milestone'
+Night: 夜晚
+'No activities': 没有活动
+'No data available': 没有可用数据
+'No files imported yet.': 'No files imported yet.'
+'No milestones achieved yet': 'No milestones achieved yet'
+'No other options to compare with': 无可供比较的其他选项
+None: 无
+'Nordic Ski': 北欧滑雪
+'Normalized power': 'Normalized power'
+'Not supported': 不支持
+Nov: 十一月
+Now: Now
+'Number of activities per month': 每月活动数量
+'Number of times completed': 完成次数
+Oct: 十月
+'Older effort': 'Older effort'
+'On average, that works out to {dailyAverage} per day, a weekly average of {weeklyAverage} and a monthly average of {monthlyAverage} 🐣.': '平均而言，每天的平均值为 {dailyAverage}，每周的平均值为 {weeklyAverage}，每月的平均值为 {monthlyAverage} 🐣。'
+'One of your gear maintenance tasks is due': 您有装备需维护
+'Optimal training range': 最佳训练范围
+Other: 其他
+'Outdoor Sports': 户外运动
+Over-fatigued: Over-fatigued
+'Over-fatigued (–30)': '过度疲劳 （–30）'
+'Overall weekly training stress': 每周训练负荷总览
+'PB badges': PB徽章
+'PET bottles produced': PET瓶量
+Pace: 步速
+Padel: Padel
+Password: Password
+'Peak fresh': 'Peak fresh'
+'Peak power outputs': 峰值功率输出
+'Per {unit}': 'Per {unit}'
+'Personal bests': 'Personal bests'
+Photo: 照片
+Photos: 照片
+'Physical Therapy': 'Physical Therapy'
+'Pickle Ball': 匹克球
+Pilates: 普拉提
+'Pizza slices': 'Pizza slices'
+'Please address these issues': 请解决这些问题
+'Polarised training (last 30 days)': 极化训练（过去30天）
+Power: 功率
+'Powered by an estimated {caloriesBurned} calories, or roughly {numberOfPizzaSlices} slices of pizza 🍕.': '消耗了约{caloriesBurned}卡路里，或大约{numberOfPizzaSlices}片披萨🍕。'
+'Prev year': 去年
+Previous: Previous
+'Purchase price': 'Purchase price'
+Race: 比赛
+'Racing Score': 赛车成绩
+'Racquet & Paddle Sports': 球拍和桨类运动
+'Racquet Ball': 壁球
+Rank: Rank
+Ranking: Ranking
+'Reached {threshold} hours total moving time': 'Reached {threshold} hours total moving time'
+'Reached {threshold} total distance': 'Reached {threshold} total distance'
+'Reached {threshold} total elevation': 'Reached {threshold} total elevation'
+'Recent effort': 'Recent effort'
+'Recording devices': 'Recording devices'
+'Recording devices details': 'Recording devices details'
+'Recovery Timeline': 'Recovery Timeline'
+'Recovery forecast': 'Recovery forecast'
+'Reduced carbon emission by commuting': 通勤减少的碳排放
+'Relative cost': 相对成本
+'Remember me for 7 days': 'Remember me for 7 days'
+Remove: Remove
+'Rest Days': 休息日
+'Rest days': 休息日
+'Rest days in last 7 days': 最近7天的休息日
+'Rest days vs. active days': '休息日 训练如 对比'
+'Retired gear': 退役装备
+'Return to app': 'Return to app'
+Rewind: 回顾
+'Rewind comparisons are only available on larger screens.': 回顾对比仅适用于大屏幕。
+Rides: 骑行
+'Risk of detraining': 'Risk of detraining'
+'Rock Climbing': 攀岩
+'Roller Ski': 轮滑
+Rowing: 划船
+Running: 跑步
+Runs: 跑步
+Sail: 帆船
+Sat: 周六
+Sat.: Sat.
+Search: 搜索
+'Search activity...': 搜索活动...
+'Search segment...': 搜索路段...
+Segments: 路段
+Sep: 九月
+'Show information': 显示信息
+'Show password': 'Show password'
+'Showing {first} - {last} of {total}': 'Showing {first} - {last} of {total}'
+'Shows how your TSB (Form) and A:C Ratio will recover over time if you take complete rest days.': 'Shows how your TSB (Form) and A:C Ratio will recover over time if you take complete rest days.'
+'Sign in': 'Sign in'
+'Sign in to the admin panel': 'Sign in to the admin panel'
+'Sign out': 'Sign out'
+'Signing in...': 'Signing in...'
+"Since I began using Strava {numberOfDaysAgo} ago on {startDate}, I've logged {totalDaysOfWorkingOut} active days of training and adventure.": '从{startDate}算起，我已使用Strava {numberOfDaysAgo}多天​，我已经记录了{totalDaysOfWorkingOut}天的训练和冒险活动。'
+Skateboard: 滑板
+Skating: 滑冰
+'Slightly fresh': 'Slightly fresh'
+Snowboard: 单板滑雪
+Snowshoe: 雪鞋
+Soccer: 足球
+'Someone who regularly trains for 90 minutes will score higher than someone doing mostly short sessions.': 'Someone who regularly trains for 90 minutes will score higher than someone doing mostly short sessions.'
+Source: Source
+Speed: 速度
+Splits: 分段
+'Sport variety': 'Sport variety'
+Squash: 壁球
+'Stair Stepper': 楼梯机
+'Stand Up Paddling': 站立划桨
+'Start slideshow': 播放幻灯片
+'Start times': 开始时间
+'Stats per weekday': 按工作日统计
+Status: Status
+'Strava profile': 'Strava profile'
+'Streak started on {date}': 'Streak started on {date}'
+Streaks: 连续记录
+Success: Success
+Sun: 周日
+Sun.: Sun.
+'Supported types': 'Supported types'
+Surfing: 冲浪
+Swim: 游泳
+'TSB (Form)': 'TSB (状态)'
+'TSB positive in': 'TSB positive in'
+'Table Tennis': 乒乓球
+Tag: 标签
+'Tag "{maintenanceTaskTag}" was used on "{activityName}", but the gear referenced on that activity is not attached to this component.': '"{maintenanceTaskTag}"标签已在"{activityName}"中使用, 但该活动中引用的装备未附加到此组件。'
+'Taper sweet-spot (+15)': '最佳减量期 (+15)'
+'Team Sports': 'Team Sports'
+Tennis: 网球
+"That's 1.5 times the distance to the edge of space": "That's 1.5 times the distance to the edge of space"
+"That's 100 days of commitment, triple digits!": "That's 100 days of commitment, triple digits!"
+"That's 2 activities per week for nearly 5 years": "That's 2 activities per week for nearly 5 years"
+"That's 2 full days of non-stop activity": "That's 2 full days of non-stop activity"
+"That's 2 full years of daily activity, incredible!": "That's 2 full years of daily activity, incredible!"
+"That's 2 months without missing a day": "That's 2 months without missing a day"
+"That's 2 months without stopping": "That's 2 months without stopping"
+"That's 250 days, over two thirds of a year": "That's 250 days, over two thirds of a year"
+"That's 3 activities per week for nearly 5 years": "That's 3 activities per week for nearly 5 years"
+"That's 3 weeks straight, they say it takes 21 days to build a habit": "That's 3 weeks straight, they say it takes 21 days to build a habit"
+"That's 4 months of unbroken daily activity": "That's 4 months of unbroken daily activity"
+"That's 45 days, halfway to a full quarter": "That's 45 days, halfway to a full quarter"
+"That's 5 months, nearly half a year without a rest day": "That's 5 months, nearly half a year without a rest day"
+"That's 500 days, well beyond a year of daily activity": "That's 500 days, well beyond a year of daily activity"
+"That's a full day of non-stop movement": "That's a full day of non-stop movement"
+"That's a full fortnight of daily activity": "That's a full fortnight of daily activity"
+"That's a full month of non-stop activity": "That's a full month of non-stop activity"
+"That's a full month without a rest day": "That's a full month without a rest day"
+"That's a full quarter of daily activity": "That's a full quarter of daily activity"
+"That's a full week of daily activity": "That's a full week of daily activity"
+"That's a full week of non-stop movement": "That's a full week of non-stop movement"
+"That's a full year of daily activity": "That's a full year of daily activity"
+"That's about 3.5 months of continuous movement": "That's about 3.5 months of continuous movement"
+"That's about one activity per week for a year": "That's about one activity per week for a year"
+"That's about one activity per week for half a year": "That's about one activity per week for half a year"
+"That's about one activity per week for two months": "That's about one activity per week for two months"
+"That's almost 2 activities per week for a year": "That's almost 2 activities per week for a year"
+"That's almost 21 days of continuous movement": "That's almost 21 days of continuous movement"
+"That's almost 3 activities per week for 7 years": "That's almost 3 activities per week for 7 years"
+"That's an activity almost every day for 27 years": "That's an activity almost every day for 27 years"
+"That's an activity every day for almost 7 years": "That's an activity every day for almost 7 years"
+"That's an activity every day for nearly 11 years": "That's an activity every day for nearly 11 years"
+"That's an activity every day for nearly 14 years": "That's an activity every day for nearly 14 years"
+"That's an activity every day for over 20 years": "That's an activity every day for over 20 years"
+"That's an activity every day for over 8 years": "That's an activity every day for over 8 years"
+"That's climbing Mount Everest twice": "That's climbing Mount Everest twice"
+"That's climbing to the edge of space and back 5 times": "That's climbing to the edge of space and back 5 times"
+"That's cruising altitude of a commercial airplane": "That's cruising altitude of a commercial airplane"
+"That's deeper than the deepest known cave on Earth": "That's deeper than the deepest known cave on Earth"
+"That's five times around the Earth": "That's five times around the Earth"
+"That's half a year without skipping a single day": "That's half a year without skipping a single day"
+"That's higher than Felix Baumgartner's space jump": "That's higher than Felix Baumgartner's space jump"
+"That's higher than the International Space Station's orbit": "That's higher than the International Space Station's orbit"
+"That's higher than the summit of Mont Blanc": "That's higher than the summit of Mont Blanc"
+"That's more than 10 days of non-stop movement": "That's more than 10 days of non-stop movement"
+"That's more than 10 months of continuous movement": "That's more than 10 months of continuous movement"
+"That's more than 2 Eiffel Towers stacked up": "That's more than 2 Eiffel Towers stacked up"
+"That's more than 2.5 times around the Earth": "That's more than 2.5 times around the Earth"
+"That's more than 4 days of continuous activity": "That's more than 4 days of continuous activity"
+"That's more than 4 months of non-stop activity": "That's more than 4 months of non-stop activity"
+"That's more than 41 days of non-stop movement": "That's more than 41 days of non-stop movement"
+"That's more than 5 activities per week for 7 years": "That's more than 5 activities per week for 7 years"
+"That's more than 8 times the height of Mount Everest": "That's more than 8 times the height of Mount Everest"
+"That's more than a full year of non-stop movement": "That's more than a full year of non-stop movement"
+"That's more than halfway around the Earth": "That's more than halfway around the Earth"
+"That's more than halfway to the ISS": "That's more than halfway to the ISS"
+"That's more than the circumference of Mars": "That's more than the circumference of Mars"
+"That's more than the distance from Earth to the Moon": "That's more than the distance from Earth to the Moon"
+"That's nearly 3 months of non-stop activity": "That's nearly 3 months of non-stop activity"
+"That's nearly 4 activities per week for 7 years": "That's nearly 4 activities per week for 7 years"
+"That's nearly 5 activities per week for a year": "That's nearly 5 activities per week for a year"
+"That's nearly 7 months of non-stop activity": "That's nearly 7 months of non-stop activity"
+"That's nearly climbing Mount Everest 3 times": "That's nearly climbing Mount Everest 3 times"
+"That's nearly the altitude of the International Space Station": "That's nearly the altitude of the International Space Station"
+"That's nearly twice around the Earth": "That's nearly twice around the Earth"
+"That's nearly twice the altitude of the International Space Station": "That's nearly twice the altitude of the International Space Station"
+"That's over 5.5 months of continuous movement": "That's over 5.5 months of continuous movement"
+"That's roughly a quarter of the way around the Earth": "That's roughly a quarter of the way around the Earth"
+"That's roughly the diameter of Jupiter": "That's roughly the diameter of Jupiter"
+"That's roughly the diameter of Neptune": "That's roughly the diameter of Neptune"
+"That's roughly the distance from London to Perth": "That's roughly the distance from London to Perth"
+"That's roughly the distance from Madrid to Barcelona": "That's roughly the distance from Madrid to Barcelona"
+"That's roughly the distance light travels in one second": "That's roughly the distance light travels in one second"
+"That's roughly the length of France": "That's roughly the length of France"
+"That's roughly the length of the Danube river": "That's roughly the length of the Danube river"
+"That's roughly the length of the island of Jamaica": "That's roughly the length of the island of Jamaica"
+"That's taller than the Empire State Building": "That's taller than the Empire State Building"
+"That's the altitude of a satellite in low Earth orbit": "That's the altitude of a satellite in low Earth orbit"
+"That's the circumference of the Earth": "That's the circumference of the Earth"
+"That's the distance from Earth to the Moon": "That's the distance from Earth to the Moon"
+"That's the distance to the edge of space, straight up": "That's the distance to the edge of space, straight up"
+"That's the edge of space, the Kármán line": "That's the edge of space, the Kármán line"
+"That's the height of Mount Everest": "That's the height of Mount Everest"
+"That's the height of the Eiffel Tower": "That's the height of the Eiffel Tower"
+"That's the length of the Great Wall of China": "That's the length of the Great Wall of China"
+"That's three quarters of the way around the Earth": "That's three quarters of the way around the Earth"
+"That's {number} days of at least {distance}": "That's {number} days of at least {distance}"
+"That's {percentage}% of all countries 🌍": "That's {percentage}% of all countries 🌍"
+'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E km on at least E days.': 'The Eddington number in the context of cycling or running is defined as the maximum number E such that the athlete has covered at least E km on at least E days.'
+'These badges are dynamically created. You can use them in any &lt;img&gt; tag': '徽章为动态生成，您可在任意 &lt;img&gt; 标签中使用'
+Thinking...: 思考中...
+'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.': 'This chart summarizes how you train. Each axis reflects a different normalized training habit, so higher values mean stronger emphasis.'
+'This feature is currently disabled': 功能当前被禁用
+'This month': 'This month'
+'This week': 'This week'
+Thu: 周四
+Thu.: Thu.
+Time: 时间
+'Time in zone': 'Time in zone'
+'Times completed': 完成次数
+Title: Title
+'To enable it, configure {configFile} and rebuild the files for the changes to take effect': '请配置{configFile}并重新构建文件以开启此功能'
+'Toggle sidebar': 切换侧边栏
+'Top 10': 前10名
+'Total distance per month': 每月总距离
+'Total elevation per month': 每月总海拔
+'Total hours spent per gear': 每种装备总时长
+'Total hours spent per sport type': 每种运动的总时长
+'Total moving time per month': 'Total moving time per month'
+'Trail Runs': 越野跑
+'Training 4–5 days every week scores higher than doing everything in one or two days.': 'Training 4–5 days every week scores higher than doing everything in one or two days.'
+'Training Impulse - Training load metric that accounts for intensity and duration.': '训练脉冲 - 训练负荷指标，综合考虑强度和持续时间。'
+'Training Load Analysis': 训练负荷分析
+'Training Monotony - Ratio of average daily load to standard deviation. Indicates training variety.': '训练单调性 - 平均每日负荷与标准差的比值，反映训练多样性。'
+'Training Stress Balance (Form) – The difference between fitness (CTL) and fatigue (ATL). Reflects how ready you are to perform.': '训练压力平衡（状态）- 体能（CTL）与疲劳（ATL）之间的差异，反映您的运动准备程度。'
+'Training goals': 'Training goals'
+'Training load is accumulating, recovery days are important': 'Training load is accumulating, recovery days are important'
+Tue: 周二
+Tue.: Tue.
+Unspecified: 未指定
+'Unsupported file type': 'Unsupported file type'
+'Updated on': 更新于
+Upload: Upload
+'Upload activity files': 'Upload activity files'
+'Upload failed': 'Upload failed'
+'Upload files': 'Upload files'
+Uploaded: Uploaded
+Uploading...: Uploading...
+'User badge': 用户徽章
+Username: Username
+'Velo Mobiles': 躺车
+'Very high': 非常高
+'View all': 查看全部
+'View details': 查看详情
+'Virtual Rides': 虚拟骑行
+'Virtual Row': 虚拟划船
+'Virtual Runs': 虚拟跑步
+'Virtual workout assistant': 虚拟锻炼助手
+Volleyball: Volleyball
+Volume: Volume
+Walking: 健步
+Walks: 散步
+'Water Sports': 水上运动
+'We detected following issues': 检测到以下问题
+Wed: 周三
+Wed.: Wed.
+Weekly: Weekly
+'Weekly Strain': 每周训练负荷
+'Weekly Strain - Product of weekly training load and monotony. Overall training stress.': '每周训练负荷 - 每周训练量与单调性的乘积。整体训练压力。'
+'Weekly TRIMP': 每周TRIMP
+'Weekly stats': 每周统计
+Weight: 体重
+'Weight Training': 重量训练
+'Weight history': 历史体重
+Wheelchair: 轮椅
+'Wind Surf': 风帆冲浪
+'Winter Sports': 冬季运动
+Workout: 锻炼
+'Workout assistant': 'Workout assistant'
+'Workout type': 锻炼类型
+World: World
+Year: 年
+Yearly: Yearly
+'Yearly stats': 年度统计
+Yoga: 瑜伽
+'You can also copy files straight into the {watchFolder} folder.': 'You can also copy files straight into the {watchFolder} folder.'
+"You're currently importing from the Strava API. Set {importMode} to upload activity files directly, without depending on Strava's API": "You're currently importing from the Strava API. Set {importMode} to upload activity files directly, without depending on Strava's API"
+'Your PB badge': PB徽章
+'Your Strava badge': Strava徽章
+'Your Zwift badge': Zwift徽章
+'Your badge(s)': 徽章
+Z1: Z1
+'Z1-2 (Low)': Z1-2（低）
+Z2: Z2
+Z3: Z3
+'Z3 (Mod)': Z3（中）
+Z4: Z4
+'Z4-5 (High)': Z4-5（高）
+Z5: Z5
+'Zone 1 (recovery)': 区域1（恢复）
+'Zone 2 (aerobic)': 区域2（有氧）
+'Zone 3 (aerobic/anaerobic)': 区域3（有氧/无氧）
+'Zone 4 (anaerobic)': 区域4（无氧）
+'Zone 5 (maximal)': 区域5（最大）
+'Zwift Statistics': Zwift统计
+'Zwift badge': Zwift徽章
+'Zwift stats': Zwift统计
+activities: 活动
+and: 和
+avg: 平均
+bpm: 拍子数
+challenges: challenges
+clear: 清除
+compare: 对比
+countries: countries
+day(s): day(s)
+days: 天
+'days needed for next Eddington': '天 - 下一个爱丁顿所需天数'
+'days to reach {n}': 'days to reach {n}'
+history: 历史
+hours: 小时
+hrs: hrs
+'last {numberOfDays} days': '最近{numberOfDays}天'
+max: max
+min: min
+months: 月
+more: 更多
+n/a: 不适用
+never: 从不
+'on': 在
+per: per
+'per activity': 每项活动
+'per hour': 每小时
+'reached Eddington number {number}': 'reached Eddington number {number}'
+rpm: rpm
+to: 至
+total: 总计
+watts: watts
+weeks: 周
+workouts: 锻炼
+'{count} files ready to upload': '{count} files ready to upload'
+'{count} files uploaded': '{count} files uploaded'
+'{daysSinceLastTagged} days': '{daysSinceLastTagged}天'
+'{days} consecutive days of activity': '{days} consecutive days of activity'
+'{hoursSinceLastTagged} hours': '{hoursSinceLastTagged}小时'
+'{maintenanceTaskLabel} every {interval}': '{maintenanceTaskLabel}每{interval}'
+'{numberOfActivities} activities': '{numberOfActivities}活动'
+'{numberOfActivities} activities in {year}': '{year}年内，{numberOfActivities}项活动'
+'{numberOfMonths} months': '{numberOfMonths} months'
+'{numberOfResults} photos': '{numberOfResults} photos'
+'{numberOfResults} results': '{numberOfResults} results'
+'{numberOfResults} routes': '{numberOfResults} routes'
+'{numberOfWeeks} weeks': '{numberOfWeeks} weeks'
+'{strongOpen}Drag & drop{strongClose} or {strongOpen}browse{strongClose} to choose files': '{strongOpen}Drag & drop{strongClose} or {strongOpen}browse{strongClose} to choose files'
+'{threshold} hours using {gearName}': '{threshold} hours using {gearName}'
+'{threshold} total distance using {gearName}': '{threshold} total distance using {gearName}'
+'{threshold} total elevation using {gearName}': '{threshold} total elevation using {gearName}'

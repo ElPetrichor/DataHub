@@ -1,0 +1,72 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Application\Build\BuildHeatmapHtml;
+
+use App\Domain\Activity\Route\Route;
+use App\Domain\Activity\Route\RouteRepository;
+use App\Domain\Activity\SportType\SportType;
+use App\Domain\Activity\SportType\SportTypeRepository;
+use App\Infrastructure\Config\Leaflet\HeatmapConfig;
+use App\Infrastructure\CQRS\Command\Command;
+use App\Infrastructure\CQRS\Command\CommandHandler;
+use App\Infrastructure\Serialization\Json;
+use App\Infrastructure\Time\Format\DateAndTimeFormat;
+use App\Infrastructure\Twig\UrlTwigExtension;
+use App\Infrastructure\ValueObject\Measurement\UnitSystem;
+use League\Flysystem\FilesystemOperator;
+use Twig\Environment;
+
+final readonly class BuildHeatmapHtmlCommandHandler implements CommandHandler
+{
+    public function __construct(
+        private RouteRepository $routeRepository,
+        private SportTypeRepository $sportTypeRepository,
+        private HeatmapConfig $heatmapConfig,
+        private Environment $twig,
+        private UrlTwigExtension $urlTwigExtension,
+        private UnitSystem $unitSystem,
+        private DateAndTimeFormat $dateAndTimeFormat,
+        private FilesystemOperator $buildHtmlStorage,
+        private FilesystemOperator $buildApiStorage,
+    ) {
+    }
+
+    public function handle(Command $command): void
+    {
+        assert($command instanceof BuildHeatmapHtml);
+
+        $importedSportTypes = $this->sportTypeRepository->findAll();
+        $routes = $this->routeRepository->findAll();
+
+        $enrichedRoutes = [];
+        foreach ($routes as $route) {
+            $enrichedRoutes[] = $route
+                ->withUnitSystemAndDateTimeFormat(
+                    unitSystem: $this->unitSystem,
+                    dateAndTimeFormat: $this->dateAndTimeFormat,
+                )
+                ->withRelativeActivityUri($this->urlTwigExtension->toRelativeUrl('activity/'.$route->getActivityId().'.html'));
+        }
+
+        $this->buildApiStorage->write(
+            'heatmap/routes.json',
+            (string) Json::encodeAndCompress($enrichedRoutes),
+        );
+
+        $this->buildHtmlStorage->write(
+            'heatmap.html',
+            $this->twig->load('html/heatmap.html.twig')->render([
+                'numberOfRoutes' => count($enrichedRoutes),
+                'sportTypes' => $importedSportTypes->filter(
+                    fn (SportType $sportType): bool => $sportType->supportsReverseGeocoding()
+                ),
+                'numberOfCountriesWithWorkouts' => count(array_filter(array_unique($routes->map(
+                    fn (Route $route): ?string => $route->getRouteGeography()->getStartingPointCountryCode()
+                )))),
+                'heatmapConfig' => $this->heatmapConfig,
+            ]),
+        );
+    }
+}

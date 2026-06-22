@@ -1,0 +1,87 @@
+{% set uniqueId = uniqueNumberForId('distanceBreakdownWidget') %}
+{% autoescape false %}
+    <h3 class="mb-4 text-lg font-semibold">
+        {{ "Distance breakdown"|trans }}
+    </h3>
+    {% if distanceBreakdowns|length > 1 %}
+        <div class="tabs tabs--default">
+            <ul id="distanceBreakdownActivityTypeTab{{ uniqueId }}" data-tabs="#distanceBreakdownActivityTypeTabContent{{ uniqueId }}"
+                role="tablist">
+                {% for activityType,distanceBreakdown in distanceBreakdowns %}
+                    <li role="presentation">
+                        <a href="#" data-tabs-target="#distanceBreakdown{{ activityType }}{{ uniqueId }}" role="tab"
+                           aria-controls="distanceBreakdown{{ activityType }}{{ uniqueId }}">
+                            {{ enum('App\\Domain\\Activity\\ActivityType').from(activityType)|trans }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div id="distanceBreakdownActivityTypeTabContent{{ uniqueId }}">
+        {% for activityType,distanceBreakdown in distanceBreakdowns %}
+            {% set sportTypes = enum('App\\Domain\\Activity\\ActivityType').from(activityType).getSportTypes() %}
+            <div class="relative overflow-auto max-h-79" id="distanceBreakdown{{ activityType }}{{ uniqueId }}" role="tabpanel"
+                 aria-labelledby="distanceBreakdown{{ activityType }}{{ uniqueId }}-tab">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="narrow sticky left-0 bg-gray-50">
+
+                        </th>
+                        <th scope="col" class="narrow">
+                            # {{ "workouts"|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Dist."|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Elev."|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Moving time"|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Speed"|trans }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for statistic in distanceBreakdown %}
+                        <tr class="group/row">
+                            <th scope="row"
+                                class="narrow sticky left-0 bg-white font-medium text-gray-900 whitespace-nowrap">
+                                <div>
+                                    <a href="#" data-router-navigate="{{ relativeUrl('activities') }}" data-filters='{{ dataFilters('activities', {sportType: sportTypes, distance: {from: statistic.min, to: statistic.max, multiplier: 10}}) }}' class="text-blue-600 hover:underline">
+                                        {{ statistic.label }}
+                                    </a>
+                                </div>
+                            </th>
+                            <td class="narrow">
+                                {{ statistic.numberOfWorkouts }}
+                            </td>
+                            <td class="truncate">
+                                {% if statistic.totalDistance.toFloat() > 0 %}
+                                    {{ statistic.averageDistance|renderMeasurement(0, 'avg'|trans) }} /
+                                    {{ statistic.totalDistance|renderMeasurement(0, 'total'|trans) }}
+                                {% else %}
+                                    0<span class="text-xxs ml-px">{{ statistic.totalDistance.getSymbol() }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="truncate">
+                                {{ statistic.totalElevation|renderMeasurement(0) }}
+                            </td>
+                            <td class="truncate" title="{{ statistic.movingTimeInHours.toFloat()|formatNumber(1) }}h">
+                                {{ statistic.movingTimeForHumans }}
+                            </td>
+                            <td class="truncate">
+                                {{ statistic.averageSpeed|renderMeasurement(1) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+{% endautoescape %}

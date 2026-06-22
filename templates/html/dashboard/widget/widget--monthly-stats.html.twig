@@ -1,0 +1,48 @@
+{% set uniqueId = uniqueNumberForId('monthlyStatsWidget') %}
+<div class="flex items-center justify-between mb-4">
+    <h3 class="text-lg font-semibold">
+        {{ "Monthly stats"|trans }}
+    </h3>
+    <ul class="tabs tabs--pills" id="monthlyStatsTab{{ uniqueId }}" data-tabs="#monthlyStatsTabContent{{ uniqueId }}" role="tablist">
+        {% for context in metricsDisplayOrder %}
+            <li role="presentation">
+                <a href="#" data-tabs-target="#monthlyStats{{ context.value }}{{ uniqueId }}" role="tab"
+                   aria-controls="monthlyStats{{ context.value }}{{ uniqueId }}">
+                    {{ svg(context.getSvgIcon(), 'size-4', '') }}
+                    <span class="hidden md:block">{{ context|trans }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="flex flex-col grow" id="monthlyStatsTabContent{{ uniqueId }}">
+    {% for context in metricsDisplayOrder %}
+        <div class="flex flex-col grow" id="monthlyStats{{ context.value }}{{ uniqueId }}" role="tabpanel"
+             aria-labelledby="monthlyStats{{ context.value }}{{ uniqueId }}">
+            {% set monthlyStatsCharts = monthlyStatsChartsPerContext[context.value] %}
+            {% if monthlyStatsCharts|length > 1 %}
+                <div class="tabs tabs--default">
+                    <ul id="monthlyStatsActivityType{{ context.value }}Tab{{ uniqueId }}" data-tabs="#monthlyStatsActivityType{{ context.value }}TabContent{{ uniqueId }}"
+                        role="tablist">
+                        {% for activityType,chart in monthlyStatsCharts %}
+                            <li role="presentation">
+                                <a href="#" data-tabs-target="#monthlyStats{{ activityType }}{{ context.value }}{{ uniqueId }}" role="tab"
+                                   aria-controls="monthlyStats{{ activityType }}{{ context.value }}{{ uniqueId }}">
+                                    {{ enum('App\\Domain\\Activity\\ActivityType').from(activityType)|trans }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="flex flex-col grow" id="monthlyStatsActivityType{{ context.value }}TabContent{{ uniqueId }}">
+                {% for activityType,chart in monthlyStatsCharts %}
+                    <div class="flex flex-col grow" id="monthlyStats{{ activityType }}{{ context.value }}{{ uniqueId }}" role="tabpanel"
+                         aria-labelledby="monthlyStats{{ activityType }}{{ context.value }}{{ uniqueId }}-tab">
+                        <div class="grow min-h-80" data-echarts-options='{{ chart }}' data-echarts-click="handleMonthlyStatsClick"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

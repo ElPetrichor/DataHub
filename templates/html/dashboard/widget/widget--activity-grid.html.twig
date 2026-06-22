@@ -1,0 +1,27 @@
+{% set uniqueId = uniqueNumberForId('activityGridWidget') %}
+{% autoescape false %}
+    <div class="flex items-center mb-4">
+        <h3 class="font-semibold text-lg">{{ "Activity heatmap"|trans }}</h3>
+        <ul class="tabs tabs--pills ml-auto" id="activityGridWidgetTab{{ uniqueId }}" data-tabs="#activityGridWidgetTabContent{{ uniqueId }}" role="tablist">
+            {% for activityGridType in metricsDisplayOrder %}
+                <li role="presentation">
+                    <a href="#" data-tabs-target="#{{ activityGridType.value }}GridWidgetTab{{ uniqueId }}" role="tab"
+                       aria-controls="{{ activityGridType.value }}GridWidgetTab{{ uniqueId }}">
+                        {{ svg(activityGridType.getSvgIcon(), 'size-4', '') }}
+                        <span class="hidden md:block">{{ activityGridType|trans }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="activityGridWidgetTabContent{{ uniqueId }}">
+        {% for activityGridType in metricsDisplayOrder %}
+            <div id="{{ activityGridType.value }}GridWidgetTab{{ uniqueId }}" role="tabpanel"
+                 aria-labelledby="{{ activityGridType.value }}GridWidgetTab{{ uniqueId }}">
+                <div class="relative overflow-x-auto">
+                    <div class="h-52 min-w-200" data-echarts-options='{{ gridCharts[activityGridType.value] }}' data-echarts-click="handleActivityGridChartClick"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endautoescape %}

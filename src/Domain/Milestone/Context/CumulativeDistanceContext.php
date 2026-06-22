@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Milestone\Context;
+
+use App\Infrastructure\ValueObject\Measurement\Length\Kilometer;
+use App\Infrastructure\ValueObject\Measurement\Length\Mile;
+
+final readonly class CumulativeDistanceContext implements MilestoneContext
+{
+    public function __construct(
+        private Kilometer|Mile $threshold,
+    ) {
+    }
+
+    public function getThreshold(): Kilometer|Mile
+    {
+        return $this->threshold;
+    }
+}

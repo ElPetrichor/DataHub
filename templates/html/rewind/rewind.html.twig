@@ -1,0 +1,92 @@
+{% set allTimeLabel = "All time"|trans %}
+{% set breadcrumbs = [{
+    'url': 'rewind',
+    'label': 'Rewind'|trans
+}] %}
+
+{% if availableRewindOptions|first != activeRewindOption %}
+    {% set breadcrumbs = breadcrumbs|merge([{
+        'url': 'rewind/' ~ activeRewindOption,
+        'label': (isAllTimeRewind ? allTimeLabel : activeRewindOption),
+    }]) %}
+{% endif %}
+{% include 'html/navigation/breadcrumbs.html.twig' with {'breadcrumbs': breadcrumbs} %}
+{% autoescape false %}
+    {% if availableRewindOptions|length > 2 %}
+        <div class="mb-4 p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
+            <div class="flex gap-x-2">
+                <div>
+                    <button id="dropdownRewindOptionButton" data-dropdown="dropdownRewindOption"
+                            class="font-medium rounded-lg text-sm px-3 py-2 inline-flex items-center justify-between cursor-pointer w-fit text-primary border border-primary bg-primary-soft hover:bg-primary/20"
+                            type="button">
+                        {% if isAllTimeRewind %}
+                            {{ allTimeLabel }}
+                        {% else %}
+                            {{ "Rewind"|trans }} {{ activeRewindOption }}
+                        {% endif %}
+                        <svg class="size-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <div id="dropdownRewindOption" class="z-1002 px-1 py-2 text-sm w-fit hidden bg-white rounded-lg shadow-sm text-gray-500 border border-gray-200">
+                        <ul aria-labelledby="dropdownRewindOptionButton">
+                            {% for rewindOption in availableRewindOptions|filter(rewindOption => rewindOption != activeRewindOption) %}
+                                <li>
+                                    <a href="#" data-router-navigate="{{ relativeUrl('rewind/' ~ rewindOption) }}" class="block px-4 py-2 hover:bg-gray-100 ">
+                                        {% if rewindOption == constant('App\\Domain\\Rewind\\FindAvailableRewindOptions\\FindAvailableRewindOptions::ALL_TIME')  %}
+                                            {{ allTimeLabel }}
+                                        {% else %}
+                                            {{ "Rewind"|trans }} {{ rewindOption }}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="hidden lg:block">
+                    <button id="dropdownRewindOptionCompareToButton" data-dropdown="dropdownRewindOptionCompareTo"
+                            class="font-medium rounded-lg text-sm px-3 py-2 inline-flex items-center justify-between cursor-pointer w-fit text-primary border border-primary bg-primary-soft hover:bg-primary/20"
+                            type="button">
+                        {{ "Compare to"|trans }}
+                        <svg class="size-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <div id="dropdownRewindOptionCompareTo" class="z-1002 px-1 py-2 text-sm w-fit hidden bg-white rounded-lg shadow-sm text-gray-500 border border-gray-200">
+                        <ul aria-labelledby="dropdownRewindOptionCompareToButton">
+                            {% for rewindOption in availableRewindOptions|filter(rewindOption => rewindOption != activeRewindOption) %}
+                                <li>
+                                    <a href="#" data-router-navigate="{{ relativeUrl('rewind/' ~ activeRewindOption ~ '/compare/' ~ rewindOption) }}" class="block px-4 py-2 hover:bg-gray-100 ">
+                                        {% if rewindOption == constant('App\\Domain\\Rewind\\FindAvailableRewindOptions\\FindAvailableRewindOptions::ALL_TIME')  %}
+                                            {{ allTimeLabel }}
+                                        {% else %}
+                                            {{ "Rewind"|trans }} {{ rewindOption }}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {% for item in rewindItems %}
+            {% if not item.isPlaceHolderForComparison() %}
+                {% include 'html/rewind/rewind-item.html.twig' with {'item': item, 'extraClass': loop.first and not isAllTimeRewind ? 'lg:col-span-2': '' } %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="mt-4 p-4 bg-white text-xs border border-gray-200 rounded-lg shadow-xs">
+        <p>
+            These charts are based on <a href="https://github.com/atefkbenothman" class="underline" target="_blank">Kai's</a> work,
+            go <a href="https://github.com/atefkbenothman/strava-recap" class="underline" target="_blank">check it out</a>
+        </p>
+    </div>
+{% endautoescape %}

@@ -1,0 +1,418 @@
+{% autoescape false %}
+    <!-- Modal header -->
+    <div class="modal-header z-10000 sticky top-0 bg-white">
+        <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0">
+                <h3 class="text-lg md:text-xl font-extrabold flex items-center gap-2">
+                    <span class="line-clamp-1">{{ activity.getName() }}</span>
+                    {% if activity.getImportSource() == enum('App\\Domain\\Activity\\ImportSource').STRAVA_API %}
+                        <a href="{{ activity.getUrl() }}" class="text-gray-500 hover:text-primary transition" title="Open on Strava">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-3" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </h3>
+                {% if activity.getDescription() %}
+                    <details class="group/desc mb-3 mt-1">
+                        <summary class="list-none cursor-pointer text-xs text-gray-500 line-clamp-1 group-open/desc:line-clamp-none whitespace-pre-line">{{ activity.getDescription() }}</summary>
+                    </details>
+                {% endif %}
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+                {% if gpxLink %}
+                    <a href="{{ gpxLink }}" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 bg-white hover:bg-gray-50 border border-gray-200 shadow-xs rounded-lg px-3 py-1.5 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                        GPX
+                    </a>
+                {% endif %}
+                <button type="button" class="close inline-flex items-center justify-center">
+                    <svg class="size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">{{ "Close modal"|trans }}</span>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-gray-600">
+             <span class="inline-flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                <a href="#" class="hover:underline hover:text-primary transition" title="View this month" data-model-content-url="{{ relativeUrl('month/month-' ~ activity.getStartDate().translatedFormat('Y-m') ~ '.html') }}">
+                    {{ activity.getStartDate().translatedFormat('F j, Y') }}
+                </a> · {{ activity.getStartDate()|formatTime() }}
+             </span>
+            {% set weather = activity.getWeather() %}
+            {% if weather %}
+                <span class="inline-flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-yellow-500" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" fill="none"/></svg>
+                    {{ weather.getWeatherCodeDescription() }}, {{ weather.getTemperatureInCelsius()|renderMeasurement(1) }}
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-sky-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>
+                    {{ weather.getRelativeHumidity() }}% humidity
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+                     {{ weather.getWindSpeed()|renderMeasurement(1) }} {{ weather.getWindDirection() }}
+                </span>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body space-y-6">
+        {% block mainStatsOnTop %}
+            <section>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Distance"|trans }}</span>
+                            <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                                {{ svg('distance', 'size-3.5') }}
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getDistance()|formatMeasurement(activity.getSportType().getActivityType().getDistancePrecision()) }}</span>
+                            <span class="text-xs font-medium text-gray-500">{{ renderUnitSymbol('distance') }}</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Moving time"|trans }}</span>
+                            <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                                {{ svg('time', 'size-3.5') }}
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getMovingTimeFormatted() }}</span>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Avg speed"|trans }}</span>
+                            <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                                {{ svg('speed', 'size-3.5') }}
+                            </div>
+                        </div>
+                        {% set maxSpeed = activity.getMaxSpeed() %}
+                        <div class="flex items-baseline gap-1" title="{{ maxSpeed ? 'Max ' ~ maxSpeed|formatMeasurement(1) : '' }}">
+                            {% set averageSpeed = activity.getAverageSpeed() %}
+                            {% if averageSpeed %}
+                                <span class="text-2xl font-black tracking-tight text-gray-900">{{ averageSpeed|formatMeasurement(1) }}</span>
+                                <span class="text-xs font-medium text-gray-500">{{ renderUnitSymbol('speed') }}</span>
+                            {% else %}
+                                <span class="text-2xl font-black tracking-tight text-gray-900">{{ "n/a"|trans }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Elevation"|trans }}</span>
+                            <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                                {{ svg('elevation', 'size-3.5') }}
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getElevation()|formatMeasurement(0) }}</span>
+                            <span class="text-xs font-medium text-gray-500">{{ renderUnitSymbol('elevation') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-3">
+                    <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                        <span class="text-xs text-gray-500">{{ "Elapsed time"|trans }}</span>
+                        <span class="text-sm font-bold text-gray-900">{{ activity.getElapsedTimeFormatted() }}</span>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                        <span class="text-xs text-gray-500">{{ "Calories"|trans }}</span>
+                        <span class="text-sm font-bold text-gray-900">{{ activity.getCalories() }} <span class="text-xxs font-medium text-gray-400">kcal</span></span>
+                    </div>
+                    {% if activity.getKilojoules() %}
+                        <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                            <span class="text-xs text-gray-500">{{ "Energy"|trans }}</span>
+                            <span class="text-sm font-bold text-gray-900">{{ activity.getKilojoules() }} <span class="text-xxs font-medium text-gray-400">kJ</span></span>
+                        </div>
+                    {% endif %}
+                    {% set averageCadence = activity.getAverageCadence() %}
+                    {% set maxCadence = activity.getMaxCadence() %}
+                    <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between" title="{{ maxCadence ? 'Max ' ~ maxCadence : '' }}">
+                        <span class="text-xs text-gray-500">{{ "Cadence"|trans }}</span>
+                        <span class="text-sm font-bold text-gray-900">
+                            {{ averageCadence ?: 'n/a'|trans }}
+                            {% if averageCadence %}
+                                <span class="text-xxs font-medium text-gray-400">{{ "rpm"|trans }}</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <a href="#" class="bg-gray-50 rounded-lg p-3 gap-x-2 flex items-center justify-between group" data-router-force-reload data-router-navigate="{{ relativeUrl('activities') }}" data-filters='{{ dataFilters('activities', {gear: activity.getGearIdIncludingNone()}) }}'>
+                        <span class="text-xs text-gray-500 shrink-0">{{ "Gear"|trans }}</span>
+                        <span class="text-xs font-bold text-gray-900 group-hover:text-primary truncate" title="{{ activity.getGearName() }}">
+                            {{ activity.getGearName() ?: 'Unspecified'|trans }}
+                        </span>
+                    </a>
+                    <a href="#" class="bg-gray-50 rounded-lg p-3 gap-x-2 flex items-center justify-between group" data-router-force-reload data-router-navigate="{{ relativeUrl('activities') }}" data-filters='{{ dataFilters('activities', {device: activity.getDeviceId()}) }}'>
+                        <span class="text-xs text-gray-500 shrink-0">{{ "Device"|trans }}</span>
+                        <span class="text-xs font-bold text-gray-900 group-hover:text-primary truncate" title="{{ activity.getDeviceName() }}">
+                            {{ activity.getDeviceName() ?: 'None'|trans }}
+                        </span>
+                    </a>
+                </div>
+            </section>
+        {% endblock mainStatsOnTop %}
+        {% set localImagePaths = activity.getLocalImagePaths() %}
+        {% if localImagePaths %}
+            <section>
+                <div class="flex items-center gap-2 mb-3">
+                    <h3 class="font-bold text-gray-900">{{ "Photos"|trans }}</h3>
+                    <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{{ localImagePaths|length }}</span>
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+                    {% for imagePath in activity.getLocalImagePaths() %}
+                        <div class="shrink-0 h-32 rounded-lg overflow-hidden">
+                            <img src="{{ placeholderImage() }}" data-src="{{ securedImageUrl(imagePath) }}" alt="Activity photo" class="h-full w-auto block lazy" />
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+        <section class="rounded-lg overflow-hidden border border-gray-200 shadow-xs bg-white">
+            {% if leaflet %}
+                <div class="relative border-b border-gray-200">
+                    {% set leafletOptions = {
+                        'polylineUrl': relativeUrl('api/' ~ leaflet.polylineUrl),
+                        'tileLayer': leaflet.map.getTileLayer(),
+                        'minZoom': leaflet.map.getMinZoom(),
+                        'maxZoom': leaflet.map.getMaxZoom(),
+                        'imageOverlay': leaflet.map.getOverlayImageUrl(),
+                        'bounds': leaflet.map.getBounds(),
+                        'scrollWheelZoom': true
+                    } %}
+                    <div class="h-80 md:h-96 w-full z-0" data-leaflet='{{ leafletOptions|json_encode }}' data-leaflet-echart-connect>
+                    </div>
+                </div>
+            {% endif %}
+            {% if hasProfileChart is not empty %}
+                <div>
+                    {% set unprefixedActivityId = activity.getId().toUnprefixedString() %}
+                    <div style="height: {{ profileChartHeight }}px"
+                         data-echarts-options='{{ relativeUrl('api/activity/' ~ unprefixedActivityId ~ '/metrics.json') }}'
+                         data-leaflet-echart-connect='{{ relativeUrl('api/activity/' ~ unprefixedActivityId ~ '/coordinates.json') }}'
+                    ></div>
+                </div>
+            {% endif %}
+        </section>
+        {% set averagePower = activity.getAveragePower() %}
+        {% set averageHearRate = activity.getAverageHeartRate() %}
+
+        {% if averagePower or averageHearRate %}
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {% if averageHearRate %}
+                    <div class="rounded-lg bg-white border border-gray-200 shadow-xs p-5 {{ not averagePower ? 'lg:col-span-2' }}">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <div class="size-8 rounded-lg bg-rose-500/10 text-rose-600 flex items-center justify-center">
+                                    {{ svg('heart-rate', 'size-5', 'text-rose-600') }}
+                                </div>
+                                <h3 class="font-bold text-gray-900">{{ "Heart rate"|trans }}</h3>
+                            </div>
+                            <span class="text-xxs text-gray-400 uppercase tracking-wider">{{ "bpm"|trans }}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div class="rounded-lg bg-gray-50 p-3">
+                                <div class="text-xxs uppercase text-gray-500 tracking-wider">{{ "Average"|trans }}</div>
+                                <div class="text-3xl font-black text-gray-900 mt-0.5">{{ averageHearRate }}</div>
+                            </div>
+                            <div class="rounded-lg bg-gray-50 p-3">
+                                <div class="text-xxs uppercase text-gray-500 tracking-wider">{{ "Max"|trans }}</div>
+                                <div class="text-3xl font-black text-gray-900 mt-0.5">
+                                    {{ activity.getMaxHeartRate() ?? "n/a"|trans }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xxs uppercase text-gray-500 font-semibold tracking-wider mb-1.5">{{ "Time in zone"|trans }}</div>
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="w-6 text-gray-500 font-medium">{{ "Z1"|trans }}</span>
+                                <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#DF584A]" style="width: {{ heartRateZones.getPercentageInZoneOne() }}%"></div>
+                                </div>
+                                <span class="w-10 text-right text-gray-700 font-medium tabular-nums">{{ heartRateZones.getPercentageInZoneOne() }}%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="w-6 text-gray-500 font-medium">{{ "Z2"|trans }}</span>
+                                <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#D63522]" style="width: {{ heartRateZones.getPercentageInZoneTwo() }}%"></div>
+                                </div>
+                                <span class="w-10 text-right text-gray-700 font-medium tabular-nums">{{ heartRateZones.getPercentageInZoneTwo() }}%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="w-6 text-gray-500 font-medium">{{ "Z3"|trans }}</span>
+                                <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#BD2D22]" style="width: {{ heartRateZones.getPercentageInZoneThree() }}%"></div>
+                                </div>
+                                <span class="w-10 text-right text-gray-700 font-medium tabular-nums">{{ heartRateZones.getPercentageInZoneThree() }}%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="w-6 text-gray-500 font-medium">{{ "Z4"|trans }}</span>
+                                <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#942319]" style="width: {{ heartRateZones.getPercentageInZoneFour() }}%"></div>
+                                </div>
+                                <span class="w-10 text-right text-gray-700 font-medium tabular-nums">{{ heartRateZones.getPercentageInZoneFour() }}%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs">
+                                <span class="w-6 text-gray-500 font-medium">{{ "Z5"|trans }}</span>
+                                <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-[#6A1009]" style="width: {{ heartRateZones.getPercentageInZoneFive() }}%"></div>
+                                </div>
+                                <span class="w-10 text-right text-gray-700 font-medium tabular-nums">{{ heartRateZones.getPercentageInZoneFive() }}%</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if averagePower %}
+                    <div class="rounded-lg bg-white border border-gray-200 shadow-xs p-5 {{ not averageHearRate ? 'lg:col-span-2' }}">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <div class="size-8 rounded-lg bg-primary-soft text-primary flex items-center justify-center">
+                                    {{ svg('power', 'size-5') }}
+                                </div>
+                                <h3 class="font-bold text-gray-900">{{ "Power"|trans }}</h3>
+                            </div>
+                            <span class="text-xxs text-gray-400 uppercase tracking-wider">{{ "watts"|trans }}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div class="rounded-lg bg-gray-50 p-3">
+                                <div class="text-xxs uppercase text-gray-500 tracking-wider">{{ "Average"|trans }}</div>
+                                <div class="text-3xl font-black text-gray-900 mt-0.5">{{ averagePower }}<span class="text-sm font-medium text-gray-400 ml-1">w</span></div>
+                            </div>
+                            {% set maxPower = activity.getMaxPower() %}
+                            <div class="rounded-lg bg-gray-50 p-3">
+                                <div class="text-xxs uppercase text-gray-500 tracking-wider">{{ "Max"|trans }}</div>
+                                <div class="text-3xl font-black text-gray-900 mt-0.5">
+                                    {{ maxPower ?? "n/a"|trans }}
+                                    {% if maxPower %}
+                                        <span class="text-sm font-medium text-gray-400 ml-1">w</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% set normalizedPower = activity.getNormalizedPower() %}
+                        {% if normalizedPower %}
+                            <div class="rounded-lg bg-primary/5 ring-1 ring-primary/20 p-3 mb-3 flex items-center justify-between">
+                                <div class="text-xxs uppercase text-primary font-semibold tracking-wider">{{ "Normalized power"|trans }}</div>
+                                <div class="text-lg font-bold text-primary">{{ normalizedPower }}<span class="text-sm font-medium ml-0.5">w</span></div>
+                            </div>
+                        {% endif %}
+                        {% if activity.hasDetailedPowerData() %}
+                            {% set timeIntervals =  [5, 60, 300, 1200, 3600] %}
+                            {% set timeIntervalLabels = ['5s', '1m', '5m', '20m', '1h'] %}
+                            <div class="text-xxs uppercase text-gray-500 font-semibold tracking-wider mb-1.5">{{ "Best efforts"|trans }}</div>
+                            <div class="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-1.5">
+                                {% for timeInterval in timeIntervals %}
+                                    {% set powerOutput = activity.getBestAveragePowerForTimeInterval(timeInterval) %}
+                                    {% if powerOutput %}
+                                        <div class="text-center bg-gray-50 rounded-md py-1.5">
+                                            <div class="text-xxs text-gray-500">{{ timeIntervalLabels[loop.index0] }}</div>
+                                            <div class="text-sm font-bold text-gray-900">{{ powerOutput.getPower() }}<span class="text-xxs font-medium text-gray-400">w</span></div>
+                                            <div class="text-xxs text-gray-400 tabular-nums">{{ powerOutput.getRelativePower() }} w/kg</div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </section>
+        {% endif %}
+        {% if bestEfforts|length > 0 %}
+            <section class="rounded-lg bg-amber-50 border border-amber-100 dark:bg-[#202830] dark:border-[#3e444d] shadow-xs p-5">
+                <div class="flex items-center gap-2 mb-3">
+                   {{ svg('star', 'size-5', 'text-amber-500') }}
+                    <h3 class="font-bold text-gray-900">{{ "Personal bests"|trans }}</h3>
+                    <span class="text-xs text-gray-500">{{ "Congrats! You achieved {numberOfPRs} PRs in this activity."|trans({'{numberOfPRs}': bestEfforts|length}) }}</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    {% for bestEffort in bestEfforts %}
+                        {% set distance = bestEffort.getBestEffortDistance() %}
+                        <div class="bg-white rounded-xl px-4 py-2.5 border border-gray-200">
+                            <div class="text-xxs uppercase font-semibold text-gray-500">
+                                {{ distance.isLowerThanOne() ? distance.toFloat()|round(1) : distance.toInt() }}{{ distance.getSymbol() }}
+                            </div>
+                            <div class="text-lg font-black text-gray-900">
+                                {{ bestEffort.getFormattedTime() }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+        {% block splitsAndLaps %}
+        {% endblock splitsAndLaps %}
+        {% if segmentEfforts|length > 0 %}
+            <details class="group/section">
+                <summary class="list-none cursor-pointer flex items-center justify-between py-2 hover:text-primary transition select-none">
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-bold text-gray-900 group-hover/section:text-primary transition">{{ "Segments"|trans }}</h3>
+                        <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{{ segmentEfforts|length }}</span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3 text-gray-400 transition-transform group-open/section:rotate-180" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m1 1 4 4 4-4"/>
+                    </svg>
+                </summary>
+                <div class="mt-3 space-y-2 max-h-125 overflow-y-auto p-1">
+                    {% for segmentEffort in segmentEfforts %}
+                        <a href="#" data-model-content-url="{{ relativeUrl('segment/' ~ segmentEffort.getSegmentId() ~ '.html') }}" rel="nofollow"
+                           class="group/segment flex items-center gap-3 bg-white hover:bg-gray-50 border border-gray-200 shadow-xs hover:ring-primary/30 rounded-xl p-3 transition">
+                            <div title="Rank" class="shrink-0 w-12 h-10 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center font-bold text-sm gap-0.5">
+                                {{ segmentEffort.getRank() }}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <span class="font-semibold text-gray-900 truncate group-hover/segment:text-primary transition">{{ segmentEffort.getName() }}</span>
+                                <div class="text-xs text-gray-500 mt-0.5">{{ segmentEffort.getDistance()|renderMeasurement(2) }}</div>
+                            </div>
+                            <div class="hidden sm:flex gap-4 text-right">
+                                <div>
+                                    <div class="text-xxs uppercase text-gray-400 tracking-wider">{{ "Time"|trans }}</div>
+                                    <div class="text-sm font-bold text-gray-900">{{ segmentEffort.getElapsedTimeFormatted() }}</div>
+                                </div>
+                                <div>
+                                    <div class="text-xxs uppercase text-gray-400 tracking-wider">{{ "Speed"|trans }}</div>
+                                    <div class="text-sm font-bold text-gray-900">
+                                        {% set velocityPreference = activity.getSportType().getVelocityDisplayPreference() %}
+                                        {% if velocityPreference is instanceof('App\\Infrastructure\\ValueObject\\Measurement\\Velocity\\SecPer100Meter') %}
+                                            {{ segmentEffort.getPaceInSecPer100Meter()|formatPace }}/100m
+                                        {% elseif velocityPreference is instanceof('App\\Infrastructure\\ValueObject\\Measurement\\Velocity\\SecPerKm') %}
+                                            {{ segmentEffort.getPaceInSecPerKm()|formatPace }}{{ renderUnitSymbol('pace') }}
+                                        {% else %}
+                                            {{ segmentEffort.getAverageSpeed()|renderMeasurement(1) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if segmentEffort.getAverageWatts() %}
+                                    <div>
+                                        <div class="text-xxs uppercase text-gray-400 tracking-wider">{{ "Power"|trans }}</div>
+                                        <div class="text-sm font-bold text-gray-900">{{ segmentEffort.getAverageWatts()|formatNumber(0) }}w</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </details>
+        {% endif %}
+        {% if distributionCharts is not empty %}
+            <section>
+                <h3 class="font-bold text-gray-900 mb-3">Distribution</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {% for distributionChart in distributionCharts %}
+                        <div class="bg-white border border-gray-200 shadow-xs rounded-lg p-4">
+                            <div class="text-sm font-semibold mb-2 text-center">{{ distributionChart.title }}</div>
+                            <div class="h-87.5" data-echarts-options='{{ distributionChart.data }}'></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </div>
+{% endautoescape %}

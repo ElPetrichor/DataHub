@@ -1,0 +1,73 @@
+{
+	http_port 8080
+	auto_https off
+
+	frankenphp {
+		num_threads 3
+		worker {
+			num 2
+			file ./public/index.php
+		}
+	}
+
+	log {
+		output stdout
+		format console
+		level {$CADDY_LOG_LEVEL:ERROR}
+	}
+}
+
+import /etc/frankenphp/snippets/paths.caddyfile
+
+:8080 {
+	root /var/www/public
+	encode zstd br gzip
+
+	# Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
+	header {
+		Cache-Control "no-cache, no-store, must-revalidate"
+		?Permissions-Policy "browsing-topics=()"
+	}
+
+	# Path-routing rules (static html, /files/*, /gear-maintenance/*, /assets/*).
+	import paths
+
+	# Serve everything else trough Symfony.
+	handle {
+		@phpRoute {
+			not file {path}
+		}
+
+		rewrite @phpRoute index.php
+
+		@frontController path index.php
+		php @frontController
+	}
+
+	# Handle error codes.
+	handle_errors 403 404 {
+		root /var/www/public
+		rewrite * /{err.status_code}.html
+		file_server
+	}
+
+	handle_errors 5xx {
+		root /var/www/public
+		rewrite * /50x.html
+		file_server
+	}
+
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+
+	# Hide sensitive files from filesystem
+	file_server {
+		hide *.php *.yaml *.yml */log
+	}
+}
+
+# Reverse proxy for custom domain
+{$PROXY_HOST}:{$PROXY_PORT} {
+	reverse_proxy localhost:8080
+}

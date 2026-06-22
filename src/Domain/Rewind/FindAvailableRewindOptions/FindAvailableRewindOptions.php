@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Rewind\FindAvailableRewindOptions;
+
+use App\Infrastructure\CQRS\Query\Query;
+
+/**
+ * @implements Query<\App\Domain\Rewind\FindAvailableRewindOptions\FindAvailableRewindOptionsResponse>
+ */
+final readonly class FindAvailableRewindOptions implements Query
+{
+    public const string ALL_TIME = 'all-time';
+}

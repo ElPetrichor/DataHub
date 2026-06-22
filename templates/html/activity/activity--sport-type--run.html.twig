@@ -1,0 +1,203 @@
+{% extends "html/activity/activity--sport-type--generic.html.twig" %}
+
+{% block mainStatsOnTop %}
+    {% autoescape false %}
+        <section>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Distance"|trans }}</span>
+                        <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                            {{ svg('distance', 'size-3.5') }}
+                        </div>
+                    </div>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getDistance()|formatMeasurement(activity.getSportType().getActivityType().getDistancePrecision()) }}</span>
+                        <span class="text-xs font-medium text-gray-500">{{ renderUnitSymbol('distance') }}</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Moving time"|trans }}</span>
+                        <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                            {{ svg('time', 'size-3.5') }}
+                        </div>
+                    </div>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getMovingTimeFormatted() }}</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Avg pace"|trans }}</span>
+                        <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                            {{ svg('speed', 'size-3.5') }}
+                        </div>
+                    </div>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getPaceInSecPerKm()|convertMeasurement|formatPace }}</span>
+                        <span class="text-xs font-medium text-gray-500">{{ renderUnitSymbol('pace') }}</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-gray-200 shadow-xs">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xxs uppercase tracking-wider font-semibold text-gray-500">{{ "Elevation"|trans }}</span>
+                        <div class="size-6 rounded-md bg-primary-soft text-primary flex items-center justify-center">
+                            {{ svg('elevation', 'size-3.5') }}
+                        </div>
+                    </div>
+                    <div class="flex items-baseline gap-1">
+                        <span class="text-2xl font-black tracking-tight text-gray-900">{{ activity.getElevation()|formatMeasurement(0) }}</span>
+                        <span class="text-xs font-medium text-gray-500">{{ renderUnitSymbol('elevation') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-3">
+                <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                    <span class="text-xs text-gray-500">{{ "Elapsed time"|trans }}</span>
+                    <span class="text-sm font-bold text-gray-900">{{ activity.getElapsedTimeFormatted() }}</span>
+                </div>
+                {% set overallGap = splits.getOverallGapPaceInSecondsPerKm() %}
+                {% if overallGap %}
+                    <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                        <span class="text-xs text-gray-500">{{ "GAP"|trans }}</span>
+                        <span class="text-sm font-bold text-gray-900">{{ overallGap|convertMeasurement|formatPace }}
+                            <span class="text-xxs font-medium text-gray-400">{{ renderUnitSymbol('pace') }}</span>
+                        </span>
+                    </div>
+                {% endif %}
+                <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                    <span class="text-xs text-gray-500">{{ "Calories"|trans }}</span>
+                    <span class="text-sm font-bold text-gray-900">{{ activity.getCalories() }} <span class="text-xxs font-medium text-gray-400">kcal</span></span>
+                </div>
+                {% if activity.getKilojoules() %}
+                    <div class="bg-gray-50 rounded-lg p-3 flex gap-x-2 items-center justify-between">
+                        <span class="text-xs text-gray-500">{{ "Energy"|trans }}</span>
+                        <span class="text-sm font-bold text-gray-900">{{ activity.getKilojoules() }} <span class="text-xxs font-medium text-gray-400">kJ</span></span>
+                    </div>
+                {% endif %}
+                <a href="#" class="bg-gray-50 rounded-lg p-3 gap-x-2 flex items-center justify-between group" data-router-force-reload data-router-navigate="{{ relativeUrl('activities') }}" data-filters='{{ dataFilters('activities', {gear: activity.getGearIdIncludingNone()}) }}'>
+                    <span class="text-xs text-gray-500 shrink-0">{{ "Gear"|trans }}</span>
+                    <span class="text-xs font-bold text-gray-900 group-hover:text-primary truncate" title="{{ activity.getGearName() }}">
+                            {{ activity.getGearName() ?: 'Unspecified'|trans }}
+                    </span>
+                </a>
+                <a href="#" class="bg-gray-50 rounded-lg p-3 gap-x-2 flex items-center justify-between group" data-router-force-reload data-router-navigate="{{ relativeUrl('activities') }}" data-filters='{{ dataFilters('activities', {device: activity.getDeviceId()}) }}'>
+                    <span class="text-xs text-gray-500 shrink-0">{{ "Device"|trans }}</span>
+                    <span class="text-xs font-bold text-gray-900 group-hover:text-primary truncate" title="{{ activity.getDeviceName() }}">
+                            {{ activity.getDeviceName() ?: 'None'|trans }}
+                    </span>
+                </a>
+            </div>
+        </section>
+    {% endautoescape %}
+{% endblock mainStatsOnTop %}
+
+{% block splitsAndLaps %}
+    {% autoescape false %}
+        <section>
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-gray-900">{{ "Splits"|trans }}</h3>
+                {% if not splits.isEmpty() and not laps.isEmpty() %}
+                    <ul class="tabs tabs--menu-item tabs--menu-item--compact" id="splitsLapsTab" data-tabs="#splitsLapsTabContent" role="tablist">
+                        <li role="presentation">
+                            <a href="#" data-tabs-target="#splitsLapsTabSplits" role="tab" aria-controls="splitsLapsTabSplits">
+                                {{ "Per {unit}"|trans({'{unit}': renderUnitSymbol('distance')}) }}
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" data-tabs-target="#splitsLapsTabLaps" role="tab" aria-controls="splitsLapsTabLaps">
+                                {{ "Laps" }}
+                            </a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+            <div id="splitsLapsTabContent">
+                {% if not splits.isEmpty() %}
+                    <div id="splitsLapsTabSplits" role="tabpanel"  class="bg-white border border-gray-200 shadow-xs rounded-lg overflow-hidden">
+                        <div class="max-h-85 overflow-auto">
+                            <table class="min-w-160 w-full table-fixed border-separate border-spacing-0 text-sm">
+                                <thead class="sticky top-0 z-10 bg-gray-50">
+                                <tr class="text-xxs uppercase text-gray-500 font-semibold">
+                                    <th class="border-b border-gray-100 w-10 px-4 py-2 text-left font-semibold">{{ renderUnitSymbol('distance') }}</th>
+                                    <th class="border-b border-gray-100 w-15 md:w-20 px-2 py-2 text-left font-semibold">{{ "Pace"|trans }}</th>
+                                    {% if splits.hasGapPace() %}
+                                        <th class="border-b border-gray-100 w-15 md:w-20 px-2 py-2 text-left font-semibold">{{ "GAP"|trans }}</th>
+                                    {% endif %}
+                                    <th class="border-b border-gray-100 px-2 py-2 text-left font-semibold"></th>
+                                    <th class="border-b border-gray-100 w-15 md:w-17.5 px-4 py-2 text-right font-semibold">{{ "Elev"|trans }}</th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                {% for split in splits %}
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-2.5 font-bold text-gray-900">{{ split.getSplitNumber() }}</td>
+                                        <td class="px-2 py-2.5 text-gray-500">{{ split.getPaceInSecPerKm()|formatPace }}</td>
+                                        {% if splits.hasGapPace() %}
+                                            <td class="px-2 py-2.5 text-gray-500">
+                                                {% set gapPaceInSecondsPerKm = split.getGapPaceInSecondsPerKm() %}
+                                                {% if gapPaceInSecondsPerKm %}
+                                                    {{ gapPaceInSecondsPerKm|formatPace }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+                                        <td class="px-2 py-2.5">
+                                            <div class="flex items-center gap-2">
+                                                <div class="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-primary rounded-full" style="width: {{ split.getRelativePacePercentage() }}%"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-2.5 text-right text-gray-500">{{ split.getElevationDifference()|renderMeasurement(0) }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if not laps.isEmpty() %}
+                    <div id="splitsLapsTabLaps" role="tabpanel" class="bg-white border border-gray-200 shadow-xs rounded-lg overflow-hidden">
+                        <div class="max-h-85 overflow-auto">
+                            <table class="min-w-160 w-full table-fixed border-separate border-spacing-0 text-sm">
+                                <thead class="sticky top-0 z-10 bg-gray-50">
+                                <tr class="text-xxs uppercase text-gray-500 font-semibold">
+                                    <th class="border-b border-gray-100 w-10 px-4 py-2 text-left font-semibold">{{ "Lap"|trans }}</th>
+                                    <th class="border-b border-gray-100 w-20 px-2 py-2 text-left font-semibold">{{ "Distance"|trans }}</th>
+                                    <th class="border-b border-gray-100 w-20 px-2 py-2 text-left font-semibold">{{ "Time"|trans }}</th>
+                                    <th class="border-b border-gray-100 w-20 px-2 py-2 text-left font-semibold">{{ "Pace"|trans }}</th>
+                                    <th class="border-b border-gray-100 px-2 py-2"></th>
+                                    <th class="border-b border-gray-100 w-17.5 px-4 py-2 text-right font-semibold">{{ "HR"|trans }}</th>
+                                    <th class="border-b border-gray-100 w-17.5 px-2 py-2 text-right font-semibold">{{ "Elev"|trans }}</th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                {% for lap in laps %}
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-2.5 font-bold text-gray-900">{{ lap.getLapNumber() }}</td>
+                                        <td class="px-2 py-2.5 text-gray-500">{{ lap.getDistanceInKilometer()|renderMeasurement(1) }}</td>
+                                        <td class="px-2 py-2.5 text-gray-500">{{ lap.getMovingTimeFormatted() }}</td>
+                                        <td class="px-2 py-2.5 text-gray-500">{{ lap.getPaceInSecPerKm()|formatPace }}</td>
+                                        <td class="px-2 py-2.5">
+                                            <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                                <div class="h-full bg-primary rounded-full" style="width: {{ lap.getRelativePacePercentage() }}%"></div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-2.5 text-right text-gray-500">
+                                            {{ lap.getAverageHeartRate() ?: "n/a"|trans }}
+                                        </td>
+                                        <td class="px-2 py-2.5 text-right text-gray-500">{{ lap.getElevationDifference()|renderMeasurement(0) }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    {% endautoescape %}
+{% endblock splitsAndLaps %}

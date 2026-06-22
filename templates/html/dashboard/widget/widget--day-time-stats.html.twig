@@ -1,0 +1,158 @@
+{% set uniqueId = uniqueNumberForId('dayTimeStatsWidget') %}
+{% autoescape false %}
+    <div class="flex items-center mb-4">
+        <h3 class="text-lg font-semibold">
+            {{ "Daytime stats"|trans }}
+        </h3>
+        <button type="button" data-fullscreen-trigger class="fullscreen-enabled:hidden ml-auto self-start cursor-pointer">
+            {{ svg('expand') }}
+            <span class="sr-only">{{ "Enter fullscreen mode"|trans }}</span>
+        </button>
+    </div>
+    {% if statsPerActivityType|length > 0 %}
+        <div class="tabs tabs--default">
+            <ul id="dayTimeStatsActivityTypeTab{{ uniqueId }}" data-tabs="#dayTimeStatsActivityTypeTabContent{{ uniqueId }}"
+                role="tablist">
+                <li role="presentation">
+                    <a href="#" data-tabs-target="#dayTimeStatsAll{{ uniqueId }}" role="tab" aria-controls="all">
+                        {{ "All"|trans }}
+                    </a>
+                </li>
+                {% for activityType,stats in statsPerActivityType %}
+                    <li role="presentation">
+                        <a href="#" data-tabs-target="#dayTimeStats{{ activityType }}{{ uniqueId }}" role="tab"
+                           aria-controls="dayTimeStats{{ activityType }}{{ uniqueId }}">
+                            {{ enum('App\\Domain\\Activity\\ActivityType').from(activityType)|trans }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="grow flex flex-col" id="dayTimeStatsActivityTypeTabContent{{ uniqueId }}">
+        <div class="grow flex flex-col" id="dayTimeStatsAll{{ uniqueId }}" role="tabpanel" aria-labelledby="dayTimeStatsAll{{ uniqueId }}-tab">
+            <div class="h-80 fullscreen-enabled:grow fullscreen-enabled:h-full" data-echarts-options='{{ allActivities.chart }}'></div>
+            <div class="relative overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="narrow sticky left-0 bg-gray-50">
+
+                        </th>
+                        <th scope="col" class="narrow">
+                            # {{ "workouts"|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Dist."|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Elev."|trans }}
+                        </th>
+                        <th scope="col">
+                            {{ "Moving time"|trans }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for statistic in allActivities.dayTimeStats.getData() %}
+                        <tr class="group/row">
+                            <th scope="row"
+                                class="narrow sticky left-0 bg-white font-medium text-gray-900 whitespace-nowrap">
+                                <div class="flex gap-x-2 items-center">
+                                    {{ svg(statistic.daytime.getSvgIcon()) }}
+                                    <div>
+                                        <div>{{ statistic.daytime|trans }}</div>
+                                        <div class="font-normal text-xs text-gray-500">{{ statistic.daytime.getHours()[0] }}h
+                                            - {{ statistic.daytime.getHours()[1] }}h
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="narrow">
+                                {{ statistic.numberOfWorkouts }}
+                            </td>
+                            <td class="truncate">
+                                {% if statistic.totalDistance.toFloat() > 0 %}
+                                    {{ statistic.averageDistance|renderMeasurement(0, 'avg'|trans) }} /
+                                    {{ statistic.totalDistance|renderMeasurement(0, 'total'|trans) }}
+                                {% else %}
+                                    0<span class="text-xxs ml-px">{{ statistic.totalDistance.getSymbol() }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="truncate">
+                                {{ statistic.totalElevation|renderMeasurement(0) }}
+                            </td>
+                            <td class="truncate" title="{{ statistic.movingTimeInHours.toFloat()|formatNumber(1) }}h">
+                                {{ statistic.movingTimeForHumans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% for activityType,stats in statsPerActivityType %}
+            <div class="grow flex flex-col" id="dayTimeStats{{ activityType }}{{ uniqueId }}" role="tabpanel" aria-labelledby="dayTimeStats{{ activityType }}{{ uniqueId }}-tab">
+                <div class="h-80 fullscreen-enabled:grow fullscreen-enabled:h-full" data-echarts-options='{{ stats.chart }}'></div>
+                <div class="relative overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="narrow sticky left-0 bg-gray-50">
+
+                            </th>
+                            <th scope="col" class="narrow">
+                                # {{ "workouts"|trans }}
+                            </th>
+                            <th scope="col">
+                                {{ "Dist."|trans }}
+                            </th>
+                            <th scope="col">
+                                {{ "Elev."|trans }}
+                            </th>
+                            <th scope="col">
+                                {{ "Moving time"|trans }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for statistic in stats.dayTimeStats.getData() %}
+                            <tr class="group/row">
+                                <th scope="row"
+                                    class="narrow sticky left-0 bg-white font-medium text-gray-900 whitespace-nowrap">
+                                    <div class="flex gap-x-2 items-center">
+                                        {{ svg(statistic.daytime.getSvgIcon()) }}
+                                        <div>
+                                            <div>{{ statistic.daytime|trans }}</div>
+                                            <div class="font-normal text-xs text-gray-500">{{ statistic.daytime.getHours()[0] }}h
+                                                - {{ statistic.daytime.getHours()[1] }}h
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="narrow">
+                                    {{ statistic.numberOfWorkouts }}
+                                </td>
+                                <td class="truncate">
+                                    {% if statistic.totalDistance.toFloat() > 0 %}
+                                        {{ statistic.averageDistance|renderMeasurement(0, 'avg'|trans) }} /
+                                        {{ statistic.totalDistance|renderMeasurement(0, 'total'|trans) }}
+                                    {% else %}
+                                        0<span class="text-xxs ml-px">{{ statistic.totalDistance.getSymbol() }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="truncate">
+                                    {{ statistic.totalElevation|renderMeasurement(0) }}
+                                </td>
+                                <td class="truncate">
+                                    {{ statistic.movingTimeForHumans }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endautoescape %}

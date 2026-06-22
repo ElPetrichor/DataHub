@@ -1,0 +1,38 @@
+{% autoescape false %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>{{ appName }} | Admin panel</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="theme-color" content="#F26822">
+        <meta name="mobile-web-app-title" content="{{ appName }}">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="csrf-token" content="{{ csrf_token('dispatch-command') }}">
+        <meta name="dispatch-command-url" content="{{ relativeUrl(path('admin_dispatch_command')) }}">
+        <link rel="icon" type="image/x-icon" href="{{ relativeUrl('assets/images/logo.svg') }}">
+        <link href="{{ relativeUrl(asset('css/dist/tailwind.min.css')) }}" rel="stylesheet"/>
+        <script>
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+            if (localStorage.getItem('sideNavCollapsed') === 'true') {
+                document.documentElement.setAttribute('data-sidebar-collapsed', '');
+            }
+        </script>
+    </head>
+    <body class="min-h-screen bg-gray-50 text-gray-900 antialiased admin">
+        <!-- NAVIGATION -->
+        {% autoescape false %}
+            {% include 'html/admin/navigation/top-nav-bar.html.twig' %}
+        {% endautoescape %}
+        <!-- SIDEBAR -->
+        {% autoescape false %}
+            {% include 'html/admin/navigation/side-nav-bar.html.twig' %}
+        {% endautoescape %}
+        <main class="p-4 md:ml-64 sidebar-collapsed:md:ml-16 h-auto min-h-screen pt-20 text-gray-900">
+            {% block main %}
+            {% endblock main %}
+        </main>
+        <script src="{{ relativeUrl(asset('js/dist/admin.min.js')) }}" type="module"></script>
+    </body>
+    </html>
+{% endautoescape %}

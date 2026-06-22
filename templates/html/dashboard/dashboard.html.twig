@@ -1,0 +1,16 @@
+{% include 'html/navigation/breadcrumbs.html.twig' with {'breadcrumbs': []} %}
+{% set colSpanMap = {
+    33: 'xl:col-span-2',
+    50: 'xl:col-span-3',
+    66: 'xl:col-span-4',
+    100: 'xl:col-span-6'
+} %}
+{% autoescape false %}
+    <div class="grid grid-cols-1 xl:grid-cols-6 gap-4 mb-4">
+        {% for renderedWidget in widgets %}
+            <div data-fullscreen-content class="{{ colSpanMap[renderedWidget.getWidth()] }} flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-xs">
+                {{ renderedWidget.getRenderedHtml() }}
+            </div>
+        {% endfor %}
+    </div>
+{% endautoescape %}
