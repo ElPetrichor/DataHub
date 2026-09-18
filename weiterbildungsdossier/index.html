@@ -1,0 +1,1639 @@
+<title>FMH Weiterbildungsdossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+:root {
+  --ground:#EDEFEB; --surface:#FBFCFA; --surface-2:#F4F6F2; --surface-3:#E5E8E2;
+  --ink:#151A17; --ink-2:#4C5551; --ink-3:#7C8480;
+  --rule:#D5D9D2; --rule-2:#BEC4BC;
+  --accent:#10585A; --accent-2:#0B4143; --accent-soft:#D9E8E7; --accent-line:#8FBAB8;
+  --ok:#41701F; --ok-soft:#E2EED4; --ok-line:#A8C486;
+  --warn:#96650A; --warn-soft:#F5E8CB; --warn-line:#D6B571;
+  --crit:#95271F; --crit-soft:#F4DCD8; --crit-line:#D79A92;
+  --on-accent:#FBFCFA;
+  --shadow:0 1px 2px rgba(21,26,23,.06), 0 8px 24px -12px rgba(21,26,23,.18);
+  --shadow-lift:0 2px 4px rgba(21,26,23,.08), 0 18px 44px -16px rgba(21,26,23,.28);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:#0F1210; --surface:#171B18; --surface-2:#1D221F; --surface-3:#262C28;
+    --ink:#E9ECE7; --ink-2:#A3ABA6; --ink-3:#767E79;
+    --rule:#2A302C; --rule-2:#3B433E;
+    --accent:#4FB2AF; --accent-2:#7ACCC8; --accent-soft:#12302F; --accent-line:#2B5F5D;
+    --ok:#93C45F; --ok-soft:#1C2913; --ok-line:#3F5A26;
+    --warn:#DEA83C; --warn-soft:#2C2312; --warn-line:#5C4718;
+    --crit:#DF7264; --crit-soft:#2D1714; --crit-line:#5E2D26;
+    --on-accent:#0F1210;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.7);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 18px 44px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:#0F1210; --surface:#171B18; --surface-2:#1D221F; --surface-3:#262C28;
+  --ink:#E9ECE7; --ink-2:#A3ABA6; --ink-3:#767E79;
+  --rule:#2A302C; --rule-2:#3B433E;
+  --accent:#4FB2AF; --accent-2:#7ACCC8; --accent-soft:#12302F; --accent-line:#2B5F5D;
+  --ok:#93C45F; --ok-soft:#1C2913; --ok-line:#3F5A26;
+  --warn:#DEA83C; --warn-soft:#2C2312; --warn-line:#5C4718;
+  --crit:#DF7264; --crit-soft:#2D1714; --crit-line:#5E2D26;
+  --on-accent:#0F1210;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.7);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.5), 0 18px 44px -16px rgba(0,0,0,.8);
+}
+
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4 { font-family:"Archivo", ui-sans-serif, system-ui, sans-serif; margin:0; text-wrap:balance; }
+button, input, select, textarea { font:inherit; color:inherit; }
+a { color:var(--accent); }
+.mono { font-family:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric:tabular-nums; }
+
+.wrap { max-width:1320px; margin:0 auto; padding:0 24px 96px; }
+
+.topbar { position:sticky; top:0; z-index:60; background:var(--surface); border-bottom:1px solid var(--rule); }
+.topbar-in { max-width:1320px; margin:0 auto; padding:13px 24px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+.mark { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+.mark .glyph {
+  width:26px; height:26px; border-radius:3px; background:var(--accent); color:var(--on-accent);
+  display:grid; place-items:center; font-family:"Archivo"; font-weight:800; font-size:13px; letter-spacing:-.02em;
+}
+.mark h1 { font-size:16px; font-weight:700; letter-spacing:-.025em; line-height:1.15; }
+.mark .sub { font-size:10.5px; color:var(--ink-3); letter-spacing:.09em; text-transform:uppercase; font-weight:600; }
+.prog-pick { display:flex; align-items:center; gap:10px; margin-left:auto; flex-wrap:wrap; }
+.prog-pick label { font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); font-weight:700; }
+
+select.field, input.field, textarea.field {
+  background:var(--surface-2); border:1px solid var(--rule-2); border-radius:4px;
+  padding:7px 10px; font-size:14px; width:100%;
+}
+select.field { cursor:pointer; }
+#progsel { max-width:380px; }
+input.field:focus-visible, select.field:focus-visible, textarea.field:focus-visible,
+button:focus-visible, .tab:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+.btn {
+  border:1px solid var(--rule-2); background:var(--surface-2); border-radius:4px;
+  padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer;
+  display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
+  transition:background .12s ease, border-color .12s ease, color .12s ease;
+}
+.btn:hover { background:var(--surface-3); border-color:var(--ink-3); }
+.btn.primary { background:var(--accent); border-color:var(--accent); color:var(--on-accent); }
+.btn.primary:hover { background:var(--accent-2); border-color:var(--accent-2); }
+.btn.ghost { background:transparent; border-color:transparent; color:var(--ink-2); padding:5px 8px; }
+.btn.ghost:hover { background:var(--surface-3); color:var(--ink); }
+.btn.tiny { padding:3px 8px; font-size:12px; }
+.btn.danger:hover { border-color:var(--crit); color:var(--crit); background:var(--crit-soft); }
+.btn[disabled] { opacity:.4; cursor:not-allowed; }
+
+.disclaimer { border-bottom:1px solid var(--rule); background:var(--warn-soft); color:var(--warn); font-size:12.5px; }
+.disclaimer div { max-width:1320px; margin:0 auto; padding:8px 24px; display:flex; gap:10px; align-items:flex-start; }
+.disclaimer b { font-weight:700; }
+
+.hero { padding:34px 0 26px; border-bottom:1px solid var(--rule); }
+.hero-grid { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:32px; align-items:end; }
+@media (max-width:840px) { .hero-grid { grid-template-columns:1fr; align-items:start; } }
+.eyebrow { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin-bottom:9px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.hero h2 { font-size:clamp(26px,4vw,40px); font-weight:800; letter-spacing:-.035em; line-height:1.05; }
+.hero .lede { color:var(--ink-2); margin-top:10px; max-width:64ch; font-size:14.5px; }
+.bigstat { text-align:right; }
+@media (max-width:840px) { .bigstat { text-align:left; } }
+.bigstat .v { font-family:"Archivo"; font-weight:800; font-size:clamp(38px,7vw,60px); letter-spacing:-.05em; line-height:.9; font-variant-numeric:tabular-nums; }
+.bigstat .v small { font-size:.44em; font-weight:600; color:var(--ink-3); letter-spacing:-.02em; }
+.bigstat .cap { font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin-top:7px; }
+
+.rail { margin-top:22px; }
+.rail-track { height:14px; background:var(--surface-3); border:1px solid var(--rule-2); border-radius:3px; position:relative; overflow:hidden; display:flex; }
+.rail-seg { height:100%; border-right:1px solid var(--ground); }
+.rail-seg:last-child { border-right:0; }
+.rail-marks { position:relative; height:20px; margin-top:5px; }
+.rail-mark { position:absolute; transform:translateX(-50%); font-size:10.5px; color:var(--ink-3); white-space:nowrap; }
+.rail-mark::before { content:""; position:absolute; left:50%; top:-6px; width:1px; height:4px; background:var(--rule-2); }
+
+.tabs { display:flex; gap:2px; border-bottom:1px solid var(--rule); margin-top:30px; overflow-x:auto; }
+.tab {
+  border:0; background:none; padding:11px 15px; cursor:pointer; font-size:13.5px; font-weight:600;
+  color:var(--ink-3); border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap;
+  display:flex; align-items:center; gap:8px;
+}
+.tab:hover { color:var(--ink); }
+.tab[aria-selected="true"] { color:var(--ink); border-bottom-color:var(--accent); }
+.tab .count { font-family:"IBM Plex Mono"; font-size:11px; background:var(--surface-3); color:var(--ink-2); padding:1px 6px; border-radius:9px; font-variant-numeric:tabular-nums; }
+.tab[aria-selected="true"] .count { background:var(--accent-soft); color:var(--accent); }
+
+.cols { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:34px; margin-top:28px; align-items:start; }
+@media (max-width:1080px) { .cols { grid-template-columns:1fr; } }
+.side { position:sticky; top:74px; display:flex; flex-direction:column; gap:16px; }
+@media (max-width:1080px) { .side { position:static; } }
+
+.card { background:var(--surface); border:1px solid var(--rule); border-radius:6px; box-shadow:var(--shadow); }
+.card-hd { padding:14px 18px; border-bottom:1px solid var(--rule); display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.card-hd h3 { font-size:14px; font-weight:700; letter-spacing:-.01em; }
+.card-hd .hint { font-size:12px; color:var(--ink-3); }
+.card-hd .spacer { margin-left:auto; }
+.card-bd { padding:18px; }
+.card-bd.flush { padding:0; }
+
+.sec-head { margin-bottom:16px; }
+.sec-head h3 { font-size:19px; font-weight:700; letter-spacing:-.025em; }
+.sec-head p { margin:6px 0 0; color:var(--ink-2); font-size:13.5px; max-width:72ch; }
+
+.tbl-scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; }
+th { text-align:left; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); font-weight:700; padding:9px 14px; border-bottom:1px solid var(--rule); white-space:nowrap; background:var(--surface-2); }
+td { padding:11px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+tbody tr:last-child td { border-bottom:0; }
+tbody tr:hover { background:var(--surface-2); }
+td.r, th.r { text-align:right; }
+.t-main { font-weight:600; }
+.t-sub { color:var(--ink-3); font-size:12px; margin-top:2px; }
+.rowacts { display:flex; gap:2px; justify-content:flex-end; opacity:.35; transition:opacity .12s; }
+tr:hover .rowacts { opacity:1; }
+
+.chip { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; padding:2px 8px; border-radius:3px; border:1px solid var(--rule-2); background:var(--surface-2); color:var(--ink-2); white-space:nowrap; }
+.chip.ok { background:var(--ok-soft); border-color:var(--ok-line); color:var(--ok); }
+.chip.warn { background:var(--warn-soft); border-color:var(--warn-line); color:var(--warn); }
+.chip.crit { background:var(--crit-soft); border-color:var(--crit-line); color:var(--crit); }
+.chip.acc { background:var(--accent-soft); border-color:var(--accent-line); color:var(--accent); }
+.dot { width:6px; height:6px; border-radius:50%; background:currentColor; flex:0 0 auto; }
+.kat { font-family:"IBM Plex Mono"; font-weight:600; font-size:11px; border:1px solid var(--rule-2); padding:1px 5px; border-radius:2px; background:var(--surface-2); color:var(--ink-2); }
+
+.req { border-bottom:1px solid var(--rule); padding:12px 18px; }
+.req:last-child { border-bottom:0; }
+.req-top { display:flex; align-items:baseline; gap:10px; }
+.req-lbl { font-size:13px; font-weight:600; flex:1; min-width:0; }
+.req-val { font-family:"IBM Plex Mono"; font-size:12px; font-variant-numeric:tabular-nums; color:var(--ink-2); white-space:nowrap; }
+.req-bar { height:5px; background:var(--surface-3); border-radius:3px; margin-top:8px; overflow:hidden; }
+.req-fill { height:100%; border-radius:3px; transition:width .35s cubic-bezier(.4,0,.2,1); }
+.req-fill.ok { background:var(--ok); }
+.req-fill.warn { background:var(--warn); }
+.req-fill.acc { background:var(--accent); }
+.req-note { font-size:11.5px; color:var(--ink-3); margin-top:6px; }
+.req.done .req-lbl { color:var(--ink-2); }
+
+.tl { padding:18px; }
+.tl-axis { position:relative; height:18px; margin-bottom:6px; border-bottom:1px solid var(--rule); }
+.tl-year { position:absolute; top:0; font-size:10.5px; color:var(--ink-3); font-family:"IBM Plex Mono"; padding-left:4px; }
+.tl-grid { position:absolute; inset:0; pointer-events:none; }
+.tl-gl { position:absolute; top:0; bottom:0; width:1px; background:var(--rule); }
+.tl-rows { position:relative; display:flex; flex-direction:column; gap:5px; }
+.tl-row { position:relative; height:30px; }
+.tl-bar { position:absolute; top:0; height:30px; border-radius:3px; border:1px solid; display:flex; align-items:center; padding:0 8px; overflow:hidden; font-size:11.5px; font-weight:600; min-width:3px; }
+.tl-bar span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tl-now { position:absolute; top:-18px; bottom:0; width:1px; background:var(--accent); z-index:3; }
+.tl-now::after { content:"heute"; position:absolute; top:-16px; left:4px; font-size:10px; color:var(--accent); font-weight:700; letter-spacing:.05em; }
+.tl-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; font-size:11.5px; color:var(--ink-3); }
+.tl-legend i { width:9px; height:9px; border-radius:2px; display:inline-block; margin-right:5px; vertical-align:-1px; }
+
+.empty { padding:44px 24px; text-align:center; color:var(--ink-3); }
+.empty h4 { font-size:15px; font-weight:700; color:var(--ink-2); margin-bottom:6px; }
+.empty p { font-size:13px; margin:0 auto 16px; max-width:48ch; }
+
+dialog { border:1px solid var(--rule-2); border-radius:8px; background:var(--surface); color:var(--ink); padding:0; box-shadow:var(--shadow-lift); width:min(640px, calc(100vw - 32px)); max-height:88vh; }
+dialog::backdrop { background:rgba(15,18,16,.5); }
+.dlg-hd { padding:16px 20px; border-bottom:1px solid var(--rule); }
+.dlg-hd h3 { font-size:15px; font-weight:700; }
+.dlg-bd { padding:20px; overflow-y:auto; max-height:60vh; }
+.dlg-ft { padding:14px 20px; border-top:1px solid var(--rule); display:flex; gap:10px; justify-content:flex-end; background:var(--surface-2); border-radius:0 0 7px 7px; flex-wrap:wrap; }
+.fgrid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.fgrid .full { grid-column:1 / -1; }
+@media (max-width:560px) { .fgrid { grid-template-columns:1fr; } }
+.f label { display:block; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin-bottom:5px; }
+.f .help { font-size:11.5px; color:var(--ink-3); margin-top:5px; }
+.checkline { display:flex; align-items:center; gap:9px; font-size:13.5px; }
+.checkline input { width:16px; height:16px; accent-color:var(--accent); }
+select[multiple].field { height:150px; padding:4px; }
+select[multiple].field option { padding:3px 6px; border-radius:3px; }
+
+.kpi-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--rule); }
+.kpi { background:var(--surface); padding:16px 18px; }
+.kpi .v { font-family:"Archivo"; font-weight:700; font-size:26px; letter-spacing:-.03em; font-variant-numeric:tabular-nums; line-height:1; }
+.kpi .v small { font-size:.5em; color:var(--ink-3); font-weight:600; }
+.kpi .k { font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin-top:8px; }
+.stack { display:flex; flex-direction:column; gap:22px; }
+.alerts { display:flex; flex-direction:column; gap:8px; }
+.alert { display:flex; gap:10px; padding:10px 13px; border-radius:5px; font-size:12.5px; border:1px solid; align-items:flex-start; }
+.alert.warn { background:var(--warn-soft); border-color:var(--warn-line); color:var(--warn); }
+.alert.crit { background:var(--crit-soft); border-color:var(--crit-line); color:var(--crit); }
+.alert.ok { background:var(--ok-soft); border-color:var(--ok-line); color:var(--ok); }
+.alert.acc { background:var(--accent-soft); border-color:var(--accent-line); color:var(--accent); }
+.alert b { font-weight:700; }
+.yearbar { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--rule); }
+.yearbar:last-child { border-bottom:0; }
+.yearbar .y { font-family:"IBM Plex Mono"; font-size:12px; width:42px; color:var(--ink-2); }
+.yearbar .bar { flex:1; height:8px; background:var(--surface-3); border-radius:2px; overflow:hidden; display:flex; }
+.yearbar .bar i { display:block; height:100%; }
+.yearbar .n { font-family:"IBM Plex Mono"; font-size:12px; width:68px; text-align:right; color:var(--ink-2); font-variant-numeric:tabular-nums; }
+.footnote { margin-top:34px; padding-top:18px; border-top:1px solid var(--rule); font-size:12px; color:var(--ink-3); max-width:80ch; }
+.footnote p { margin:0 0 8px; }
+.toolbar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(70px); background:var(--ink); color:var(--ground); padding:10px 18px; border-radius:5px; font-size:13px; font-weight:600; z-index:200; opacity:0; transition:transform .28s cubic-bezier(.4,0,.2,1), opacity .28s; pointer-events:none; box-shadow:var(--shadow-lift); }
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+.setup { max-width:60ch; }
+.setup ol { padding-left:20px; margin:14px 0 0; }
+.setup li { margin-bottom:8px; font-size:13.5px; color:var(--ink-2); }
+@media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+
+<div class="disclaimer"><div>
+  <b>Inoffiziell.</b>
+  <span>Planungshilfe ohne Gewähr. Verbindlich sind ausschliesslich das jeweils gültige SIWF-Weiterbildungsprogramm und Ihr e-Logbuch. Prüfen Sie hinterlegte Anforderungen immer gegen das Original.</span>
+</div></div>
+
+<header class="topbar"><div class="topbar-in">
+  <div class="mark">
+    <div class="glyph">W</div>
+    <div>
+      <h1>Weiterbildungsdossier</h1>
+      <div class="sub">Facharzttitel FMH</div>
+    </div>
+  </div>
+  <div class="prog-pick">
+    <label for="progsel">Angestrebter Titel</label>
+    <select id="progsel" class="field"></select>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow" id="heroEyebrow"></div>
+        <h2 id="heroTitle">Facharzttitel</h2>
+        <p class="lede" id="heroLede"></p>
+      </div>
+      <div class="bigstat">
+        <div class="v"><span id="statMonths">0</span><small> / <span id="statNeed">60</span> Mt.</small></div>
+        <div class="cap">Anrechenbare Weiterbildung</div>
+      </div>
+    </div>
+    <div class="rail">
+      <div class="rail-track" id="railTrack"></div>
+      <div class="rail-marks" id="railMarks"></div>
+    </div>
+  </section>
+
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+
+  <div class="cols">
+    <main id="main" role="tabpanel"></main>
+    <aside class="side">
+      <div class="card">
+        <div class="card-hd">
+          <h3>Anforderungen</h3>
+          <span class="chip acc" id="reqSummary">–</span>
+        </div>
+        <div class="card-bd flush" id="reqList"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><h3>Dossier</h3></div>
+        <div class="card-bd">
+          <div class="toolbar">
+            <button class="btn tiny" id="btnExport">Sichern (JSON)</button>
+            <button class="btn tiny" id="btnImport">Wiederherstellen</button>
+            <button class="btn tiny danger" id="btnReset">Leeren</button>
+          </div>
+          <p style="font-size:11.5px;color:var(--ink-3);margin:12px 0 0;line-height:1.45">
+            Alle Daten liegen ausschliesslich in diesem Browser (localStorage) und verlassen Ihr Gerät nicht.
+            Legen Sie regelmässig eine Sicherung an — beim Löschen der Browserdaten geht das Dossier verloren.
+          </p>
+          <p class="mono" style="font-size:11px;color:var(--ink-3);margin:10px 0 0" id="saveState"></p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footnote">
+    <p><b>Rechenregeln.</b> Anrechenbare Monate = Dauer × Pensum. Ein Pensum unter 50&nbsp;% wird gemäss SIWF grundsätzlich nicht angerechnet und hier mit 0 geführt. Pro Weiterbildungsstätte wird höchstens die Anzahl Monate angerechnet, für die sie in ihrer Kategorie anerkannt ist.</p>
+    <p><b>Was hier nicht passiert.</b> Dieses Dossier ersetzt weder das e-Logbuch des SIWF noch die SIWF-Zeugnisse Ihrer Weiterbildungsstätten. Es hilft Ihnen, den Überblick zu behalten und Lücken früh zu sehen — eingereicht wird weiterhin über die offiziellen Kanäle.</p>
+    <p><b>Ausbaustand.</b> Vollständig hinterlegt ist zurzeit «Allgemeine Innere Medizin». Alle übrigen Facharzttitel stehen in der Auswahl bereit und lassen sich unter «Programm» selbst mit Anforderungen füllen — die Auswertung arbeitet für jeden Titel mit derselben Logik.</p>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <form method="dialog" id="dlgForm">
+    <div class="dlg-hd"><h3 id="dlgTitle">Eintrag</h3></div>
+    <div class="dlg-bd" id="dlgBody"></div>
+    <div class="dlg-ft">
+      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button class="btn primary" value="save">Speichern</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgIO">
+  <form method="dialog">
+    <div class="dlg-hd"><h3 id="ioTitle">Dossier</h3></div>
+    <div class="dlg-bd">
+      <div class="f">
+        <label for="ioText" id="ioLabel">JSON</label>
+        <textarea id="ioText" class="field mono" rows="12" style="font-size:11.5px;resize:vertical"></textarea>
+        <div class="help" id="ioHelp"></div>
+      </div>
+    </div>
+    <div class="dlg-ft" id="ioFoot"></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+"use strict";
+
+/* ============================================================
+   1 — Stammdaten
+   ============================================================ */
+const FACH = [
+  "Allgemeine Innere Medizin (stationär)", "Allgemeine Innere Medizin (ambulant)", "Hausarztpraxis / Praxisassistenz",
+  "Notfallstation", "Intensivmedizin", "Anästhesiologie",
+  "Chirurgie", "Orthopädie & Traumatologie", "Urologie", "Neurochirurgie", "Gefässchirurgie",
+  "Herz- & Thoraxchirurgie", "Plastische Chirurgie", "Handchirurgie", "Kinderchirurgie",
+  "Kinder- & Jugendmedizin", "Neonatologie", "Gynäkologie & Geburtshilfe",
+  "Psychiatrie (stationär)", "Psychiatrie (ambulant)", "Kinder- & Jugendpsychiatrie",
+  "Neurologie", "Kardiologie", "Pneumologie", "Gastroenterologie", "Nephrologie",
+  "Medizinische Onkologie", "Hämatologie", "Endokrinologie/Diabetologie", "Rheumatologie",
+  "Infektiologie", "Angiologie", "Allergologie & klinische Immunologie", "Geriatrie",
+  "Dermatologie & Venerologie", "Ophthalmologie", "Oto-Rhino-Laryngologie",
+  "Radiologie", "Nuklearmedizin", "Radio-Onkologie", "Pathologie", "Rechtsmedizin",
+  "Klinische Pharmakologie", "Physikalische Medizin & Rehabilitation", "Prävention & Gesundheitswesen",
+  "Palliativmedizin", "Forschung / Wissenschaft", "Anderes Fachgebiet"
+];
+
+const KATEGORIEN = [
+  { id: "A", label: "Kategorie A", monate: 36 },
+  { id: "B", label: "Kategorie B", monate: 24 },
+  { id: "C", label: "Kategorie C", monate: 12 },
+  { id: "D", label: "Kategorie D", monate: 6 },
+  { id: "X", label: "Nicht anerkannt", monate: 0 }
+];
+
+/* Alle 46 Facharzttitel FMH. `dauer` = Regelweiterbildungszeit in Monaten. */
+const TITEL = [
+  { id: "allergologie", name: "Allergologie und klinische Immunologie", dauer: 60 },
+  { id: "aim", name: "Allgemeine Innere Medizin", dauer: 60 },
+  { id: "anaesthesiologie", name: "Anästhesiologie", dauer: 60 },
+  { id: "angiologie", name: "Angiologie", dauer: 72 },
+  { id: "arbeitsmedizin", name: "Arbeitsmedizin", dauer: 60 },
+  { id: "chirurgie", name: "Chirurgie", dauer: 72 },
+  { id: "dermatologie", name: "Dermatologie und Venerologie", dauer: 60 },
+  { id: "endokrinologie", name: "Endokrinologie/Diabetologie", dauer: 72 },
+  { id: "gastroenterologie", name: "Gastroenterologie", dauer: 72 },
+  { id: "gefaesschirurgie", name: "Gefässchirurgie", dauer: 72 },
+  { id: "genetik", name: "Medizinische Genetik", dauer: 60 },
+  { id: "gynaekologie", name: "Gynäkologie und Geburtshilfe", dauer: 60 },
+  { id: "haematologie", name: "Hämatologie", dauer: 72 },
+  { id: "handchirurgie", name: "Handchirurgie", dauer: 72 },
+  { id: "herzchirurgie", name: "Herz- und thorakale Gefässchirurgie", dauer: 72 },
+  { id: "infektiologie", name: "Infektiologie", dauer: 72 },
+  { id: "intensivmedizin", name: "Intensivmedizin", dauer: 72 },
+  { id: "kardiologie", name: "Kardiologie", dauer: 72 },
+  { id: "kjm", name: "Kinder- und Jugendmedizin", dauer: 60 },
+  { id: "kjpp", name: "Kinder- und Jugendpsychiatrie und -psychotherapie", dauer: 72 },
+  { id: "kinderchirurgie", name: "Kinderchirurgie", dauer: 72 },
+  { id: "pharmakologie", name: "Klinische Pharmakologie und Toxikologie", dauer: 60 },
+  { id: "onkologie", name: "Medizinische Onkologie", dauer: 72 },
+  { id: "mkg", name: "Mund-, Kiefer- und Gesichtschirurgie", dauer: 72 },
+  { id: "nephrologie", name: "Nephrologie", dauer: 72 },
+  { id: "neurochirurgie", name: "Neurochirurgie", dauer: 72 },
+  { id: "neurologie", name: "Neurologie", dauer: 72 },
+  { id: "nuklearmedizin", name: "Nuklearmedizin", dauer: 60 },
+  { id: "ophthalmologie", name: "Ophthalmologie", dauer: 60 },
+  { id: "orthopaedie", name: "Orthopädische Chirurgie und Traumatologie des Bewegungsapparates", dauer: 72 },
+  { id: "orl", name: "Oto-Rhino-Laryngologie", dauer: 72 },
+  { id: "pathologie", name: "Pathologie", dauer: 60 },
+  { id: "pharmmed", name: "Pharmazeutische Medizin", dauer: 60 },
+  { id: "pmr", name: "Physikalische Medizin und Rehabilitation", dauer: 60 },
+  { id: "plastische", name: "Plastische, Rekonstruktive und Ästhetische Chirurgie", dauer: 72 },
+  { id: "pneumologie", name: "Pneumologie", dauer: 72 },
+  { id: "praevention", name: "Prävention und Gesundheitswesen", dauer: 60 },
+  { id: "psychiatrie", name: "Psychiatrie und Psychotherapie", dauer: 72 },
+  { id: "radiologie", name: "Radiologie", dauer: 60 },
+  { id: "radioonkologie", name: "Radio-Onkologie/Strahlentherapie", dauer: 60 },
+  { id: "rechtsmedizin", name: "Rechtsmedizin", dauer: 60 },
+  { id: "rheumatologie", name: "Rheumatologie", dauer: 72 },
+  { id: "thoraxchirurgie", name: "Thoraxchirurgie", dauer: 72 },
+  { id: "tropenmedizin", name: "Tropen- und Reisemedizin", dauer: 60 },
+  { id: "urologie", name: "Urologie", dauer: 72 },
+  { id: "praktischerarzt", name: "Praktischer Arzt / Praktische Ärztin", dauer: 36 }
+];
+
+/* ============================================================
+   2 — Kuratierte Programme
+   Schema eines Programms:
+     { dauer, lede, quelle, anforderungen: [...], katalog?: [...] }
+   Anforderungstypen:
+     stelle     { monate, max?, fach: "*" | "!" | [Fachgebiete], kat?: [Kategorien] }
+     zertifikat { intervall (Monate Gültigkeit, 0 = unbefristet), optional? }
+     aba        { proJahr }
+     credits    { proJahr }
+     stunden    { stunden }
+     eingriffe  { }  — nutzt programm.katalog
+     pruefung   { teile: [Bezeichnungen] }
+   ============================================================ */
+const AIM_STAT = ["Allgemeine Innere Medizin (stationär)"];
+const AIM_AMB = ["Allgemeine Innere Medizin (ambulant)", "Hausarztpraxis / Praxisassistenz"];
+const AIM_VERWANDT = ["Notfallstation", "Intensivmedizin", "Kardiologie", "Pneumologie", "Gastroenterologie",
+  "Nephrologie", "Medizinische Onkologie", "Hämatologie", "Endokrinologie/Diabetologie", "Rheumatologie",
+  "Infektiologie", "Angiologie", "Allergologie & klinische Immunologie", "Geriatrie", "Palliativmedizin"];
+
+const KURATIERT = {
+  aim: {
+    dauer: 60,
+    quelle: "SIWF-Weiterbildungsprogramm «Facharzt für Allgemeine Innere Medizin»",
+    lede: "Fünf Jahre Weiterbildung, getragen von mindestens drei Jahren stationärer Innerer Medizin an anerkannten Stätten. Ambulante Medizin, Praxisassistenz und ein Fremdjahr sind in klar begrenztem Umfang anrechenbar.",
+    anforderungen: [
+      { id: "gesamt", typ: "stelle", label: "Gesamte Weiterbildung", monate: 60, fach: "*",
+        note: "Fünf Jahre an anerkannten Weiterbildungsstätten, Pensum ab 50 % anteilig." },
+      { id: "kern", typ: "stelle", label: "Stationäre Allgemeine Innere Medizin", monate: 36, fach: AIM_STAT,
+        note: "Kernweiterbildung an anerkannten Stätten der AIM." },
+      { id: "katAB", typ: "stelle", label: "Davon an Stätte der Kategorie A oder B", monate: 12,
+        fach: AIM_STAT, kat: ["A", "B"],
+        note: "Mindestens ein Jahr an einer grösseren Weiterbildungsstätte." },
+      { id: "ambulant", typ: "stelle", label: "Ambulante AIM oder Praxisassistenz", monate: 0, max: 12, fach: AIM_AMB,
+        optional: true, note: "Fakultativ, höchstens 12 Monate anrechenbar." },
+      { id: "spezial", typ: "stelle", label: "Schwerpunkte und verwandte Gebiete", monate: 0, max: 24, fach: AIM_VERWANDT,
+        optional: true, note: "Notfall, Intensivmedizin, internistische Schwerpunkte — höchstens 24 Monate." },
+      { id: "fremd", typ: "stelle", label: "Fremdgebiet", monate: 0, max: 12, fach: "!",
+        optional: true, note: "Alles ausserhalb der Inneren Medizin, höchstens 12 Monate." },
+      { id: "z-reani", typ: "zertifikat", label: "Reanimationskurs (ACLS oder gleichwertig)", intervall: 24 },
+      { id: "z-sono", typ: "zertifikat", label: "Sonografie-Grundkurs SGUM", intervall: 0, optional: true,
+        note: "Für viele Stellen faktisch vorausgesetzt." },
+      { id: "z-strahl", typ: "zertifikat", label: "Strahlenschutz-Sachkunde", intervall: 60, optional: true,
+        note: "Je nach Tätigkeit und Stätte gefordert." },
+      { id: "aba", typ: "aba", label: "Arbeitsplatzbasierte Assessments", proJahr: 4,
+        note: "Mini-CEX und DOPS, im e-Logbuch zu dokumentieren." },
+      { id: "credits", typ: "credits", label: "Fachspezifische Fortbildungscredits", proJahr: 25,
+        note: "Richtwert pro Weiterbildungsjahr." },
+      { id: "pruefung", typ: "pruefung", label: "Facharztprüfung", teile: ["Facharztprüfung Allgemeine Innere Medizin"] }
+    ]
+  }
+};
+
+/* ============================================================
+   3 — State
+   ============================================================ */
+const KEY = "fmh-weiterbildungsdossier-v2";
+const blank = () => ({
+  program: "aim", tab: "uebersicht", custom: {},
+  stellen: [], zertifikate: [], fortbildungen: [], assessments: [], eingriffe: [], pruefungen: []
+});
+let S = blank();
+let storageOK = true;
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) S = Object.assign(blank(), JSON.parse(raw));
+  } catch (e) { storageOK = false; }
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { storageOK = false; }
+  paintSaveState();
+}
+function paintSaveState() {
+  const el = document.getElementById("saveState");
+  el.textContent = storageOK
+    ? "Zuletzt gespeichert " + new Date().toLocaleTimeString("de-CH", { hour: "2-digit", minute: "2-digit" })
+    : "Speicher nicht verfügbar — bitte sichern.";
+  el.style.color = storageOK ? "" : "var(--crit)";
+}
+
+const titel = id => TITEL.find(t => t.id === (id || S.program)) || TITEL[1];
+
+/* Merged programme: Nutzerdefinition schlägt Kuratiertes. */
+function prog() {
+  const t = titel();
+  const c = S.custom[t.id];
+  const k = KURATIERT[t.id];
+  const src = c || k;
+  return {
+    id: t.id, name: t.name,
+    dauer: (src && src.dauer) || t.dauer,
+    lede: (src && src.lede) || "",
+    quelle: (src && src.quelle) || (k && k.quelle) || "",
+    anforderungen: (src && src.anforderungen) || [],
+    katalog: (src && src.katalog) || [],
+    herkunft: c ? "eigen" : k ? "kuratiert" : "leer"
+  };
+}
+function ensureCustom() {
+  const t = titel();
+  if (!S.custom[t.id]) {
+    const k = KURATIERT[t.id];
+    S.custom[t.id] = k ? JSON.parse(JSON.stringify(k)) : { dauer: t.dauer, lede: "", quelle: "", anforderungen: [], katalog: [] };
+  }
+  return S.custom[t.id];
+}
+const uid = () => Math.random().toString(36).slice(2, 10);
+
+/* ============================================================
+   4 — Helfer
+   ============================================================ */
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function d(s) { const t = Date.parse(s); return isNaN(t) ? null : new Date(t); }
+function fmtDate(s) { const x = d(s); return x ? x.toLocaleDateString("de-CH", { day: "2-digit", month: "2-digit", year: "numeric" }) : "–"; }
+function months(a, b) {
+  const A = d(a), B = b ? d(b) : new Date();
+  if (!A || !B || B <= A) return 0;
+  return (B - A) / (1000 * 60 * 60 * 24 * 30.4375);
+}
+function fmtM(n) { return (Math.round(n * 10) / 10).toLocaleString("de-CH"); }
+function addMonths(s, n) { const x = d(s); if (!x) return null; const y = new Date(x); y.setMonth(y.getMonth() + n); return y; }
+function todayISO() { return new Date().toISOString().slice(0, 10); }
+
+function capOf(st) {
+  const kat = KATEGORIEN.find(k => k.id === st.kategorie);
+  const own = st.anerkennung;
+  if (own !== "" && own != null && !isNaN(Number(own))) return Number(own);
+  return kat ? kat.monate : 36;
+}
+function rohMonate(st) { return months(st.von, st.bis) * ((Number(st.pensum) || 0) / 100); }
+function anrechenbar(st) {
+  if ((Number(st.pensum) || 0) < 50) return 0;
+  const cap = capOf(st);
+  return cap > 0 ? Math.min(rohMonate(st), cap) : 0;
+}
+const laufend = st => !st.bis;
+
+/* ============================================================
+   5 — Auswertung
+   ============================================================ */
+function evalStelle(req) {
+  const p = prog();
+  let kern = null;
+  if (req.fach === "!") {
+    kern = new Set();
+    p.anforderungen.forEach(a => { if (a.typ === "stelle" && Array.isArray(a.fach)) a.fach.forEach(f => kern.add(f)); });
+  }
+  let sum = 0;
+  S.stellen.forEach(st => {
+    const m = anrechenbar(st);
+    if (m <= 0) return;
+    if (Array.isArray(req.kat) && req.kat.length && !req.kat.includes(st.kategorie)) return;
+    if (req.fach === "*") sum += m;
+    else if (req.fach === "!") { if (!kern.has(st.fach)) sum += m; }
+    else if (Array.isArray(req.fach) && req.fach.includes(st.fach)) sum += m;
+  });
+  return req.max != null ? Math.min(sum, req.max) : sum;
+}
+
+function zertStatus(z) {
+  if (!z.gueltigBis) return "ok";
+  const bis = d(z.gueltigBis);
+  if (!bis) return "ok";
+  const now = new Date();
+  if (bis < now) return "crit";
+  if ((bis - now) / 86400000 < 120) return "warn";
+  return "ok";
+}
+function eingriffSumme(katId, rolle) {
+  return S.eingriffe.filter(e => e.katalog === katId && (!rolle || e.rolle === rolle))
+    .reduce((a, e) => a + (Number(e.anzahl) || 0), 0);
+}
+const wbJahre = () => Math.max(1, evalStelle({ fach: "*" }) / 12);
+
+function evaluate() {
+  const p = prog();
+  return p.anforderungen.map(req => {
+    let have = 0, need = 0, unit = "", detail = "", istKappe = false;
+    const note = req.note || "";
+
+    if (req.typ === "stelle") {
+      have = evalStelle(req); unit = "Mt.";
+      need = req.monate || (req.max != null ? req.max : 0);
+      istKappe = !req.monate && req.max != null;
+    } else if (req.typ === "zertifikat") {
+      const z = S.zertifikate.find(x => x.anforderung === req.id);
+      need = 1; have = z && zertStatus(z) !== "crit" ? 1 : 0;
+      if (z) {
+        const st = zertStatus(z);
+        detail = st === "crit" ? "Abgelaufen am " + fmtDate(z.gueltigBis)
+          : st === "warn" ? "Läuft ab am " + fmtDate(z.gueltigBis)
+          : z.gueltigBis ? "Gültig bis " + fmtDate(z.gueltigBis) : "Erfasst am " + fmtDate(z.datum);
+      }
+    } else if (req.typ === "aba") {
+      need = Math.round(req.proJahr * wbJahre()); have = S.assessments.length; unit = "AbA";
+    } else if (req.typ === "credits") {
+      need = Math.round(req.proJahr * wbJahre());
+      have = S.fortbildungen.reduce((a, f) => a + (Number(f.credits) || 0), 0); unit = "Credits";
+    } else if (req.typ === "stunden") {
+      need = req.stunden; unit = "Std.";
+      have = S.fortbildungen.filter(f => f.anforderung === req.id).reduce((a, f) => a + (Number(f.stunden) || 0), 0);
+    } else if (req.typ === "eingriffe") {
+      need = p.katalog.length;
+      have = p.katalog.filter(k => eingriffSumme(k.id, "Operateur") >= k.ziel).length;
+      unit = "Positionen";
+    } else if (req.typ === "pruefung") {
+      const teile = req.teile || [];
+      need = teile.length;
+      have = teile.filter(t => S.pruefungen.some(x => x.teil === t && x.bestanden)).length;
+      unit = need > 1 ? "Teile" : "";
+    }
+
+    const pct = need > 0 ? Math.min(1, have / need) : 1;
+    /* Eine reine Obergrenze fordert nichts ein; sie zeigt nur, wieviel Spielraum bleibt.
+       Fakultative Positionen zählen ebenso nie als Lücke. */
+    const erledigt = istKappe || req.optional || pct >= 1;
+    return { req, have, need, unit, pct, istKappe,
+      status: erledigt ? "ok" : pct > 0 ? "warn" : "offen", note, detail };
+  });
+}
+
+/* Farben je Fachgebiet */
+const BARCOLORS = [
+  ["var(--accent-soft)", "var(--accent-line)", "var(--accent)"],
+  ["var(--ok-soft)", "var(--ok-line)", "var(--ok)"],
+  ["var(--warn-soft)", "var(--warn-line)", "var(--warn)"],
+  ["var(--surface-3)", "var(--rule-2)", "var(--ink-2)"],
+  ["var(--crit-soft)", "var(--crit-line)", "var(--crit)"]
+];
+function fachColor(f) {
+  let h = 0; const s = String(f || "");
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return BARCOLORS[h % BARCOLORS.length];
+}
+
+/* ============================================================
+   6 — Kopfbereich
+   ============================================================ */
+function renderSelect() {
+  const bereit = TITEL.filter(t => KURATIERT[t.id] || (S.custom[t.id] && S.custom[t.id].anforderungen.length));
+  const offen = TITEL.filter(t => !bereit.includes(t)).sort((a, b) => a.name.localeCompare(b.name, "de"));
+  const opt = t => '<option value="' + t.id + '"' + (t.id === S.program ? " selected" : "") + '>' + esc(t.name) + '</option>';
+  document.getElementById("progsel").innerHTML =
+    '<optgroup label="Anforderungen hinterlegt">' + bereit.sort((a, b) => a.name.localeCompare(b.name, "de")).map(opt).join("") + '</optgroup>' +
+    '<optgroup label="Noch einzurichten (' + offen.length + ')">' + offen.map(opt).join("") + '</optgroup>';
+}
+
+function renderHead() {
+  const p = prog();
+  const total = evalStelle({ fach: "*" });
+  const badge = p.herkunft === "kuratiert" ? '<span class="chip acc">hinterlegt</span>'
+    : p.herkunft === "eigen" ? '<span class="chip ok">selbst definiert</span>'
+    : '<span class="chip warn">noch einzurichten</span>';
+  document.getElementById("heroEyebrow").innerHTML =
+    '<span>Facharzttitel FMH · ' + (p.dauer / 12) + ' Jahre</span>' + badge +
+    (p.quelle ? '<span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-3)">' + esc(p.quelle) + '</span>' : '');
+  document.getElementById("heroTitle").textContent = p.name;
+  document.getElementById("heroLede").textContent = p.lede ||
+    "Für diesen Titel sind noch keine Anforderungen hinterlegt. Ihre Stellen, Kurse und Fortbildungen werden trotzdem erfasst — unter «Programm» definieren Sie die Anforderungen, dann rechnet das Dossier sie aus.";
+  document.getElementById("statMonths").textContent = fmtM(total);
+  document.getElementById("statNeed").textContent = p.dauer;
+
+  const sorted = S.stellen.filter(s => anrechenbar(s) > 0).sort((a, b) => (d(a.von) || 0) - (d(b.von) || 0));
+  document.getElementById("railTrack").innerHTML = sorted.map(st => {
+    const w = Math.min(100, (anrechenbar(st) / p.dauer) * 100);
+    return '<div class="rail-seg" style="width:' + w + '%;background:' + fachColor(st.fach)[2] + '" title="' +
+      esc(st.klinik + " · " + fmtM(anrechenbar(st)) + " Mt.") + '"></div>';
+  }).join("");
+
+  const years = Math.round(p.dauer / 12);
+  let mk = "";
+  for (let y = 1; y <= years; y++) mk += '<div class="rail-mark mono" style="left:' + (y / years * 100) + '%">' + y + ' J.</div>';
+  document.getElementById("railMarks").innerHTML = mk;
+}
+
+function renderTabs() {
+  const p = prog();
+  const defs = [
+    { id: "uebersicht", label: "Übersicht" },
+    { id: "stellen", label: "Weiterbildungsstellen", n: S.stellen.length },
+    { id: "zertifikate", label: "Kurse & Zertifikate", n: S.zertifikate.length },
+    { id: "fortbildung", label: "Fortbildung", n: S.fortbildungen.length },
+    { id: "assessments", label: "Assessments", n: S.assessments.length }
+  ];
+  if (p.katalog.length) defs.push({ id: "eingriffe", label: "Eingriffskatalog", n: S.eingriffe.length });
+  if (p.anforderungen.some(a => a.typ === "pruefung")) defs.push({ id: "pruefungen", label: "Prüfungen", n: S.pruefungen.filter(x => x.bestanden).length });
+  defs.push({ id: "programm", label: "Programm", n: p.anforderungen.length });
+
+  if (!defs.some(x => x.id === S.tab)) S.tab = "uebersicht";
+  document.getElementById("tabs").innerHTML = defs.map(t =>
+    '<button class="tab" role="tab" data-tab="' + t.id + '" aria-selected="' + (S.tab === t.id) + '">' +
+    esc(t.label) + (t.n != null ? '<span class="count">' + t.n + '</span>' : '') + '</button>').join("");
+}
+
+function renderReqs() {
+  const ev = evaluate();
+  const box = document.getElementById("reqList");
+  if (!ev.length) {
+    document.getElementById("reqSummary").textContent = "keine";
+    box.innerHTML = '<div class="empty" style="padding:26px 18px"><p style="margin-bottom:14px">Für ' +
+      esc(prog().name) + ' sind noch keine Anforderungen definiert.</p>' +
+      '<button class="btn primary" data-act="goto:programm">Anforderungen einrichten</button></div>';
+    return;
+  }
+  const pflicht = ev.filter(e => !e.req.optional && !e.istKappe);
+  document.getElementById("reqSummary").textContent =
+    pflicht.filter(e => e.status === "ok").length + " / " + pflicht.length + " erfüllt";
+  box.innerHTML = ev.map(e => {
+    const neutral = e.istKappe || (e.req.optional && e.pct < 1);
+    const fill = neutral ? "acc" : e.status === "ok" ? "ok" : e.pct > 0 ? "warn" : "acc";
+    const binaer = e.req.typ === "zertifikat" || (e.req.typ === "pruefung" && e.need === 1);
+    const val = e.istKappe ? fmtM(e.have) + " von max. " + e.need + " Mt."
+      : binaer ? (e.have >= e.need ? "erfüllt" : e.req.optional ? "nicht erfasst" : "offen")
+      : (e.req.typ === "stelle" ? fmtM(e.have) : e.have) + " / " + e.need + (e.unit ? " " + e.unit : "");
+    return '<div class="req' + (e.status === "ok" && !neutral ? " done" : "") + '">' +
+      '<div class="req-top"><div class="req-lbl">' + esc(e.req.label) +
+      (e.req.optional ? ' <span class="chip" style="font-size:10px;padding:0 5px">fakultativ</span>' : '') + '</div>' +
+      '<div class="req-val">' + esc(val) + '</div></div>' +
+      '<div class="req-bar"><div class="req-fill ' + fill + '" style="width:' + (e.pct * 100) + '%"></div></div>' +
+      (e.detail ? '<div class="req-note">' + esc(e.detail) + '</div>'
+        : e.note ? '<div class="req-note">' + esc(e.note) + '</div>' : '') + '</div>';
+  }).join("");
+}
+
+/* ============================================================
+   7 — Ansichten
+   ============================================================ */
+function emptyState(title, text, btn, action) {
+  return '<div class="empty"><h4>' + esc(title) + '</h4><p>' + esc(text) + '</p>' +
+    '<button class="btn primary" data-act="' + action + '">' + esc(btn) + '</button></div>';
+}
+function section(title, desc, btnLabel, act, body) {
+  return '<div class="sec-head"><h3>' + esc(title) + '</h3><p>' + esc(desc) + '</p></div>' +
+    '<div class="card"><div class="card-hd"><h3>Einträge</h3><span class="spacer"></span>' +
+    '<button class="btn primary" data-act="' + act + '">' + esc(btnLabel) + '</button></div>' +
+    '<div class="card-bd flush">' + body + '</div></div>';
+}
+function rowActs(kind, id) {
+  return '<div class="rowacts"><button class="btn ghost tiny" data-act="edit:' + kind + '" data-id="' + id + '">Bearbeiten</button>' +
+    '<button class="btn ghost tiny danger" data-act="del:' + kind + '" data-id="' + id + '">Löschen</button></div>';
+}
+function kpi(v, s, k) {
+  return '<div class="kpi"><div class="v">' + esc(v) + '<small>' + esc(s) + '</small></div><div class="k">' + esc(k) + '</div></div>';
+}
+
+function renderMain() {
+  document.getElementById("main").innerHTML = ({
+    uebersicht: viewUebersicht, stellen: viewStellen, zertifikate: viewZertifikate,
+    fortbildung: viewFortbildung, assessments: viewAssessments, eingriffe: viewEingriffe,
+    pruefungen: viewPruefungen, programm: viewProgramm
+  }[S.tab] || viewUebersicht)();
+}
+
+/* --- Übersicht --- */
+function viewUebersicht() {
+  const p = prog();
+  const total = evalStelle({ fach: "*" });
+  const ev = evaluate();
+  const pflicht = ev.filter(e => !e.req.optional && !e.istKappe);
+  const offen = pflicht.filter(e => e.status !== "ok");
+  const rest = Math.max(0, p.dauer - total);
+
+  let prognose = "–";
+  const laufende = S.stellen.filter(laufend);
+  if (rest === 0 && total > 0) prognose = "erreicht";
+  else if (laufende.length) {
+    const pens = laufende.reduce((a, s) => a + (Number(s.pensum) || 0), 0) / 100;
+    if (pens >= 0.5) {
+      const dt = new Date(); dt.setMonth(dt.getMonth() + Math.ceil(rest / pens));
+      prognose = dt.toLocaleDateString("de-CH", { month: "short", year: "numeric" });
+    }
+  }
+
+  const alerts = [];
+  S.zertifikate.forEach(z => {
+    const st = zertStatus(z);
+    if (st === "crit") alerts.push({ t: "crit", b: "Abgelaufen", m: z.titel + " — Gültigkeit endete am " + fmtDate(z.gueltigBis) + "." });
+    else if (st === "warn") alerts.push({ t: "warn", b: "Läuft bald ab", m: z.titel + " — gültig bis " + fmtDate(z.gueltigBis) + "." });
+  });
+  S.stellen.forEach(st => {
+    if ((Number(st.pensum) || 0) < 50)
+      alerts.push({ t: "crit", b: "Nicht anrechenbar", m: st.klinik + " läuft mit " + st.pensum + " % — unter 50 % rechnet das SIWF nicht an." });
+    if (!st.zeugnis && !laufend(st))
+      alerts.push({ t: "warn", b: "SIWF-Zeugnis fehlt", m: st.klinik + " ist beendet (" + fmtDate(st.bis) + "), aber ohne Zeugnis erfasst." });
+    const cap = capOf(st), roh = rohMonate(st);
+    if (cap > 0 && roh > cap + 0.5) {
+      const kat = KATEGORIEN.find(k => k.id === st.kategorie);
+      alerts.push({ t: "warn", b: "Anrechnungsgrenze erreicht", m: st.klinik + ": " + fmtM(roh) + " Mt. geleistet, anrechenbar sind " + cap + " Mt. (" + (kat ? kat.label : "Kategorie") + ")." });
+    }
+  });
+  const jahr = new Date().getFullYear();
+  const abaReq = p.anforderungen.find(a => a.typ === "aba");
+  if (abaReq && S.stellen.length) {
+    const n = S.assessments.filter(a => (d(a.datum) || new Date()).getFullYear() === jahr).length;
+    if (n < abaReq.proJahr)
+      alerts.push({ t: "warn", b: "Assessments " + jahr, m: n + " von " + abaReq.proJahr + " erfasst — noch " + (abaReq.proJahr - n) + " bis Jahresende." });
+  }
+  if (!alerts.length && S.stellen.length) alerts.push({ t: "ok", b: "Alles im Lot", m: "Keine abgelaufenen Zertifikate, keine fehlenden Zeugnisse, Assessments auf Kurs." });
+
+  return '<div class="stack">' +
+    '<div class="card"><div class="kpi-row">' +
+      kpi(fmtM(total), " Mt.", "Angerechnet") + kpi(fmtM(rest), " Mt.", "Noch offen") +
+      kpi(prognose, "", "Frühester Abschluss") +
+      kpi(pflicht.length ? pflicht.filter(e => e.status === "ok").length + " / " + pflicht.length : "–", "", "Anforderungen") +
+    '</div></div>' +
+
+    (p.herkunft === "leer" ? '<div class="card"><div class="card-bd"><div class="alert acc">' +
+      '<span class="dot" style="margin-top:6px"></span><div><b>' + esc(p.name) + ' ist noch nicht hinterlegt.</b> ' +
+      'Erfassen Sie Ihre Stellen und Kurse trotzdem — sie bleiben titelunabhängig gespeichert. Unter ' +
+      '<b>Programm</b> tragen Sie die Anforderungen aus dem SIWF-Weiterbildungsprogramm ein, danach wertet das Dossier sie aus.' +
+      '</div></div></div></div>' : '') +
+
+    (S.stellen.length ? '<div class="card"><div class="card-hd"><h3>Weiterbildungs-Zeitstrahl</h3>' +
+      '<span class="hint">Balkenbreite = Kalenderdauer, Beschriftung = anrechenbare Monate</span></div>' +
+      '<div class="card-bd flush">' + timeline() + '</div></div>' : '') +
+
+    '<div class="card"><div class="card-hd"><h3>Was jetzt ansteht</h3></div><div class="card-bd">' +
+      (alerts.length ? '<div class="alerts">' + alerts.slice(0, 9).map(a =>
+        '<div class="alert ' + a.t + '"><span class="dot" style="margin-top:6px"></span><div><b>' + esc(a.b) + '</b> — ' + esc(a.m) + '</div></div>').join("") + '</div>'
+        : '<p style="margin:0;color:var(--ink-3);font-size:13px">Noch keine Einträge. Beginnen Sie mit Ihrer ersten Weiterbildungsstelle.</p>') +
+    '</div></div>' +
+
+    (offen.length ? '<div class="card"><div class="card-hd"><h3>Offene Anforderungen im Detail</h3></div>' +
+      '<div class="tbl-scroll"><table><thead><tr><th>Anforderung</th><th>Art</th><th class="r">Stand</th><th class="r">Ziel</th><th class="r">Lücke</th></tr></thead><tbody>' +
+      offen.map(e => {
+        const art = { stelle: "Klinische Zeit", zertifikat: "Zertifikat", aba: "Assessments", credits: "Fortbildung", stunden: "Stunden", eingriffe: "Katalog", pruefung: "Prüfung" }[e.req.typ] || e.req.typ;
+        const gap = Math.max(0, e.need - e.have);
+        return '<tr><td class="t-main">' + esc(e.req.label) + (e.note ? '<div class="t-sub">' + esc(e.note) + '</div>' : '') + '</td>' +
+          '<td><span class="chip">' + esc(art) + '</span></td>' +
+          '<td class="r mono">' + (e.req.typ === "stelle" ? fmtM(e.have) : e.have) + '</td>' +
+          '<td class="r mono">' + e.need + '</td>' +
+          '<td class="r mono" style="color:var(--warn);font-weight:600">' + (e.req.typ === "stelle" ? fmtM(gap) : gap) + (e.unit ? " " + e.unit : "") + '</td></tr>';
+      }).join("") + '</tbody></table></div></div>'
+      : (S.stellen.length && ev.length ? '<div class="card"><div class="card-bd"><div class="alert ok">' +
+        '<span class="dot" style="margin-top:6px"></span><div><b>Alle hinterlegten Anforderungen erfüllt.</b> ' +
+        'Prüfen Sie die Vollständigkeit gegen das offizielle Weiterbildungsprogramm und reichen Sie über das e-Logbuch ein.</div></div></div></div>' : '')) +
+
+    (!S.stellen.length ? '<div class="card">' + emptyState("Dossier ist leer",
+      "Erfassen Sie Ihre erste Weiterbildungsstelle — oder laden Sie ein Beispieldossier für Allgemeine Innere Medizin, um die Auswertung zu sehen.",
+      "Beispieldossier laden", "seed") + '</div>' : '') +
+  '</div>';
+}
+
+function timeline() {
+  const list = S.stellen.slice().sort((a, b) => (d(a.von) || 0) - (d(b.von) || 0));
+  if (!list.length) return '<div class="empty"><p>Keine Stellen erfasst.</p></div>';
+  let min = Infinity, max = -Infinity;
+  list.forEach(s => {
+    const a = d(s.von), b = s.bis ? d(s.bis) : new Date();
+    if (a) min = Math.min(min, a.getTime());
+    if (b) max = Math.max(max, b.getTime());
+  });
+  if (!isFinite(min)) return '<div class="empty"><p>Keine gültigen Datumsangaben.</p></div>';
+  max = Math.max(max, Date.now());
+  const y0 = new Date(min).getFullYear(), y1 = new Date(max).getFullYear() + 1;
+  const t0 = new Date(y0, 0, 1).getTime(), t1 = new Date(y1, 0, 1).getTime();
+  const span = t1 - t0 || 1;
+  const pos = t => ((t - t0) / span) * 100;
+
+  let axis = "", grid = "";
+  for (let y = y0; y <= y1; y++) {
+    const l = pos(new Date(y, 0, 1).getTime());
+    if (l > 99.5) continue;
+    axis += '<div class="tl-year" style="left:' + l + '%">' + y + '</div>';
+    grid += '<div class="tl-gl" style="left:' + l + '%"></div>';
+  }
+  const rows = list.map(s => {
+    const a = d(s.von); if (!a) return "";
+    const b = s.bis ? d(s.bis) : new Date();
+    const l = pos(a.getTime()), w = Math.max(0.8, pos(b.getTime()) - l);
+    const c = fachColor(s.fach), m = anrechenbar(s);
+    return '<div class="tl-row"><div class="tl-bar" style="left:' + l + '%;width:' + w + '%;background:' + c[0] +
+      ';border-color:' + c[1] + ';color:' + c[2] + (m <= 0 ? ';opacity:.5' : '') + '" title="' +
+      esc(s.klinik + " · " + s.fach + " · " + s.pensum + " % · " + fmtM(m) + " anrechenbare Mt.") + '">' +
+      '<span>' + esc(s.klinik) + ' · ' + fmtM(m) + ' Mt.</span></div></div>';
+  }).join("");
+  const legend = [...new Set(list.map(s => s.fach))].map(f => {
+    const c = fachColor(f);
+    return '<span><i style="background:' + c[0] + ';border:1px solid ' + c[1] + '"></i>' + esc(f) + '</span>';
+  }).join("");
+
+  return '<div class="tl"><div class="tl-axis">' + axis + '</div>' +
+    '<div class="tl-rows">' + '<div class="tl-grid">' + grid + '</div>' + rows +
+    '<div class="tl-now" style="left:' + pos(Date.now()) + '%"></div></div>' +
+    '<div class="tl-legend">' + legend + '</div></div>';
+}
+
+/* --- Stellen --- */
+function viewStellen() {
+  const list = S.stellen.slice().sort((a, b) => (d(b.von) || 0) - (d(a.von) || 0));
+  return section("Weiterbildungsstellen",
+    "Jede Anstellung an einer Weiterbildungsstätte. Die anrechenbaren Monate ergeben sich aus Dauer × Pensum, begrenzt durch die Anerkennungsdauer der Stätte in ihrer Kategorie.",
+    "Stelle erfassen", "add:stelle",
+    list.length ? '<div class="tbl-scroll"><table><thead><tr>' +
+      '<th>Weiterbildungsstätte</th><th>Fachgebiet</th><th>Kat.</th><th>Zeitraum</th><th class="r">Pensum</th>' +
+      '<th class="r">Angerechnet</th><th>Zeugnis</th><th></th></tr></thead><tbody>' +
+      list.map(s => {
+        const m = anrechenbar(s), roh = rohMonate(s);
+        const kat = KATEGORIEN.find(k => k.id === s.kategorie);
+        return '<tr><td><div class="t-main">' + esc(s.klinik) + '</div>' +
+          (s.ort || s.leiter ? '<div class="t-sub">' + esc([s.ort, s.leiter].filter(Boolean).join(" · ")) + '</div>' : '') + '</td>' +
+          '<td style="font-size:12.5px">' + esc(s.fach) + '</td>' +
+          '<td><span class="kat" title="' + esc(kat ? kat.label + " — max. " + kat.monate + " Mt." : "") + '">' + esc(s.kategorie) + '</span></td>' +
+          '<td class="mono" style="font-size:12px;white-space:nowrap">' + fmtDate(s.von) + '<br>' +
+            (s.bis ? fmtDate(s.bis) : '<span style="color:var(--accent)">laufend</span>') + '</td>' +
+          '<td class="r mono">' + (Number(s.pensum) || 0) + ' %</td>' +
+          '<td class="r mono" style="font-weight:600">' + fmtM(m) + ' Mt.' +
+            (m < roh - 0.5 ? '<div class="t-sub" style="color:var(--warn)">von ' + fmtM(roh) + '</div>' : '') + '</td>' +
+          '<td>' + (s.zeugnis ? '<span class="chip ok"><span class="dot"></span>vorhanden</span>'
+            : laufend(s) ? '<span class="chip">ausstehend</span>'
+            : '<span class="chip warn"><span class="dot"></span>fehlt</span>') + '</td>' +
+          '<td>' + rowActs("stelle", s.id) + '</td></tr>';
+      }).join("") + '</tbody></table></div>'
+      : emptyState("Keine Stellen erfasst", "Erfassen Sie Ihre Anstellungen, um die anrechenbare Weiterbildungszeit zu berechnen.", "Erste Stelle erfassen", "add:stelle"));
+}
+
+/* --- Zertifikate --- */
+function viewZertifikate() {
+  const p = prog();
+  const reqs = p.anforderungen.filter(a => a.typ === "zertifikat");
+  const list = S.zertifikate.slice().sort((a, b) => (d(b.datum) || 0) - (d(a.datum) || 0));
+  const fehlend = reqs.filter(r => !r.optional && !S.zertifikate.some(z => z.anforderung === r.id));
+
+  return section("Kurse & Zertifikate",
+    "Obligatorische Kurse, Sachkunde-Nachweise und Diplome. Zertifikate mit begrenzter Gültigkeit werden überwacht — 120 Tage vor Ablauf erscheint eine Warnung.",
+    "Zertifikat erfassen", "add:zertifikat",
+    (fehlend.length ? '<div style="padding:16px 18px;border-bottom:1px solid var(--rule)"><div class="alerts">' +
+      fehlend.map(r => '<div class="alert warn"><span class="dot" style="margin-top:6px"></span><div><b>Noch nicht erfasst</b> — ' +
+        esc(r.label) + ' ist für ' + esc(p.name) + ' vorausgesetzt.</div></div>').join("") + '</div></div>' : '') +
+    (list.length ? '<div class="tbl-scroll"><table><thead><tr>' +
+      '<th>Zertifikat</th><th>Anbieter</th><th>Erworben</th><th>Gültig bis</th><th>Zählt an</th><th class="r">Credits</th><th></th></tr></thead><tbody>' +
+      list.map(z => {
+        const st = zertStatus(z), req = reqs.find(r => r.id === z.anforderung);
+        return '<tr><td><div class="t-main">' + esc(z.titel) + '</div>' + (z.notiz ? '<div class="t-sub">' + esc(z.notiz) + '</div>' : '') + '</td>' +
+          '<td style="font-size:12.5px;color:var(--ink-2)">' + esc(z.anbieter || "–") + '</td>' +
+          '<td class="mono" style="font-size:12px">' + fmtDate(z.datum) + '</td>' +
+          '<td>' + (z.gueltigBis ? '<span class="chip ' + st + '"><span class="dot"></span>' + fmtDate(z.gueltigBis) + '</span>'
+            : '<span class="chip">unbefristet</span>') + '</td>' +
+          '<td style="font-size:12px;color:var(--ink-2)">' + esc(req ? req.label : "–") + '</td>' +
+          '<td class="r mono">' + (z.credits ? z.credits : "–") + '</td>' +
+          '<td>' + rowActs("zertifikat", z.id) + '</td></tr>';
+      }).join("") + '</tbody></table></div>'
+      : emptyState("Keine Zertifikate erfasst", "Reanimationskurse, Strahlenschutz-Sachkunde, Sonografie-Kurse und weitere Nachweise gehören hierher.", "Erstes Zertifikat erfassen", "add:zertifikat")));
+}
+
+/* --- Fortbildung --- */
+function viewFortbildung() {
+  const p = prog();
+  const stundenReqs = p.anforderungen.filter(a => a.typ === "stunden");
+  const creditsReq = p.anforderungen.find(a => a.typ === "credits");
+  const ziel = creditsReq ? creditsReq.proJahr : 25;
+  const list = S.fortbildungen.slice().sort((a, b) => (d(b.von) || 0) - (d(a.von) || 0));
+
+  const byYear = {};
+  list.forEach(f => {
+    const y = (d(f.von) || new Date()).getFullYear();
+    byYear[y] = byYear[y] || { fach: 0, allg: 0 };
+    byYear[y][f.fachspezifisch ? "fach" : "allg"] += Number(f.credits) || 0;
+  });
+  const years = Object.keys(byYear).sort().reverse();
+  const maxY = Math.max(ziel, ...years.map(y => byYear[y].fach + byYear[y].allg));
+
+  const stundenBlock = stundenReqs.length ? '<div class="card"><div class="card-hd"><h3>Stundennachweise</h3>' +
+    '<span class="hint">Summiert aus Einträgen mit zugeordneter Position</span></div><div class="card-bd">' +
+    stundenReqs.map(r => {
+      const have = S.fortbildungen.filter(f => f.anforderung === r.id).reduce((a, f) => a + (Number(f.stunden) || 0), 0);
+      const pct = Math.min(100, have / r.stunden * 100);
+      return '<div class="yearbar"><div style="flex:1;font-size:13px;font-weight:600">' + esc(r.label) + '</div>' +
+        '<div class="bar" style="max-width:180px"><i style="width:' + pct + '%;background:' + (pct >= 100 ? "var(--ok)" : "var(--accent)") + '"></i></div>' +
+        '<div class="n">' + have + ' / ' + r.stunden + '</div></div>';
+    }).join("") + '</div></div>' : '';
+
+  return '<div class="stack">' + section("Fortbildung & Kongresse",
+    "Kongresse, Fortbildungsveranstaltungen und Kurse mit SIWF-Credits. Fachspezifische Credits werden separat ausgewiesen — Richtwert " + ziel + " pro Jahr.",
+    "Fortbildung erfassen", "add:fortbildung",
+    (years.length ? '<div style="padding:16px 18px;border-bottom:1px solid var(--rule)">' +
+      '<div style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:8px">Credits pro Kalenderjahr</div>' +
+      years.map(y => {
+        const b = byYear[y], tot = b.fach + b.allg;
+        return '<div class="yearbar"><div class="y">' + y + '</div><div class="bar">' +
+          '<i style="width:' + (b.fach / maxY * 100) + '%;background:var(--accent)"></i>' +
+          '<i style="width:' + (b.allg / maxY * 100) + '%;background:var(--accent-line)"></i></div>' +
+          '<div class="n" style="color:' + (b.fach >= ziel ? "var(--ok)" : "var(--ink-2)") + '">' + tot + ' / ' + ziel + '</div></div>';
+      }).join("") +
+      '<div class="tl-legend" style="margin-top:10px"><span><i style="background:var(--accent)"></i>fachspezifisch</span>' +
+      '<span><i style="background:var(--accent-line)"></i>übrige</span></div></div>' : '') +
+    (list.length ? '<div class="tbl-scroll"><table><thead><tr>' +
+      '<th>Veranstaltung</th><th>Veranstalter</th><th>Datum</th><th>Art</th><th class="r">Credits</th><th class="r">Std.</th><th></th></tr></thead><tbody>' +
+      list.map(f => '<tr><td><div class="t-main">' + esc(f.titel) + '</div>' + (f.ort ? '<div class="t-sub">' + esc(f.ort) + '</div>' : '') + '</td>' +
+        '<td style="font-size:12.5px;color:var(--ink-2)">' + esc(f.veranstalter || "–") + '</td>' +
+        '<td class="mono" style="font-size:12px;white-space:nowrap">' + fmtDate(f.von) + (f.bis && f.bis !== f.von ? '<br>' + fmtDate(f.bis) : '') + '</td>' +
+        '<td>' + (f.fachspezifisch ? '<span class="chip acc">fachspezifisch</span>' : '<span class="chip">allgemein</span>') + '</td>' +
+        '<td class="r mono">' + (Number(f.credits) || 0) + '</td>' +
+        '<td class="r mono">' + (f.stunden ? f.stunden : "–") + '</td>' +
+        '<td>' + rowActs("fortbildung", f.id) + '</td></tr>').join("") + '</tbody></table></div>'
+      : emptyState("Keine Fortbildungen erfasst", "Erfassen Sie besuchte Kongresse und Fortbildungen mit den zugehörigen SIWF-Credits.", "Erste Fortbildung erfassen", "add:fortbildung"))) +
+    stundenBlock + '</div>';
+}
+
+/* --- Assessments --- */
+function viewAssessments() {
+  const req = prog().anforderungen.find(a => a.typ === "aba");
+  const ziel = req ? req.proJahr : 4;
+  const list = S.assessments.slice().sort((a, b) => (d(b.datum) || 0) - (d(a.datum) || 0));
+  const byYear = {};
+  list.forEach(a => {
+    const y = (d(a.datum) || new Date()).getFullYear();
+    byYear[y] = byYear[y] || { "Mini-CEX": 0, "DOPS": 0 };
+    byYear[y][a.typ] = (byYear[y][a.typ] || 0) + 1;
+  });
+  const years = Object.keys(byYear).sort().reverse();
+
+  return section("Arbeitsplatzbasierte Assessments",
+    "Mini-CEX und DOPS. Das SIWF verlangt " + ziel + " Assessments pro Weiterbildungsjahr, dokumentiert im e-Logbuch. Erfassen Sie sie hier parallel, damit Sie am Jahresende nicht suchen müssen.",
+    "Assessment erfassen", "add:assessment",
+    (years.length ? '<div style="padding:16px 18px;border-bottom:1px solid var(--rule)">' +
+      '<div style="font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:8px">Pro Kalenderjahr · Ziel ' + ziel + '</div>' +
+      years.map(y => {
+        const b = byYear[y], tot = (b["Mini-CEX"] || 0) + (b["DOPS"] || 0), scale = Math.max(ziel, tot);
+        return '<div class="yearbar"><div class="y">' + y + '</div><div class="bar">' +
+          '<i style="width:' + ((b["Mini-CEX"] || 0) / scale * 100) + '%;background:var(--accent)"></i>' +
+          '<i style="width:' + ((b["DOPS"] || 0) / scale * 100) + '%;background:var(--ok)"></i></div>' +
+          '<div class="n" style="color:' + (tot >= ziel ? "var(--ok)" : "var(--warn)") + ';font-weight:600">' + tot + ' / ' + ziel + '</div></div>';
+      }).join("") +
+      '<div class="tl-legend" style="margin-top:10px"><span><i style="background:var(--accent)"></i>Mini-CEX</span><span><i style="background:var(--ok)"></i>DOPS</span></div></div>' : '') +
+    (list.length ? '<div class="tbl-scroll"><table><thead><tr><th>Datum</th><th>Typ</th><th>Thema / Tätigkeit</th><th>Supervision</th><th></th></tr></thead><tbody>' +
+      list.map(a => '<tr><td class="mono" style="font-size:12px;white-space:nowrap">' + fmtDate(a.datum) + '</td>' +
+        '<td><span class="chip ' + (a.typ === "DOPS" ? "ok" : "acc") + '">' + esc(a.typ) + '</span></td>' +
+        '<td><div class="t-main">' + esc(a.thema) + '</div>' + (a.feedback ? '<div class="t-sub">' + esc(a.feedback) + '</div>' : '') + '</td>' +
+        '<td style="font-size:12.5px;color:var(--ink-2)">' + esc(a.supervisor || "–") + '</td>' +
+        '<td>' + rowActs("assessment", a.id) + '</td></tr>').join("") + '</tbody></table></div>'
+      : emptyState("Keine Assessments erfasst", "Mini-CEX und DOPS gehören zu den häufigsten Lücken kurz vor Titelantrag. Erfassen Sie sie laufend.", "Erstes Assessment erfassen", "add:assessment")));
+}
+
+/* --- Eingriffe --- */
+function viewEingriffe() {
+  const kat = prog().katalog;
+  const list = S.eingriffe.slice().sort((a, b) => (d(b.datum) || 0) - (d(a.datum) || 0));
+  return '<div class="stack">' +
+    '<div class="card"><div class="card-hd"><h3>Katalogstand</h3>' +
+      '<span class="hint">Selbständig als Operateurin oder Operateur durchgeführt</span>' +
+      '<span class="spacer"></span><button class="btn primary" data-act="add:eingriff">Eingriffe erfassen</button></div>' +
+      '<div class="tbl-scroll"><table><thead><tr><th>Position</th><th style="width:34%">Fortschritt</th>' +
+      '<th class="r">Operateur</th><th class="r">Assistenz</th><th class="r">Ziel</th><th class="r">Offen</th></tr></thead><tbody>' +
+      kat.map(k => {
+        const op = eingriffSumme(k.id, "Operateur"), as = eingriffSumme(k.id, "Assistenz");
+        const pct = Math.min(100, op / k.ziel * 100), gap = Math.max(0, k.ziel - op);
+        return '<tr><td class="t-main">' + esc(k.label) + '</td>' +
+          '<td><div class="req-bar" style="margin-top:0"><div class="req-fill ' + (pct >= 100 ? "ok" : "acc") + '" style="width:' + pct + '%"></div></div></td>' +
+          '<td class="r mono" style="font-weight:600">' + op + '</td><td class="r mono" style="color:var(--ink-3)">' + as + '</td>' +
+          '<td class="r mono">' + k.ziel + '</td>' +
+          '<td class="r mono" style="color:' + (gap ? "var(--warn)" : "var(--ok)") + ';font-weight:600">' + (gap || "erfüllt") + '</td></tr>';
+      }).join("") + '</tbody></table></div></div>' +
+    '<div class="card"><div class="card-hd"><h3>Erfasste Eingriffe</h3><span class="hint">' + list.length + ' Einträge</span></div>' +
+      (list.length ? '<div class="tbl-scroll"><table><thead><tr><th>Datum</th><th>Position</th><th>Rolle</th><th class="r">Anzahl</th><th>Notiz</th><th></th></tr></thead><tbody>' +
+        list.map(e => {
+          const k = kat.find(x => x.id === e.katalog);
+          return '<tr><td class="mono" style="font-size:12px;white-space:nowrap">' + fmtDate(e.datum) + '</td>' +
+            '<td class="t-main">' + esc(k ? k.label : "–") + '</td>' +
+            '<td><span class="chip ' + (e.rolle === "Operateur" ? "acc" : "") + '">' + esc(e.rolle) + '</span></td>' +
+            '<td class="r mono" style="font-weight:600">' + (Number(e.anzahl) || 0) + '</td>' +
+            '<td style="font-size:12.5px;color:var(--ink-2)">' + esc(e.notiz || "–") + '</td>' +
+            '<td>' + rowActs("eingriff", e.id) + '</td></tr>';
+        }).join("") + '</tbody></table></div>'
+        : emptyState("Noch keine Eingriffe erfasst", "Erfassen Sie Eingriffe einzeln oder gebündelt — etwa als Monatssumme pro Katalogposition.", "Eingriffe erfassen", "add:eingriff")) +
+    '</div></div>';
+}
+
+/* --- Prüfungen --- */
+function viewPruefungen() {
+  const req = prog().anforderungen.find(a => a.typ === "pruefung");
+  const teile = (req && req.teile) || [];
+  return section("Prüfungen",
+    "Basisexamen und Facharztprüfung. Erfassen Sie Termine im Voraus, um Anmeldefristen im Blick zu behalten.",
+    "Prüfung erfassen", "add:pruefung",
+    '<div class="tbl-scroll"><table><thead><tr><th>Prüfungsteil</th><th>Status</th><th>Datum</th><th>Ort</th><th>Notiz</th><th></th></tr></thead><tbody>' +
+    teile.map(t => {
+      const e = S.pruefungen.find(x => x.teil === t);
+      return '<tr><td class="t-main">' + esc(t) + '</td>' +
+        '<td>' + (!e ? '<span class="chip">nicht geplant</span>'
+          : e.bestanden ? '<span class="chip ok"><span class="dot"></span>bestanden</span>'
+          : d(e.datum) && d(e.datum) > new Date() ? '<span class="chip acc"><span class="dot"></span>angemeldet</span>'
+          : '<span class="chip warn"><span class="dot"></span>offen</span>') + '</td>' +
+        '<td class="mono" style="font-size:12px">' + (e ? fmtDate(e.datum) : "–") + '</td>' +
+        '<td style="font-size:12.5px;color:var(--ink-2)">' + esc(e && e.ort ? e.ort : "–") + '</td>' +
+        '<td style="font-size:12.5px;color:var(--ink-2)">' + esc(e && e.notiz ? e.notiz : "–") + '</td>' +
+        '<td>' + (e ? rowActs("pruefung", e.id)
+          : '<div class="rowacts" style="opacity:1"><button class="btn tiny" data-act="add:pruefung" data-teil="' + esc(t) + '">erfassen</button></div>') + '</td></tr>';
+    }).join("") + '</tbody></table></div>');
+}
+
+/* --- Programm (Anforderungs-Editor) --- */
+const TYP_LABEL = {
+  stelle: "Klinische Zeit", zertifikat: "Zertifikat", aba: "Assessments",
+  credits: "Fortbildungscredits", stunden: "Stundennachweis", eingriffe: "Eingriffskatalog", pruefung: "Prüfung"
+};
+function reqSummaryText(r) {
+  if (r.typ === "stelle") {
+    const scope = r.fach === "*" ? "alle Fachgebiete" : r.fach === "!" ? "Fremdgebiet"
+      : (r.fach || []).length + " Fachgebiet" + ((r.fach || []).length === 1 ? "" : "e");
+    const kat = Array.isArray(r.kat) && r.kat.length ? ", Kategorie " + r.kat.join("/") : "";
+    const grenze = r.max != null ? (r.monate ? ", max. " + r.max + " Mt." : "max. " + r.max + " Mt.") : "";
+    return (r.monate ? "mind. " + r.monate + " Mt." : "") + grenze + " · " + scope + kat;
+  }
+  if (r.typ === "zertifikat") return r.intervall ? "gültig " + r.intervall + " Monate" : "unbefristet";
+  if (r.typ === "aba") return r.proJahr + " pro Weiterbildungsjahr";
+  if (r.typ === "credits") return r.proJahr + " Credits pro Jahr";
+  if (r.typ === "stunden") return r.stunden + " Stunden";
+  if (r.typ === "pruefung") return (r.teile || []).join(" · ");
+  if (r.typ === "eingriffe") return prog().katalog.length + " Katalogpositionen";
+  return "";
+}
+
+function viewProgramm() {
+  const p = prog();
+  const eigen = p.herkunft === "eigen";
+  const hatKatalog = p.anforderungen.some(a => a.typ === "eingriffe");
+
+  return '<div class="stack">' +
+    '<div class="sec-head"><h3>Programm — ' + esc(p.name) + '</h3>' +
+    '<p>Die Anforderungen dieses Facharzttitels. ' +
+      (p.herkunft === "kuratiert" ? "Diese Liste ist vorbereitet; sobald Sie etwas ändern, wird sie zu Ihrer eigenen Fassung — die Vorlage lässt sich jederzeit wiederherstellen."
+        : p.herkunft === "eigen" ? "Ihre eigene Fassung. Sie können sie beliebig ergänzen und umsortieren."
+        : "Für diesen Titel ist noch nichts hinterlegt. Tragen Sie die Anforderungen aus dem SIWF-Weiterbildungsprogramm ein — die Auswertung übernimmt sie sofort.") +
+    '</p></div>' +
+
+    '<div class="card"><div class="card-hd"><h3>Eckdaten</h3><span class="spacer"></span>' +
+      (eigen ? '<button class="btn tiny danger" data-act="prog:reset">Auf Vorlage zurücksetzen</button>' : '') +
+      '<button class="btn tiny" data-act="prog:meta">Bearbeiten</button></div>' +
+      '<div class="tbl-scroll"><table><tbody>' +
+      '<tr><td style="width:34%;color:var(--ink-3);font-size:12.5px">Regelweiterbildungszeit</td><td class="mono">' + p.dauer + ' Monate (' + (p.dauer / 12) + ' Jahre)</td></tr>' +
+      '<tr><td style="color:var(--ink-3);font-size:12.5px">Quelle</td><td>' + esc(p.quelle || "—") + '</td></tr>' +
+      '<tr><td style="color:var(--ink-3);font-size:12.5px">Kurzbeschrieb</td><td style="font-size:13px">' + esc(p.lede || "—") + '</td></tr>' +
+      '</tbody></table></div></div>' +
+
+    '<div class="card"><div class="card-hd"><h3>Anforderungen</h3>' +
+      '<span class="hint">' + p.anforderungen.length + ' Positionen</span><span class="spacer"></span>' +
+      '<button class="btn primary" data-act="add:anforderung">Anforderung hinzufügen</button></div>' +
+      (p.anforderungen.length ? '<div class="tbl-scroll"><table><thead><tr><th style="width:34px"></th><th>Bezeichnung</th><th>Art</th><th>Regel</th><th></th></tr></thead><tbody>' +
+        p.anforderungen.map((r, i) => '<tr>' +
+          '<td class="mono" style="color:var(--ink-3);font-size:11px;padding-top:13px">' + (i + 1) + '</td>' +
+          '<td><div class="t-main">' + esc(r.label) + (r.optional ? ' <span class="chip" style="font-size:10px;padding:0 5px">fakultativ</span>' : '') + '</div>' +
+            (r.note ? '<div class="t-sub">' + esc(r.note) + '</div>' : '') + '</td>' +
+          '<td><span class="chip">' + esc(TYP_LABEL[r.typ] || r.typ) + '</span></td>' +
+          '<td class="mono" style="font-size:11.5px;color:var(--ink-2)">' + esc(reqSummaryText(r)) + '</td>' +
+          '<td><div class="rowacts">' +
+            '<button class="btn ghost tiny" data-act="req:up" data-i="' + i + '"' + (i === 0 ? " disabled" : "") + ' aria-label="nach oben">↑</button>' +
+            '<button class="btn ghost tiny" data-act="req:down" data-i="' + i + '"' + (i === p.anforderungen.length - 1 ? " disabled" : "") + ' aria-label="nach unten">↓</button>' +
+            '<button class="btn ghost tiny" data-act="edit:anforderung" data-i="' + i + '">Bearbeiten</button>' +
+            '<button class="btn ghost tiny danger" data-act="req:del" data-i="' + i + '">Löschen</button>' +
+          '</div></td></tr>').join("") + '</tbody></table></div>'
+        : '<div class="empty setup" style="margin:0 auto"><h4>Noch keine Anforderungen</h4>' +
+          '<p>So richten Sie einen Titel ein:</p>' +
+          '<ol style="text-align:left"><li>Regelweiterbildungszeit unter <b>Eckdaten</b> prüfen.</li>' +
+          '<li>Eine Anforderung «Klinische Zeit» für die Gesamtdauer anlegen (Geltungsbereich: alle Fachgebiete).</li>' +
+          '<li>Weitere Positionen für Kernweiterbildung, Fremdjahr, Kurse, Assessments und Prüfung ergänzen.</li></ol>' +
+          '<div style="margin-top:18px"><button class="btn primary" data-act="add:anforderung">Erste Anforderung anlegen</button>' +
+          '<button class="btn" style="margin-left:8px" data-act="prog:geruest">Grundgerüst erzeugen</button></div></div>') +
+    '</div>' +
+
+    (hatKatalog ? '<div class="card"><div class="card-hd"><h3>Eingriffskatalog</h3>' +
+      '<span class="hint">Zielzahlen als Operateurin oder Operateur</span><span class="spacer"></span>' +
+      '<button class="btn tiny" data-act="add:katpos">Position hinzufügen</button></div>' +
+      (p.katalog.length ? '<div class="tbl-scroll"><table><thead><tr><th>Position</th><th class="r">Zielzahl</th><th></th></tr></thead><tbody>' +
+        p.katalog.map((k, i) => '<tr><td class="t-main">' + esc(k.label) + '</td><td class="r mono">' + k.ziel + '</td>' +
+          '<td><div class="rowacts"><button class="btn ghost tiny" data-act="edit:katpos" data-i="' + i + '">Bearbeiten</button>' +
+          '<button class="btn ghost tiny danger" data-act="kat:del" data-i="' + i + '">Löschen</button></div></td></tr>').join("") + '</tbody></table></div>'
+        : '<div class="empty"><p>Noch keine Katalogpositionen.</p><button class="btn primary" data-act="add:katpos">Erste Position anlegen</button></div>') +
+      '</div>' : '') +
+  '</div>';
+}
+
+/* ============================================================
+   8 — Formulare
+   ============================================================ */
+function fld(name, label, type, value, o) {
+  o = o || {};
+  const cls = o.full ? "f full" : "f";
+  let inner;
+  if (type === "select" || type === "multi") {
+    const vals = type === "multi" ? (Array.isArray(value) ? value.map(String) : []) : [String(value == null ? "" : value)];
+    inner = '<select class="field" name="' + name + '"' + (type === "multi" ? " multiple" : "") +
+      (o.required ? " required" : "") + '>' +
+      (o.blank ? '<option value="">' + esc(o.blank) + '</option>' : '') +
+      o.options.map(x => {
+        const v = typeof x === "string" ? x : x.v, l = typeof x === "string" ? x : x.l;
+        return '<option value="' + esc(v) + '"' + (vals.includes(String(v)) ? " selected" : "") + '>' + esc(l) + '</option>';
+      }).join("") + '</select>';
+  } else if (type === "textarea") {
+    inner = '<textarea class="field" name="' + name + '" rows="' + (o.rows || 2) + '">' + esc(value || "") + '</textarea>';
+  } else if (type === "check") {
+    return '<div class="' + cls + '"><label class="checkline" style="text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink);font-weight:500">' +
+      '<input type="checkbox" name="' + name + '"' + (value ? " checked" : "") + '>' + esc(label) + '</label>' +
+      (o.help ? '<div class="help">' + esc(o.help) + '</div>' : '') + '</div>';
+  } else {
+    inner = '<input class="field" type="' + type + '" name="' + name + '" value="' + esc(value == null ? "" : value) + '"' +
+      (o.required ? " required" : "") + (o.min != null ? ' min="' + o.min + '"' : "") +
+      (o.max != null ? ' max="' + o.max + '"' : "") + (o.step ? ' step="' + o.step + '"' : "") +
+      (o.placeholder ? ' placeholder="' + esc(o.placeholder) + '"' : "") + '>';
+  }
+  return '<div class="' + cls + '"><label>' + esc(label) + '</label>' + inner +
+    (o.help ? '<div class="help">' + esc(o.help) + '</div>' : '') + '</div>';
+}
+
+const FORMS = {
+  stelle: {
+    title: "Weiterbildungsstelle",
+    fields: r => '<div class="fgrid">' +
+      fld("klinik", "Weiterbildungsstätte", "text", r.klinik, { required: true, full: true, placeholder: "z. B. Kantonsspital Winterthur, Klinik für Innere Medizin" }) +
+      fld("ort", "Ort", "text", r.ort, { placeholder: "Winterthur" }) +
+      fld("leiter", "Weiterbildungsverantwortliche Person", "text", r.leiter, { placeholder: "Dr. med. …" }) +
+      fld("fach", "Fachgebiet", "select", r.fach, { required: true, options: FACH, full: true }) +
+      fld("kategorie", "Kategorie der Stätte", "select", r.kategorie || "A", {
+        options: KATEGORIEN.map(k => ({ v: k.id, l: k.label + (k.monate ? " — max. " + k.monate + " Mt." : "") })),
+        help: "Steht im Anerkennungsentscheid der Stätte." }) +
+      fld("anerkennung", "Anerkennungsdauer (Mt.)", "number", r.anerkennung, { min: 0, max: 120, placeholder: "aus Kategorie", help: "Nur ausfüllen, wenn abweichend." }) +
+      fld("von", "Beginn", "date", r.von, { required: true }) +
+      fld("bis", "Ende", "date", r.bis, { help: "Leer lassen, wenn laufend." }) +
+      fld("pensum", "Pensum (%)", "number", r.pensum == null ? 100 : r.pensum, { required: true, min: 0, max: 100, step: 5, help: "Unter 50 % nicht anrechenbar." }) +
+      fld("zeugnis", "SIWF-Zeugnis liegt vor", "check", r.zeugnis, { help: "Nach jeder Weiterbildungsperiode einfordern." }) +
+      fld("notiz", "Notiz", "textarea", r.notiz, { full: true }) + '</div>'
+  },
+  zertifikat: {
+    title: "Kurs oder Zertifikat",
+    fields: r => '<div class="fgrid">' +
+      fld("titel", "Bezeichnung", "text", r.titel, { required: true, full: true, placeholder: "z. B. ACLS Provider Kurs" }) +
+      fld("anbieter", "Anbieter", "text", r.anbieter, { placeholder: "SRC, SGUM, SGAR …" }) +
+      fld("anforderung", "Zählt an", "select", r.anforderung, {
+        options: prog().anforderungen.filter(a => a.typ === "zertifikat").map(x => ({ v: x.id, l: x.label })),
+        blank: "— keine Zuordnung —", help: "Erfüllt die gewählte Anforderung des Programms." }) +
+      fld("datum", "Erworben am", "date", r.datum, { required: true }) +
+      fld("gueltigBis", "Gültig bis", "date", r.gueltigBis, { help: "Leer = unbefristet." }) +
+      fld("credits", "SIWF-Credits", "number", r.credits, { min: 0, step: 0.5 }) +
+      fld("notiz", "Notiz", "text", r.notiz) + '</div>',
+    live: form => {
+      const req = prog().anforderungen.find(a => a.id === form.anforderung.value);
+      if (req && req.intervall && form.datum.value && !form.gueltigBis.value) {
+        const dt = addMonths(form.datum.value, req.intervall);
+        if (dt) form.gueltigBis.value = dt.toISOString().slice(0, 10);
+      }
+    }
+  },
+  fortbildung: {
+    title: "Fortbildung oder Kongress",
+    fields: r => {
+      const st = prog().anforderungen.filter(a => a.typ === "stunden");
+      return '<div class="fgrid">' +
+        fld("titel", "Veranstaltung", "text", r.titel, { required: true, full: true, placeholder: "z. B. Frühjahrskongress SGAIM" }) +
+        fld("veranstalter", "Veranstalter", "text", r.veranstalter) +
+        fld("ort", "Ort", "text", r.ort, { placeholder: "Basel" }) +
+        fld("von", "Von", "date", r.von, { required: true }) +
+        fld("bis", "Bis", "date", r.bis) +
+        fld("credits", "SIWF-Credits", "number", r.credits, { min: 0, step: 0.5 }) +
+        fld("stunden", "Stunden", "number", r.stunden, { min: 0, step: 0.5 }) +
+        (st.length ? fld("anforderung", "Zählt an (Stundennachweis)", "select", r.anforderung, {
+          options: st.map(x => ({ v: x.id, l: x.label })), blank: "— keine Zuordnung —", full: true }) : "") +
+        fld("fachspezifisch", "Fachspezifisch", "check", r.fachspezifisch !== false, { full: true }) + '</div>';
+    }
+  },
+  assessment: {
+    title: "Arbeitsplatzbasiertes Assessment",
+    fields: r => '<div class="fgrid">' +
+      fld("typ", "Typ", "select", r.typ || "Mini-CEX", { options: ["Mini-CEX", "DOPS"], required: true }) +
+      fld("datum", "Datum", "date", r.datum, { required: true }) +
+      fld("thema", "Thema oder Tätigkeit", "text", r.thema, { required: true, full: true, placeholder: "z. B. Anamnese und Status bei Dyspnoe" }) +
+      fld("supervisor", "Supervidierende Person", "text", r.supervisor, { full: true }) +
+      fld("feedback", "Feedback / Lernziel", "textarea", r.feedback, { full: true }) + '</div>'
+  },
+  eingriff: {
+    title: "Eingriffe erfassen",
+    fields: r => '<div class="fgrid">' +
+      fld("katalog", "Katalogposition", "select", r.katalog, { required: true, full: true,
+        options: prog().katalog.map(k => ({ v: k.id, l: k.label + " (Ziel " + k.ziel + ")" })) }) +
+      fld("datum", "Datum", "date", r.datum, { required: true, help: "Bei Sammeleinträgen: Monatsende." }) +
+      fld("rolle", "Rolle", "select", r.rolle || "Operateur", { options: ["Operateur", "Assistenz"], required: true }) +
+      fld("anzahl", "Anzahl", "number", r.anzahl == null ? 1 : r.anzahl, { required: true, min: 1 }) +
+      fld("notiz", "Notiz", "text", r.notiz, { placeholder: "z. B. Sammeleintrag März" }) + '</div>'
+  },
+  pruefung: {
+    title: "Prüfung",
+    fields: r => {
+      const req = prog().anforderungen.find(a => a.typ === "pruefung");
+      return '<div class="fgrid">' +
+        fld("teil", "Prüfungsteil", "select", r.teil, { required: true, full: true, options: (req && req.teile) || [] }) +
+        fld("datum", "Datum", "date", r.datum, { required: true }) +
+        fld("ort", "Ort", "text", r.ort) +
+        fld("bestanden", "Bestanden", "check", r.bestanden, { full: true }) +
+        fld("notiz", "Notiz", "text", r.notiz, { full: true }) + '</div>';
+    }
+  }
+};
+
+const COLL = { stelle: "stellen", zertifikat: "zertifikate", fortbildung: "fortbildungen",
+  assessment: "assessments", eingriff: "eingriffe", pruefung: "pruefungen" };
+
+/* --- Anforderungs-Formular (typabhängig) --- */
+function anfFields(r) {
+  const typ = r.typ || "stelle";
+  const scope = r.fach === "*" ? "alle" : r.fach === "!" ? "fremd" : "auswahl";
+  let spez = "";
+  if (typ === "stelle") {
+    spez =
+      fld("monate", "Mindestdauer (Monate)", "number", r.monate == null ? 0 : r.monate, { min: 0, max: 200, help: "0 = keine Mindestdauer." }) +
+      fld("max", "Höchstens anrechenbar (Mt.)", "number", r.max, { min: 0, max: 200, placeholder: "unbegrenzt" }) +
+      fld("scope", "Geltungsbereich", "select", scope, { full: true, options: [
+        { v: "alle", l: "Alle Fachgebiete (Gesamtdauer)" },
+        { v: "auswahl", l: "Nur ausgewählte Fachgebiete" },
+        { v: "fremd", l: "Fremdgebiet (alles ausserhalb der übrigen Anforderungen)" }] }) +
+      fld("fachliste", "Fachgebiete", "multi", Array.isArray(r.fach) ? r.fach : [], { full: true, options: FACH,
+        help: "Nur wirksam bei Geltungsbereich «ausgewählte Fachgebiete». Mehrfachauswahl mit Ctrl/Cmd." }) +
+      fld("kat", "Nur diese Kategorien", "multi", Array.isArray(r.kat) ? r.kat : [], { full: true,
+        options: KATEGORIEN.map(k => ({ v: k.id, l: k.label })), help: "Leer = alle Kategorien." });
+  } else if (typ === "zertifikat") {
+    spez = fld("intervall", "Gültigkeit (Monate)", "number", r.intervall == null ? 0 : r.intervall, { min: 0, max: 240,
+      help: "0 = unbefristet. Wird beim Erfassen als Ablaufdatum vorgeschlagen." });
+  } else if (typ === "aba") {
+    spez = fld("proJahr", "Assessments pro Weiterbildungsjahr", "number", r.proJahr == null ? 4 : r.proJahr, { min: 1, max: 50 });
+  } else if (typ === "credits") {
+    spez = fld("proJahr", "Credits pro Weiterbildungsjahr", "number", r.proJahr == null ? 25 : r.proJahr, { min: 1, max: 200 });
+  } else if (typ === "stunden") {
+    spez = fld("stunden", "Geforderte Stunden", "number", r.stunden == null ? 100 : r.stunden, { min: 1, max: 5000 });
+  } else if (typ === "pruefung") {
+    spez = fld("teile", "Prüfungsteile", "textarea", (r.teile || []).join("\n"), { full: true, rows: 3,
+      help: "Ein Prüfungsteil pro Zeile." });
+  } else if (typ === "eingriffe") {
+    spez = '<div class="f full"><div class="help">Die Zielzahlen pflegen Sie unten im Eingriffskatalog.</div></div>';
+  }
+  return '<div class="fgrid">' +
+    fld("label", "Bezeichnung", "text", r.label, { required: true, full: true, placeholder: "z. B. Stationäre Innere Medizin" }) +
+    fld("typ", "Art der Anforderung", "select", typ, { required: true, full: true,
+      options: Object.keys(TYP_LABEL).map(k => ({ v: k, l: TYP_LABEL[k] })) }) +
+    spez +
+    fld("note", "Hinweis", "textarea", r.note, { full: true, help: "Erscheint unter der Anforderung." }) +
+    fld("optional", "Fakultativ", "check", r.optional, { full: true }) + '</div>';
+}
+
+const PROGFORMS = {
+  anforderung: { title: "Anforderung", fields: anfFields, rerenderOn: "typ" },
+  katpos: { title: "Katalogposition", fields: r => '<div class="fgrid">' +
+    fld("label", "Bezeichnung", "text", r.label, { required: true, full: true, placeholder: "z. B. Appendektomie" }) +
+    fld("ziel", "Zielzahl als Operateur", "number", r.ziel == null ? 10 : r.ziel, { required: true, min: 1, max: 100000 }) + '</div>' },
+  meta: { title: "Eckdaten des Programms", fields: r => '<div class="fgrid">' +
+    fld("dauer", "Regelweiterbildungszeit (Monate)", "number", r.dauer, { required: true, min: 12, max: 200, step: 6 }) +
+    fld("quelle", "Quelle", "text", r.quelle, { placeholder: "SIWF-Weiterbildungsprogramm …" }) +
+    fld("lede", "Kurzbeschrieb", "textarea", r.lede, { full: true, rows: 3 }) + '</div>' }
+};
+
+let editing = null;
+
+function openForm(kind, ref, preset) {
+  const def = FORMS[kind] || PROGFORMS[kind];
+  if (!def) return;
+  let rec;
+  if (FORMS[kind]) {
+    rec = ref != null ? S[COLL[kind]].find(x => x.id === ref) : Object.assign({}, preset || {});
+  } else if (kind === "meta") {
+    const p = prog(); rec = { dauer: p.dauer, quelle: p.quelle, lede: p.lede };
+  } else if (kind === "anforderung") {
+    rec = ref != null ? prog().anforderungen[ref] : { typ: "stelle", fach: "*" };
+  } else if (kind === "katpos") {
+    rec = ref != null ? prog().katalog[ref] : {};
+  }
+  if (!rec) return;
+  editing = { kind, ref, def, rec };
+  document.getElementById("dlgTitle").textContent = (ref != null ? "Bearbeiten — " : "Neu — ") + def.title;
+  const body = document.getElementById("dlgBody");
+  body.innerHTML = def.fields(rec);
+  document.getElementById("dlg").showModal();
+  const first = body.querySelector("input,select,textarea");
+  if (first) first.focus();
+}
+
+/* Ein einziger Listener für alle Formulare — sonst stapeln sie sich über die Wiederverwendung des Dialogs. */
+document.getElementById("dlgBody").addEventListener("change", ev => {
+  if (!editing) return;
+  const { def, rec } = editing;
+  const form = document.getElementById("dlgForm");
+  if (def.live) def.live(form.elements);
+  if (def.rerenderOn && ev.target.name === def.rerenderOn) {
+    const cur = collect(form);
+    editing.rec = Object.assign({}, rec, { typ: cur.typ, label: cur.label, note: cur.note, optional: cur.optional });
+    document.getElementById("dlgBody").innerHTML = def.fields(editing.rec);
+  }
+});
+
+function collect(form) {
+  const out = {};
+  Array.from(form.elements).forEach(el => {
+    if (!el.name) return;
+    if (el.type === "checkbox") out[el.name] = el.checked;
+    else if (el.multiple) out[el.name] = Array.from(el.selectedOptions).map(o => o.value);
+    else out[el.name] = el.value;
+  });
+  return out;
+}
+
+document.getElementById("dlgForm").addEventListener("submit", e => {
+  if (e.submitter && e.submitter.value === "cancel") { editing = null; return; }
+  if (!editing) return;
+  const { kind, ref } = editing;
+  const data = collect(e.target);
+  editing = null;
+
+  if (FORMS[kind]) {
+    const coll = S[COLL[kind]];
+    if (ref != null) Object.assign(coll.find(x => x.id === ref), data);
+    else coll.push(Object.assign({ id: uid() }, data));
+    save(); render(); toast(ref != null ? "Eintrag aktualisiert" : "Eintrag hinzugefügt");
+    return;
+  }
+
+  const c = ensureCustom();
+  if (kind === "meta") {
+    c.dauer = Number(data.dauer) || c.dauer;
+    c.quelle = data.quelle; c.lede = data.lede;
+  } else if (kind === "katpos") {
+    const pos = { id: ref != null ? c.katalog[ref].id : uid(), label: data.label, ziel: Number(data.ziel) || 1 };
+    if (ref != null) c.katalog[ref] = pos; else c.katalog.push(pos);
+  } else if (kind === "anforderung") {
+    const r = { id: ref != null ? c.anforderungen[ref].id : "r-" + uid(), typ: data.typ, label: data.label };
+    if (data.note) r.note = data.note;
+    if (data.optional) r.optional = true;
+    if (data.typ === "stelle") {
+      r.monate = Number(data.monate) || 0;
+      if (data.max !== "" && data.max != null) r.max = Number(data.max);
+      r.fach = data.scope === "alle" ? "*" : data.scope === "fremd" ? "!" : (data.fachliste || []);
+      if ((data.kat || []).length) r.kat = data.kat;
+    } else if (data.typ === "zertifikat") r.intervall = Number(data.intervall) || 0;
+    else if (data.typ === "aba" || data.typ === "credits") r.proJahr = Number(data.proJahr) || 1;
+    else if (data.typ === "stunden") r.stunden = Number(data.stunden) || 1;
+    else if (data.typ === "pruefung") r.teile = String(data.teile || "").split("\n").map(s => s.trim()).filter(Boolean);
+    if (ref != null) c.anforderungen[ref] = r; else c.anforderungen.push(r);
+    if (r.typ === "eingriffe" && !c.katalog) c.katalog = [];
+  }
+  save(); render(); toast("Programm aktualisiert");
+});
+
+/* ============================================================
+   9 — Ereignisse
+   ============================================================ */
+document.addEventListener("click", e => {
+  const tab = e.target.closest(".tab");
+  if (tab) { S.tab = tab.dataset.tab; save(); render(); return; }
+  const btn = e.target.closest("[data-act]");
+  if (!btn) return;
+  const [verb, kind] = btn.dataset.act.split(":");
+  const i = btn.dataset.i != null ? Number(btn.dataset.i) : null;
+
+  if (verb === "goto") { S.tab = kind; save(); render(); return; }
+
+  if (verb === "add") {
+    const preset = {};
+    if (btn.dataset.teil) preset.teil = btn.dataset.teil;
+    if (["zertifikat", "assessment", "eingriff", "pruefung"].includes(kind)) preset.datum = todayISO();
+    if (kind === "fortbildung") preset.von = todayISO();
+    openForm(kind, null, preset);
+
+  } else if (verb === "edit") {
+    openForm(kind, kind === "anforderung" || kind === "katpos" ? i : btn.dataset.id);
+
+  } else if (verb === "del") {
+    const coll = S[COLL[kind]];
+    const idx = coll.findIndex(x => x.id === btn.dataset.id);
+    if (idx < 0) return;
+    if (!confirm("Diesen Eintrag löschen? Das lässt sich nicht rückgängig machen.")) return;
+    coll.splice(idx, 1); save(); render(); toast("Eintrag gelöscht");
+
+  } else if (verb === "req") {
+    const c = ensureCustom();
+    if (kind === "del") {
+      if (!confirm("Diese Anforderung aus dem Programm entfernen?")) return;
+      c.anforderungen.splice(i, 1);
+    } else {
+      const j = kind === "up" ? i - 1 : i + 1;
+      if (j < 0 || j >= c.anforderungen.length) return;
+      const t = c.anforderungen[i]; c.anforderungen[i] = c.anforderungen[j]; c.anforderungen[j] = t;
+    }
+    save(); render();
+
+  } else if (verb === "kat") {
+    const c = ensureCustom();
+    if (!confirm("Diese Katalogposition entfernen?")) return;
+    c.katalog.splice(i, 1); save(); render();
+
+  } else if (verb === "prog") {
+    if (kind === "meta") openForm("meta");
+    else if (kind === "reset") {
+      const t = titel();
+      if (!confirm(KURATIERT[t.id]
+        ? "Ihre Änderungen an diesem Programm verwerfen und die hinterlegte Vorlage wiederherstellen?"
+        : "Alle Anforderungen dieses Titels löschen?")) return;
+      delete S.custom[t.id]; save(); render(); toast("Programm zurückgesetzt");
+    } else if (kind === "geruest") {
+      const c = ensureCustom(), t = titel();
+      c.anforderungen = [
+        { id: "r-" + uid(), typ: "stelle", label: "Gesamte Weiterbildung", monate: t.dauer, fach: "*" },
+        { id: "r-" + uid(), typ: "stelle", label: "Fachspezifische Kernweiterbildung", monate: Math.round(t.dauer * 0.6 / 6) * 6, fach: [] ,
+          note: "Fachgebiete noch auswählen." },
+        { id: "r-" + uid(), typ: "aba", label: "Arbeitsplatzbasierte Assessments", proJahr: 4 },
+        { id: "r-" + uid(), typ: "pruefung", label: "Facharztprüfung", teile: ["Facharztprüfung " + t.name] }
+      ];
+      save(); render(); toast("Grundgerüst angelegt — bitte gegen das Weiterbildungsprogramm prüfen");
+    }
+
+  } else if (verb === "seed") {
+    seed(); save(); render(); toast("Beispieldossier geladen");
+  }
+});
+
+document.getElementById("progsel").addEventListener("change", e => {
+  S.program = e.target.value; S.tab = "uebersicht"; save(); render();
+});
+
+/* ============================================================
+   10 — Sichern / Wiederherstellen
+   ============================================================ */
+let downloadsNS = null;
+if (window.claude && typeof window.claude.use === "function") {
+  window.claude.use("downloads").then(ns => { downloadsNS = ns; }).catch(() => {});
+}
+const ioDlg = document.getElementById("dlgIO");
+function openIO(mode) {
+  const isExport = mode === "export";
+  document.getElementById("ioTitle").textContent = isExport ? "Dossier sichern" : "Dossier wiederherstellen";
+  document.getElementById("ioLabel").textContent = isExport ? "Ihre Daten als JSON" : "Gesicherte JSON-Daten einfügen";
+  document.getElementById("ioHelp").textContent = isExport
+    ? "Kopieren Sie den Text und bewahren Sie ihn sicher auf — er enthält Ihr vollständiges Dossier."
+    : "Achtung: das bestehende Dossier in diesem Browser wird vollständig ersetzt.";
+  const ta = document.getElementById("ioText");
+  ta.value = isExport ? JSON.stringify(S, null, 2) : "";
+  ta.readOnly = isExport;
+  document.getElementById("ioFoot").innerHTML =
+    '<button class="btn" value="cancel" formnovalidate>Schliessen</button>' +
+    (isExport ? '<button type="button" class="btn" id="ioCopy">In Zwischenablage</button>' +
+      (downloadsNS ? '<button type="button" class="btn primary" id="ioDl">Als Datei speichern</button>' : '')
+      : '<button type="button" class="btn primary" id="ioApply">Ersetzen</button>');
+  ioDlg.showModal();
+
+  const c = document.getElementById("ioCopy");
+  if (c) c.onclick = () => navigator.clipboard.writeText(ta.value)
+    .then(() => toast("In Zwischenablage kopiert"), () => { ta.select(); toast("Bitte manuell kopieren"); });
+  const dl = document.getElementById("ioDl");
+  if (dl) dl.onclick = () => downloadsNS.save({ filename: "weiterbildungsdossier-" + todayISO() + ".json", data: ta.value })
+    .then(() => toast("Datei gespeichert"), () => toast("Speichern abgebrochen"));
+  const ap = document.getElementById("ioApply");
+  if (ap) ap.onclick = () => {
+    try {
+      const parsed = JSON.parse(ta.value);
+      if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.stellen)) throw new Error();
+      S = Object.assign(blank(), parsed);
+      save(); render(); ioDlg.close(); toast("Dossier wiederhergestellt");
+    } catch (err) { toast("Die Daten liessen sich nicht lesen — bitte vollständiges JSON einfügen"); }
+  };
+}
+document.getElementById("btnExport").onclick = () => openIO("export");
+document.getElementById("btnImport").onclick = () => openIO("import");
+document.getElementById("btnReset").onclick = () => {
+  if (!confirm("Das gesamte Dossier in diesem Browser wird gelöscht. Haben Sie eine Sicherung angelegt?")) return;
+  const p = S.program;
+  S = blank(); S.program = p; save(); render(); toast("Dossier geleert");
+};
+
+/* ============================================================
+   11 — Toast
+   ============================================================ */
+let toastT;
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+/* ============================================================
+   12 — Beispieldossier (AIM)
+   ============================================================ */
+function seed() {
+  S.program = "aim";
+  S.stellen = [
+    { id: uid(), klinik: "Spital Thurgau, Klinik für Innere Medizin", ort: "Frauenfeld", leiter: "Prof. Dr. med. R. Bianchi", fach: "Allgemeine Innere Medizin (stationär)", kategorie: "B", anerkennung: "", von: "2022-09-01", bis: "2024-08-31", pensum: 100, zeugnis: true, notiz: "Erste zwei Jahre, inkl. sechs Monate Notfallstation." },
+    { id: uid(), klinik: "Universitätsspital Basel, Medizinische Klinik", ort: "Basel", leiter: "Prof. Dr. med. A. Keller", fach: "Allgemeine Innere Medizin (stationär)", kategorie: "A", anerkennung: "", von: "2024-09-01", bis: "2026-02-28", pensum: 100, zeugnis: true, notiz: "" },
+    { id: uid(), klinik: "Kantonsspital Aarau, Institut für Anästhesie", ort: "Aarau", leiter: "Dr. med. S. Meier", fach: "Anästhesiologie", kategorie: "A", anerkennung: "", von: "2026-03-01", bis: "", pensum: 80, zeugnis: false, notiz: "Fremdjahr, laufend." }
+  ];
+  S.zertifikate = [
+    { id: uid(), titel: "ACLS Provider Kurs", anbieter: "Swiss Resuscitation Council", anforderung: "z-reani", datum: "2025-04-18", gueltigBis: "2027-04-18", credits: 8, notiz: "" },
+    { id: uid(), titel: "Sonografie Grundkurs Abdomen", anbieter: "SGUM", anforderung: "z-sono", datum: "2023-11-10", gueltigBis: "", credits: 12, notiz: "Modul Abdomen und Retroperitoneum" },
+    { id: uid(), titel: "Strahlenschutz-Sachkunde", anbieter: "BAG-anerkannter Kursanbieter", anforderung: "z-strahl", datum: "2021-06-04", gueltigBis: "2026-06-04", credits: 6, notiz: "Auffrischung steht an" }
+  ];
+  S.fortbildungen = [
+    { id: uid(), titel: "SGAIM Frühjahrskongress", veranstalter: "SGAIM", ort: "Basel", von: "2025-05-21", bis: "2025-05-23", credits: 18, stunden: 16, anforderung: "", fachspezifisch: true },
+    { id: uid(), titel: "Fortbildungszyklus Innere Medizin", veranstalter: "Universitätsspital Basel", ort: "Basel", von: "2025-09-04", bis: "2025-12-18", credits: 14, stunden: 14, anforderung: "", fachspezifisch: true },
+    { id: uid(), titel: "Workshop Gesprächsführung und Aufklärung", veranstalter: "FMH", ort: "Bern", von: "2026-01-15", bis: "2026-01-15", credits: 6, stunden: 6, anforderung: "", fachspezifisch: false }
+  ];
+  S.assessments = [
+    { id: uid(), typ: "Mini-CEX", datum: "2025-02-11", thema: "Anamnese und Status bei akuter Dyspnoe", supervisor: "Dr. med. L. Frei", feedback: "Strukturierte Anamnese, Differenzialdiagnose ausbauen." },
+    { id: uid(), typ: "DOPS", datum: "2025-04-02", thema: "Pleurapunktion unter Ultraschallkontrolle", supervisor: "Dr. med. M. Suter", feedback: "" },
+    { id: uid(), typ: "Mini-CEX", datum: "2025-06-19", thema: "Aufklärungsgespräch orale Antikoagulation", supervisor: "Prof. Dr. med. A. Keller", feedback: "" },
+    { id: uid(), typ: "DOPS", datum: "2025-10-08", thema: "Zentralvenöser Katheter, V. jugularis interna", supervisor: "Dr. med. S. Meier", feedback: "" },
+    { id: uid(), typ: "Mini-CEX", datum: "2026-03-24", thema: "Präoperative internistische Beurteilung", supervisor: "Dr. med. S. Meier", feedback: "" }
+  ];
+  S.pruefungen = [];
+  S.tab = "uebersicht";
+}
+
+/* ============================================================
+   13 — Start
+   ============================================================ */
+function render() { renderSelect(); renderHead(); renderTabs(); renderMain(); renderReqs(); }
+load(); render(); paintSaveState();
+})();
+</script>
